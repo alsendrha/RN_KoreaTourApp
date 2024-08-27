@@ -4,8 +4,9 @@ import MyBottomSheet from '../components/MyBottomSheet';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {baseUrl} from '../api/axios';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
-const Main = () => {
+const Main = ({navigation}: any) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [data, setData] = useState([]);
   const getData = async () => {
@@ -37,26 +38,30 @@ const Main = () => {
     <View style={styles.container}>
       <TouchableOpacity onPress={openBottomSheet}>
         <View style={styles.textBox}>
-          <Text>Main</Text>
+          <Text>menu</Text>
         </View>
       </TouchableOpacity>
       <ScrollView>
-        <View>
+        <View style={styles.listContainer}>
           {data.map((item: any) => (
-            <View key={item.contentid}>
-              <Image
-                style={styles.imageSize}
-                source={
-                  item.firstimage
-                    ? {
-                        uri: item.firstimage,
-                      }
-                    : require('../assets/images/no_image.png')
-                }
-                alt="이미지"
-              />
-              <Text>{item.title}</Text>
-            </View>
+            <TouchableOpacity onPress={() => navigation.navigate('detail')}>
+              <View key={item.contentid} style={styles.itemCard}>
+                <Image
+                  style={styles.imageSize}
+                  source={
+                    item.firstimage
+                      ? {
+                          uri: item.firstimage,
+                        }
+                      : require('../assets/images/no_image.png')
+                  }
+                  alt="이미지"
+                />
+                <View style={styles.textContainer}>
+                  <Text style={styles.textStyle}>{item.title}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
@@ -68,6 +73,7 @@ const Main = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   textBox: {
     display: 'flex',
@@ -77,10 +83,41 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 1,
     borderRadius: 8,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 10},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 5, // A
   },
+
+  listContainer: {
+    margin: 15,
+  },
+
+  itemCard: {
+    overflow: 'hidden',
+    marginBottom: 20,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+
+  textContainer: {
+    margin: 10,
+  },
+
+  textStyle: {
+    fontWeight: 'bold',
+  },
+
   imageSize: {
-    width: 100,
-    height: 100,
+    width: '100%',
+    height: 300,
+    borderTopEndRadius: 8,
   },
 });
 
