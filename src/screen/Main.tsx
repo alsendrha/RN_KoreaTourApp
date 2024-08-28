@@ -2,12 +2,18 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {baseUrl} from '../api/axios';
 import {ScrollView} from 'react-native-gesture-handler';
-import {useAreaSelected, useContentsSelected} from '../store/store';
+import {
+  useAreaSelected,
+  useContentsSelected,
+  useScrollRef,
+} from '../store/store';
 
 const Main = ({navigation}: any) => {
   const [data, setData] = useState([]);
   const {areaSelected} = useAreaSelected();
   const {contentsSelected} = useContentsSelected();
+  const scrollViewRef = useRef<ScrollView>(null);
+  const {setScrollRef} = useScrollRef();
   const getData = async () => {
     try {
       const response = await baseUrl.get('', {
@@ -25,12 +31,13 @@ const Main = ({navigation}: any) => {
   };
 
   useEffect(() => {
+    setScrollRef(scrollViewRef);
     getData();
   }, [areaSelected, contentsSelected]);
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView ref={scrollViewRef}>
         <View style={styles.listContainer}>
           {data.map((item: any) => (
             <TouchableOpacity

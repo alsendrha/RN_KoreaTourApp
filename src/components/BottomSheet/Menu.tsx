@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     flexDirection: 'row',
-    backgroundColor: 'yellow',
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
@@ -41,9 +40,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 8,
-  },
-
-  hightBox: {
-    height: 70,
   },
 });
