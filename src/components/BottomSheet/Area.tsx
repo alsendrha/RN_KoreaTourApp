@@ -9,7 +9,7 @@ type AreaProps = {
 
 const Area = ({setMenuList}: AreaProps) => {
   const {setAreaSelected} = useAreaSelected();
-  const {bottomSheetRef} = useBottomSheetRef();
+
   const areaList = [
     {id: 1, name: '서울'},
     {id: 2, name: '경기'},

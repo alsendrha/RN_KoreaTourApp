@@ -13,7 +13,7 @@ const MyBottomSheet = () => {
   const ContentList: any = {
     menu: <Menu setMenuList={setMenuList} />,
     area: <Area setMenuList={setMenuList} />,
-    contents: <Contents />,
+    contents: <Contents setMenuList={setMenuList} />,
   };
   return (
     <BottomSheet

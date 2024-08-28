@@ -3,7 +3,11 @@ import React from 'react';
 import IButton from '../IButton';
 import {useBottomSheetRef, useContentsSelected} from '../../store/store';
 
-const Contents = () => {
+type ContentsProps = {
+  setMenuList: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const Contents = ({setMenuList}: ContentsProps) => {
   const contentList = [
     {id: 1, number: 12, name: '관광지'},
     {id: 2, number: 14, name: '문화시설'},
@@ -19,6 +23,7 @@ const Contents = () => {
 
   const handleContentsSelected = (contents: number) => {
     setContentsSelected(contents);
+    setMenuList('menu');
     bottomSheetRef.current?.close();
   };
   return (
