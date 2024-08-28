@@ -1,14 +1,20 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
+import {useBottomSheetRef} from '../../store/store';
+import Area from './Area';
+import Contents from './Contents';
+import Menu from './Menu';
 
-type MyBottomSheetProps = {
-  bottomSheetRef: React.RefObject<BottomSheet>;
-};
-
-const MyBottomSheet = ({bottomSheetRef}: MyBottomSheetProps) => {
-  const snapPoints = useMemo(() => ['30%'], []);
-
+const MyBottomSheet = () => {
+  const snapPoints = useMemo(() => ['40%'], []);
+  const {bottomSheetRef} = useBottomSheetRef();
+  const [menuList, setMenuList] = useState('menu');
+  const ContentList: any = {
+    menu: <Menu setMenuList={setMenuList} />,
+    area: <Area />,
+    contents: <Contents />,
+  };
   return (
     <BottomSheet
       ref={bottomSheetRef}
@@ -17,11 +23,16 @@ const MyBottomSheet = ({bottomSheetRef}: MyBottomSheetProps) => {
       index={-1}
       style={styles.contentContainer}>
       <BottomSheetView style={styles.bottomSheetView}>
-        <TouchableOpacity onPress={() => bottomSheetRef.current?.close()}>
+        <TouchableOpacity
+          onPress={() => {
+            setMenuList('menu');
+            bottomSheetRef.current?.close();
+          }}>
           <View style={styles.innerContainer}>
             <Text>close</Text>
           </View>
         </TouchableOpacity>
+        <View style={styles.contentWrapper}>{ContentList[menuList]}</View>
       </BottomSheetView>
     </BottomSheet>
   );
@@ -29,23 +40,26 @@ const MyBottomSheet = ({bottomSheetRef}: MyBottomSheetProps) => {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    flex: 1, // Ensure BottomSheet uses available space
+    flex: 1,
   },
   bottomSheetView: {
     paddingRight: 10,
-    flex: 1, // Ensure BottomSheetView uses available space
+    flex: 1,
     width: '100%',
+    height: '100%',
+    justifyContent: 'center',
   },
   innerContainer: {
-    // backgroundColor: 'yellow',
-    // flex: 1, // Ensure innerContainer uses available space
     padding: 10,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
   bottomSheetClose: {
-    // width: '100%',
     borderWidth: 1,
+  },
+
+  contentWrapper: {
+    flex: 1,
   },
 });
 
