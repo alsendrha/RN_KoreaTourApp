@@ -2,11 +2,12 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {baseUrl} from '../api/axios';
 import {ScrollView} from 'react-native-gesture-handler';
-import {useAreaSelected} from '../store/store';
+import {useAreaSelected, useContentsSelected} from '../store/store';
 
 const Main = ({navigation}: any) => {
   const [data, setData] = useState([]);
   const {areaSelected} = useAreaSelected();
+  const {contentsSelected} = useContentsSelected();
   const getData = async () => {
     try {
       const response = await baseUrl.get('', {
@@ -14,10 +15,9 @@ const Main = ({navigation}: any) => {
           numOfRows: 10,
           pageNo: 1,
           keyword: areaSelected,
-          contentTypeId: 12,
+          contentTypeId: contentsSelected,
         },
       });
-      console.log(response.data);
       setData(response.data.response.body.items.item);
     } catch (error) {
       console.log(error);
@@ -26,7 +26,7 @@ const Main = ({navigation}: any) => {
 
   useEffect(() => {
     getData();
-  }, [areaSelected]);
+  }, [areaSelected, contentsSelected]);
 
   return (
     <View style={styles.container}>

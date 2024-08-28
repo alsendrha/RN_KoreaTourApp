@@ -7,7 +7,7 @@ type AreaProps = {
   setMenuList: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Area = () => {
+const Area = ({setMenuList}: AreaProps) => {
   const {setAreaSelected} = useAreaSelected();
   const {bottomSheetRef} = useBottomSheetRef();
   const areaList = [
@@ -31,7 +31,7 @@ const Area = () => {
 
   const handleAreaSelected = (area: string) => {
     setAreaSelected(area);
-    bottomSheetRef.current?.close();
+    setMenuList('contents');
   };
 
   return (
