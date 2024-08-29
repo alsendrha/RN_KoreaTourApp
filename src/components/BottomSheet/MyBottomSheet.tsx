@@ -1,6 +1,9 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useMemo, useState} from 'react';
-import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
+import React, {useCallback, useMemo, useState} from 'react';
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetView,
+} from '@gorhom/bottom-sheet';
 import {useBottomSheetRef} from '../../store/store';
 import Area from './Area';
 import Contents from './Contents';
@@ -15,11 +18,24 @@ const MyBottomSheet = () => {
     area: <Area setMenuList={setMenuList} />,
     contents: <Contents setMenuList={setMenuList} />,
   };
+
+  const renderBackdrop = useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+        {...props}
+      />
+    ),
+    [],
+  );
+
   return (
     <BottomSheet
       ref={bottomSheetRef}
       snapPoints={snapPoints}
       enablePanDownToClose={true}
+      backdropComponent={renderBackdrop}
       index={-1}
       style={styles.contentContainer}>
       <BottomSheetView style={styles.bottomSheetView}>
