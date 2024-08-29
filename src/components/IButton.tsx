@@ -1,15 +1,16 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {useBottomSheetRef} from '../store/store';
 
 type IButtonProps = {
-  title: string;
-  buttonStyle: 'menu' | 'bottomSheetMenu' | 'area';
+  title?: string;
+  buttonStyle: 'menu' | 'bottomSheetMenu' | 'area' | 'arrowLeft' | 'arrowRight';
   onPress?: () => void;
+  children?: React.ReactNode;
 };
 
-const IButton = ({title, buttonStyle, onPress}: IButtonProps) => {
+const IButton = ({title, buttonStyle, children, onPress}: IButtonProps) => {
   const {setBottomSheetRef} = useBottomSheetRef();
   const bottomRef = useRef<BottomSheet>(null);
 
@@ -22,14 +23,23 @@ const IButton = ({title, buttonStyle, onPress}: IButtonProps) => {
     menu: styles.menuBox,
     bottomSheetMenu: styles.menuContainer,
     area: styles.areaBox,
+    arrowLeft: styles.arrowLeft,
+    arrowRight: styles.arrowRight,
   };
 
   return (
     <TouchableOpacity
+      style={
+        buttonStyle === 'arrowLeft'
+          ? styles.touchableLeft
+          : buttonStyle === 'arrowRight'
+          ? styles.touchableRight
+          : {}
+      }
       onPress={buttonStyle === 'menu' ? openBottomSheet : onPress}
       activeOpacity={1}>
       <View style={buttonStyleList[buttonStyle]}>
-        <Text>{title}</Text>
+        {children ? children : <Text>{title}</Text>}
       </View>
     </TouchableOpacity>
   );
@@ -38,6 +48,18 @@ const IButton = ({title, buttonStyle, onPress}: IButtonProps) => {
 export default IButton;
 
 const styles = StyleSheet.create({
+  touchableLeft: {
+    position: 'absolute',
+    top: '50%',
+    transform: [{translateY: -15}],
+    left: 10,
+  },
+  touchableRight: {
+    position: 'absolute',
+    top: '50%',
+    transform: [{translateY: -15}],
+    right: 10,
+  },
   menuBox: {
     position: 'relative',
     width: 100,
@@ -69,5 +91,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 8,
+  },
+  arrowLeft: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 30,
+    height: 30,
+    borderRadius: 999,
+    backgroundColor: '#fff',
+    elevation: 2,
+    opacity: 0.8,
+  },
+  arrowRight: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 30,
+    height: 30,
+    borderRadius: 999,
+    backgroundColor: '#fff',
+    elevation: 2,
+    opacity: 0.8,
   },
 });

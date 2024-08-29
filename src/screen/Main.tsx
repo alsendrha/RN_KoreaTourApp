@@ -1,50 +1,41 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import {baseUrl} from '../api/axios';
 import {ScrollView} from 'react-native-gesture-handler';
 import {
   useAreaSelected,
   useContentsSelected,
   useScrollRef,
 } from '../store/store';
+import {useGetToreList} from '../api/toreQuery';
+import {TourListType} from '../types/dataListType';
 
 const Main = ({navigation}: any) => {
-  const [data, setData] = useState([]);
   const {areaSelected} = useAreaSelected();
   const {contentsSelected} = useContentsSelected();
   const scrollViewRef = useRef<ScrollView>(null);
   const {setScrollRef} = useScrollRef();
-  const getData = async () => {
-    try {
-      const response = await baseUrl.get('', {
-        params: {
-          numOfRows: 10,
-          pageNo: 1,
-          keyword: areaSelected,
-          contentTypeId: contentsSelected,
-        },
-      });
-      setData(response.data.response.body.items.item);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {data, isLoading, refetch} = useGetToreList(
+    areaSelected,
+    10,
+    contentsSelected,
+  );
 
   useEffect(() => {
     setScrollRef(scrollViewRef);
-    getData();
+    refetch();
   }, [areaSelected, contentsSelected]);
 
+  if (isLoading) return <Text>Loading...</Text>;
   return (
     <View style={styles.container}>
       <ScrollView ref={scrollViewRef}>
         <View style={styles.listContainer}>
-          {data.map((item: any) => (
+          {data.map((item: TourListType) => (
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('detail', {
                   id: item.contentid,
-                  contentType: item.contentTypeId,
+                  contentType: item.contenttypeid,
                 })
               }
               key={item.contentid}
