@@ -48,5 +48,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>위치 확인을 위해서 위치 접근 권한 동의가 필요합니다.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>위치 확인을 위해서 위치 접근 권한 동의가 필요합니다.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>위치 확인을 위해서 위치 접근 권한 동의가 필요합니다.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>위치 확인을 위해서 위치 접근 권한 동의가 필요합니다.</string>
 </dict>
 </plist>

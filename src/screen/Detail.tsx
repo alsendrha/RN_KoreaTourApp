@@ -5,6 +5,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useGetDetailData, useGetDetailImage} from '../api/toreQuery';
 import IButton from '../components/IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MapView, {Marker} from 'react-native-maps';
 
 type DetailProps = {
   route: any;
@@ -16,7 +17,7 @@ const Detail = ({route}: DetailProps) => {
   const {data: detailImages = [], isLoading: imagesLoading} =
     useGetDetailImage(id);
   const [imagesIndex, setImagesIndex] = useState(0);
-
+  console.log(data);
   const next = () => {
     setImagesIndex(prev => (prev + 1 >= detailImages.length ? 0 : prev + 1));
   };
@@ -57,6 +58,26 @@ const Detail = ({route}: DetailProps) => {
             <Text style={styles.titleText}>{item.title}</Text>
             <Text>{item.overview.replace(/<br\s*\/?>/gi, '\n')}</Text>
           </View>
+          <View>
+            <MapView
+              style={styles.mapSize}
+              zoomEnabled={true}
+              zoomControlEnabled={true}
+              initialRegion={{
+                latitude: Number(item.mapy),
+                longitude: Number(item.mapx),
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}>
+              <Marker
+                title={item.title}
+                coordinate={{
+                  latitude: Number(item.mapy),
+                  longitude: Number(item.mapx),
+                }}
+              />
+            </MapView>
+          </View>
         </View>
       ))}
     </ScrollView>
@@ -72,13 +93,6 @@ const styles = StyleSheet.create({
     height: 300,
   },
 
-  testContainer: {
-    position: 'relative',
-    width: '100%',
-    height: 100,
-    borderWidth: 1,
-  },
-
   img: {
     width: '100%',
     height: '100%',
@@ -91,5 +105,9 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+
+  mapSize: {
+    height: 400,
   },
 });
