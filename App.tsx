@@ -62,7 +62,7 @@ function App() {
 
   return (
     <ReactQueryProvider>
-      <GestureHandlerRootView style={{flex: 1}}>
+      <GestureHandlerRootView style={{flex: 1, backgroundColor: '#fff'}}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{headerShown: true}}>
             <Stack.Screen

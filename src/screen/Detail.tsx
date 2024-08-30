@@ -1,4 +1,11 @@
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import {DetailItemType} from '../types/detailType';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -6,6 +13,7 @@ import {useGetDetailData, useGetDetailImage} from '../api/toreQuery';
 import IButton from '../components/IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, {Marker} from 'react-native-maps';
+import {RenderHTML} from 'react-native-render-html';
 
 type DetailProps = {
   route: any;
@@ -17,7 +25,10 @@ const Detail = ({route}: DetailProps) => {
   const {data: detailImages = [], isLoading: imagesLoading} =
     useGetDetailImage(id);
   const [imagesIndex, setImagesIndex] = useState(0);
+  const {width} = useWindowDimensions();
+
   console.log(data);
+
   const next = () => {
     setImagesIndex(prev => (prev + 1 >= detailImages.length ? 0 : prev + 1));
   };
@@ -57,9 +68,16 @@ const Detail = ({route}: DetailProps) => {
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.titleText}>{item.title}</Text>
-            <Text>{item.overview.replace(/<br\s*\/?>/gi, '\n')}</Text>
+            <Text>주소 : {item.addr1}</Text>
+            <Text>연락처 : {item.tel ? item.tel : '-'}</Text>
+            {item.homepage && (
+              <RenderHTML contentWidth={width} source={{html: item.homepage}} />
+            )}
+            <Text style={{marginTop: 10}}>
+              {item.overview.replace(/<br\s*\/?>/gi, '\n')}
+            </Text>
           </View>
-          <View>
+          <View style={styles.mapContainer}>
             <MapView
               style={styles.mapSize}
               zoomEnabled={true}
@@ -101,11 +119,16 @@ const styles = StyleSheet.create({
 
   textContainer: {
     marginTop: 10,
+    marginHorizontal: 10,
   },
 
   titleText: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+
+  mapContainer: {
+    marginTop: 20,
   },
 
   mapSize: {

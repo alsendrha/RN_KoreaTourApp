@@ -10,9 +10,20 @@ import Contents from './Contents';
 import Menu from './Menu';
 
 const MyBottomSheet = () => {
-  const snapPoints = useMemo(() => ['40%'], []);
-  const {bottomSheetRef} = useBottomSheetRef();
   const [menuList, setMenuList] = useState('menu');
+  const snapPoints = useMemo(() => {
+    switch (menuList) {
+      case 'menu':
+        return ['25%'];
+      case 'area':
+        return ['40%'];
+      case 'contents':
+        return ['25%'];
+      default:
+        return ['25%'];
+    }
+  }, [menuList]);
+  const {bottomSheetRef} = useBottomSheetRef();
   const ContentList: any = {
     menu: <Menu setMenuList={setMenuList} />,
     area: <Area setMenuList={setMenuList} />,

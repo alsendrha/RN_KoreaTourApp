@@ -64,7 +64,9 @@ const Main = ({navigation}: any) => {
           alt="이미지"
         />
         <View style={styles.textContainer}>
-          <Text style={styles.textStyle}>{item.title}</Text>
+          <Text numberOfLines={1} style={styles.textStyle}>
+            {item.title}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -93,16 +95,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 15,
-  },
-
-  listContainer: {
-    margin: 15,
   },
 
   itemCard: {
     overflow: 'hidden',
-    marginBottom: 20,
+    marginHorizontal: 15,
+    marginVertical: 10,
     backgroundColor: '#fff',
     borderRadius: 8,
     shadowOffset: {width: 0, height: 4},
