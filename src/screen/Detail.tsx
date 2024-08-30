@@ -109,12 +109,13 @@ const styles = StyleSheet.create({
   imgContainer: {
     position: 'relative',
     width: '100%',
-    height: 300,
+    height: 275,
   },
 
   img: {
     width: '100%',
     height: '100%',
+    objectFit: 'contain',
   },
 
   textContainer: {
