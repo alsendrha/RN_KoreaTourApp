@@ -1,6 +1,5 @@
-import {useQuery} from '@tanstack/react-query';
+import {useInfiniteQuery, useQuery} from '@tanstack/react-query';
 import {baseUrl, detailImageUrl, detailUrl} from './axios';
-import {DetailItemType} from '../types/detailType';
 
 export const useGetToreList = (
   keyword: string,
@@ -21,6 +20,39 @@ export const useGetToreList = (
   return useQuery({
     queryKey: [`tourList${keyword}`],
     queryFn,
+  });
+};
+
+export const useGetToreList1 = (
+  keyword: string,
+  numOfRows: number,
+  contentType: number,
+) => {
+  const queryFn = ({pageParam = 1}) =>
+    baseUrl
+      .get('', {
+        params: {
+          numOfRows,
+          pageNo: pageParam,
+          keyword,
+          contentTypeId: contentType,
+        },
+      })
+      .then(res => {
+        const items = res.data.response.body.items.item;
+        const totalCount = res.data.response.body.totalCount;
+        const totalPages = Math.ceil(totalCount / numOfRows);
+
+        return {
+          items,
+          nextPage: pageParam < totalPages ? pageParam + 1 : undefined,
+        };
+      });
+  return useInfiniteQuery({
+    queryKey: [`tourList${keyword}`],
+    queryFn,
+    getNextPageParam: lastPage => lastPage.nextPage,
+    initialPageParam: 1,
   });
 };
 
