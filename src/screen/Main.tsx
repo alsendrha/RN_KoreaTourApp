@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  FlatList,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -27,76 +28,63 @@ const Main = ({navigation}: any) => {
   const {data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage} =
     useGetToreList1(areaSelected, 10, contentsSelected);
   const queryClient = useQueryClient();
+
   useEffect(() => {
     setScrollRef(scrollViewRef);
-    queryClient.invalidateQueries({
+    queryClient.resetQueries({
       queryKey: ['tourList' + areaSelected],
+      exact: true,
     });
   }, [areaSelected, contentsSelected]);
 
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const {nativeEvent} = event;
-    if (
-      !nativeEvent ||
-      !nativeEvent.layoutMeasurement ||
-      !nativeEvent.contentSize
-    ) {
-      return;
-    }
-
-    const {layoutMeasurement, contentOffset, contentSize} = nativeEvent;
-    const isCloseToBottom =
-      layoutMeasurement.height + contentOffset.y >= contentSize.height - 20;
-
-    if (isCloseToBottom && hasNextPage && !isFetchingNextPage) {
+  const handleFetchNextPage = () => {
+    if (hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   };
 
-  if (isLoading) return <Text>Loading...</Text>;
+  const renderItem = ({item}: {item: TourListType}) => (
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('detail', {
+          id: item.contentid,
+          contentType: item.contenttypeid,
+        })
+      }
+      key={item.contentid}
+      activeOpacity={0.8}>
+      <View style={styles.itemCard}>
+        <Image
+          style={styles.imageSize}
+          source={
+            item.firstimage
+              ? {uri: item.firstimage}
+              : require('../assets/images/no_image.png')
+          }
+          alt="이미지"
+        />
+        <View style={styles.textContainer}>
+          <Text style={styles.textStyle}>{item.title}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+
+  if (isLoading) return <ActivityIndicator size="large" color="#0000ff" />;
   return (
     <View style={styles.container}>
-      <ScrollView
-        ref={scrollViewRef}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}>
-        <View style={styles.listContainer}>
-          {data?.pages.map((page, index) => (
-            <View key={index}>
-              {page.items.map((item: TourListType) => (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('detail', {
-                      id: item.contentid,
-                      contentType: item.contenttypeid,
-                    })
-                  }
-                  key={item.contentid}
-                  activeOpacity={0.8}>
-                  <View style={styles.itemCard}>
-                    <Image
-                      style={styles.imageSize}
-                      source={
-                        item.firstimage
-                          ? {uri: item.firstimage}
-                          : require('../assets/images/no_image.png')
-                      }
-                      alt="이미지"
-                    />
-                    <View style={styles.textContainer}>
-                      <Text style={styles.textStyle}>{item.title}</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              ))}
-            </View>
-          ))}
-        </View>
-        <View style={styles.scrollDiv} />
-        {isFetchingNextPage && (
-          <ActivityIndicator size="large" color="#0000ff" />
-        )}
-      </ScrollView>
+      <FlatList
+        data={data?.pages.flatMap(page => page.items)}
+        renderItem={renderItem}
+        keyExtractor={item => item.contentid.toString()}
+        onEndReached={handleFetchNextPage}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={
+          isFetchingNextPage ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : null
+        }
+      />
     </View>
   );
 };
@@ -105,6 +93,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingHorizontal: 15,
   },
 
   listContainer: {
