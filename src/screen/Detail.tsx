@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {DetailItemType} from '../types/detailType';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -25,7 +25,8 @@ const Detail = ({route}: DetailProps) => {
     setImagesIndex(prev => (prev - 1 < 0 ? detailImages.length - 1 : prev - 1));
   };
 
-  if (isLoading || imagesLoading) return <Text>로딩중...</Text>;
+  if (isLoading || imagesLoading)
+    return <ActivityIndicator size="large" color="#0000ff" />;
   return (
     <ScrollView>
       {data.map((item: DetailItemType) => (
