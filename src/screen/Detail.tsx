@@ -14,6 +14,7 @@ import IButton from '../components/IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, {Marker} from 'react-native-maps';
 import {RenderHTML} from 'react-native-render-html';
+import {iHeight, iWidth} from '../../globalStyle';
 
 type DetailProps = {
   route: any;
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
   imgContainer: {
     position: 'relative',
     width: '100%',
-    height: 400,
+    height: iHeight * 350,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     elevation: 5,
@@ -139,11 +140,11 @@ const styles = StyleSheet.create({
 
   textContainer: {
     marginTop: 10,
-    marginHorizontal: 10,
+    marginHorizontal: iWidth * 10,
   },
 
   titleContainer: {
-    paddingVertical: 15,
+    paddingVertical: iHeight * 15,
     borderBottomWidth: 0.5,
   },
 
@@ -153,10 +154,10 @@ const styles = StyleSheet.create({
   },
 
   mapContainer: {
-    marginTop: 10,
+    marginTop: iHeight * 10,
   },
 
   mapSize: {
-    height: 400,
+    height: iHeight * 350,
   },
 });

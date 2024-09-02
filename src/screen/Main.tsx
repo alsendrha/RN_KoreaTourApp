@@ -20,6 +20,7 @@ import {useGetToreList1} from '../api/toreQuery';
 import {TourListType} from '../types/dataListType';
 import {useQueryClient} from '@tanstack/react-query';
 import {areaList} from '../data/listData';
+import {iHeight, iWidth} from '../../globalStyle';
 
 const Main = ({navigation}: any) => {
   const {areaSelected, setAreaSelected} = useAreaSelected();
@@ -123,8 +124,8 @@ const styles = StyleSheet.create({
 
   itemCard: {
     overflow: 'hidden',
-    marginHorizontal: 15,
-    marginVertical: 10,
+    marginHorizontal: iWidth * 15,
+    marginVertical: iWidth * 10,
     backgroundColor: '#fff',
     borderRadius: 8,
     shadowOffset: {width: 0, height: 4},
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
   },
 
   textContainer: {
-    margin: 10,
+    margin: iWidth * 10,
   },
 
   textStyle: {
@@ -143,13 +144,13 @@ const styles = StyleSheet.create({
 
   imageSize: {
     width: '100%',
-    height: 300,
+    height: iHeight * 250,
     borderTopEndRadius: 8,
     objectFit: 'cover',
   },
 
   scrollDiv: {
-    height: 10,
+    height: iHeight * 10,
   },
 });
 
