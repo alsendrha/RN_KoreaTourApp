@@ -37,7 +37,7 @@ const Detail = ({route}: DetailProps) => {
   if (isLoading || imagesLoading)
     return <ActivityIndicator size="large" color="#0000ff" />;
   return (
-    <ScrollView>
+    <ScrollView style={styles.bacColor}>
       {data.map((item: DetailItemType) => (
         <View key={item.contentid}>
           <View style={styles.imgContainer}>
@@ -65,12 +65,17 @@ const Detail = ({route}: DetailProps) => {
             )}
           </View>
           <View style={styles.textContainer}>
-            <Text style={styles.titleText}>{item.title}</Text>
-            <Text>주소 : {item.addr1}</Text>
-            <Text>연락처 : {item.tel ? item.tel : '-'}</Text>
-            {item.homepage && (
-              <RenderHTML contentWidth={width} source={{html: item.homepage}} />
-            )}
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleText}>{item.title}</Text>
+              <Text>주소 : {item.addr1}</Text>
+              <Text>연락처 : {item.tel ? item.tel : '-'}</Text>
+              {item.homepage && (
+                <RenderHTML
+                  contentWidth={width}
+                  source={{html: item.homepage}}
+                />
+              )}
+            </View>
             <Text style={{marginTop: 10}}>
               {item.overview.replace(/<br\s*\/?>/gi, '\n')}
             </Text>
@@ -110,21 +115,36 @@ const Detail = ({route}: DetailProps) => {
 export default Detail;
 
 const styles = StyleSheet.create({
+  bacColor: {
+    backgroundColor: '#fff',
+  },
+
   imgContainer: {
     position: 'relative',
     width: '100%',
-    height: 275,
+    height: 400,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    elevation: 5,
+    backgroundColor: '#fff',
   },
 
   img: {
     width: '100%',
     height: '100%',
-    objectFit: 'contain',
+    objectFit: 'cover',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
 
   textContainer: {
     marginTop: 10,
     marginHorizontal: 10,
+  },
+
+  titleContainer: {
+    paddingVertical: 15,
+    borderBottomWidth: 0.5,
   },
 
   titleText: {
@@ -133,7 +153,7 @@ const styles = StyleSheet.create({
   },
 
   mapContainer: {
-    marginTop: 20,
+    marginTop: 10,
   },
 
   mapSize: {
