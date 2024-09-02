@@ -1,5 +1,6 @@
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
+import axios from 'axios';
 
 const Option = () => {
   return (

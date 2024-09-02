@@ -16,7 +16,12 @@ import MapView, {Marker} from 'react-native-maps';
 import {RenderHTML} from 'react-native-render-html';
 
 type DetailProps = {
-  route: any;
+  route: {
+    params: {
+      id: number;
+      contentTypeId: number;
+    };
+  };
 };
 
 const Detail = ({route}: DetailProps) => {
@@ -26,8 +31,6 @@ const Detail = ({route}: DetailProps) => {
     useGetDetailImage(id);
   const [imagesIndex, setImagesIndex] = useState(0);
   const {width} = useWindowDimensions();
-
-  console.log(data);
 
   const next = () => {
     setImagesIndex(prev => (prev + 1 >= detailImages.length ? 0 : prev + 1));
@@ -93,8 +96,14 @@ const Detail = ({route}: DetailProps) => {
                 coordinate={{
                   latitude: Number(item.mapy),
                   longitude: Number(item.mapx),
-                }}
-              />
+                }}>
+                <View>
+                  <Image
+                    source={require('../assets/images/markerIcon.png')}
+                    style={{width: 50, height: 50}}
+                  />
+                </View>
+              </Marker>
             </MapView>
           </View>
         </View>
