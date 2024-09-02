@@ -16,12 +16,7 @@ import MapView, {Marker} from 'react-native-maps';
 import {RenderHTML} from 'react-native-render-html';
 
 type DetailProps = {
-  route: {
-    params: {
-      id: number;
-      contentTypeId: number;
-    };
-  };
+  route: any;
 };
 
 const Detail = ({route}: DetailProps) => {

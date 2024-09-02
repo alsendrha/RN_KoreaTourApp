@@ -10,6 +10,7 @@ import IButton from './src/components/IButton';
 import MyBottomSheet from './src/components/BottomSheet/MyBottomSheet';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ReactQueryProvider from './src/reactQuery/proovider';
+import {View} from 'react-native';
 
 function App() {
   const Tab = createBottomTabNavigator();
@@ -64,7 +65,10 @@ function App() {
     <ReactQueryProvider>
       <GestureHandlerRootView style={{flex: 1, backgroundColor: '#fff'}}>
         <NavigationContainer>
-          <Stack.Navigator screenOptions={{headerShown: true}}>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: true,
+            }}>
             <Stack.Screen
               name="bottom"
               component={BottomTabScreen}
@@ -75,7 +79,14 @@ function App() {
                 },
               }}
             />
-            <Stack.Screen name="detail" component={Detail} />
+            <Stack.Screen
+              name="detail"
+              component={Detail}
+              options={{
+                headerTransparent: true,
+                headerTitle: '',
+              }}
+            />
           </Stack.Navigator>
           <MyBottomSheet />
         </NavigationContainer>
