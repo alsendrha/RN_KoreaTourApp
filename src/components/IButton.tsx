@@ -5,7 +5,13 @@ import {useBottomSheetRef} from '../store/store';
 
 type IButtonProps = {
   title?: string;
-  buttonStyle: 'menu' | 'bottomSheetMenu' | 'area' | 'arrowLeft' | 'arrowRight';
+  buttonStyle:
+    | 'menu'
+    | 'bottomSheetMenu'
+    | 'area'
+    | 'areaList'
+    | 'arrowLeft'
+    | 'arrowRight';
   onPress?: () => void;
   children?: React.ReactNode;
 };
@@ -25,6 +31,7 @@ const IButton = ({title, buttonStyle, children, onPress}: IButtonProps) => {
     area: styles.areaBox,
     arrowLeft: styles.arrowLeft,
     arrowRight: styles.arrowRight,
+    areaList: styles.areaListMenu,
   };
 
   return (
@@ -60,6 +67,18 @@ const styles = StyleSheet.create({
     transform: [{translateY: -15}],
     right: 10,
   },
+
+  areaListMenu: {
+    width: 50,
+    height: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 0.5,
+    borderRadius: 10,
+    margin: 5,
+  },
+
   menuBox: {
     position: 'relative',
     width: 100,

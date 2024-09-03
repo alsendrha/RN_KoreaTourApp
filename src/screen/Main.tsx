@@ -21,6 +21,7 @@ import {TourListType} from '../types/dataListType';
 import {useQueryClient} from '@tanstack/react-query';
 import {areaList} from '../data/listData';
 import {iHeight, iWidth} from '../../globalStyle';
+import IButton from '../components/IButton';
 
 const Main = ({navigation}: any) => {
   const {areaSelected, setAreaSelected} = useAreaSelected();
@@ -86,21 +87,11 @@ const Main = ({navigation}: any) => {
         showsHorizontalScrollIndicator={false}
         data={areaList.map(item => item.name)}
         renderItem={({item}) => (
-          <TouchableOpacity onPress={() => setAreaSelected(item)}>
-            <View
-              style={{
-                width: 50,
-                height: 30,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderWidth: 0.5,
-                borderRadius: 10,
-                margin: 5,
-              }}>
-              <Text>{item}</Text>
-            </View>
-          </TouchableOpacity>
+          <IButton
+            title={item}
+            buttonStyle="areaList"
+            onPress={() => setAreaSelected(item)}
+          />
         )}
         keyExtractor={item => item.toString()}
         horizontal

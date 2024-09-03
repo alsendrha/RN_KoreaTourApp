@@ -6,15 +6,14 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {DetailItemType} from '../types/detailType';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useGetDetailData, useGetDetailImage} from '../api/toreQuery';
-import IButton from '../components/IButton';
-import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, {Marker} from 'react-native-maps';
-import {RenderHTML} from 'react-native-render-html';
+import HTMLView from 'react-native-htmlview';
 import {iHeight, iWidth} from '../../globalStyle';
+import Carousel from 'react-native-reanimated-carousel';
 
 type DetailProps = {
   route: any;
@@ -28,13 +27,6 @@ const Detail = ({route}: DetailProps) => {
   const [imagesIndex, setImagesIndex] = useState(0);
   const {width} = useWindowDimensions();
 
-  const next = () => {
-    setImagesIndex(prev => (prev + 1 >= detailImages.length ? 0 : prev + 1));
-  };
-  const prev = () => {
-    setImagesIndex(prev => (prev - 1 < 0 ? detailImages.length - 1 : prev - 1));
-  };
-
   if (isLoading || imagesLoading)
     return <ActivityIndicator size="large" color="#0000ff" />;
   return (
@@ -42,40 +34,46 @@ const Detail = ({route}: DetailProps) => {
       {data.map((item: DetailItemType) => (
         <View key={item.contentid}>
           <View style={styles.imgContainer}>
-            <Image
-              style={styles.img}
-              source={
-                detailImages.length > 0
-                  ? {uri: detailImages[imagesIndex].originimgurl}
-                  : item.firstimage
-                  ? {uri: item.firstimage}
-                  : require('../assets/images/no_image.png')
-              }
-              alt="이미지"
+            <Carousel
+              data={detailImages ? detailImages : item.firstimage}
+              width={width}
+              onSnapToItem={index => setImagesIndex(index)}
+              loop={true}
+              renderItem={({item}: any) => (
+                <Image
+                  style={styles.img}
+                  source={
+                    item.originimgurl
+                      ? {uri: item.originimgurl}
+                      : require('../assets/images/no_image.png')
+                  }
+                  alt="이미지"
+                />
+              )}
             />
-            {detailImages.length > 0 && (
-              <>
-                <IButton buttonStyle="arrowLeft" onPress={prev}>
-                  <Icon name="chevron-back-outline" size={24} />
-                </IButton>
 
-                <IButton buttonStyle="arrowRight" onPress={next}>
-                  <Icon name="chevron-forward-outline" size={24} />
-                </IButton>
-              </>
-            )}
+            <View style={styles.dotContainer}>
+              {detailImages.map((img: string[], index: number) => (
+                <View
+                  key={index}
+                  style={{
+                    width: index === imagesIndex ? 15 : 13,
+                    height: index === imagesIndex ? 15 : 13,
+                    borderRadius: 50,
+                    borderColor: '#fff',
+                    backgroundColor: index === imagesIndex ? '#fff' : 'gray',
+                    bottom: 10,
+                    marginHorizontal: 2,
+                  }}></View>
+              ))}
+            </View>
           </View>
           <View style={styles.textContainer}>
             <View style={styles.titleContainer}>
               <Text style={styles.titleText}>{item.title}</Text>
               <Text>주소 : {item.addr1}</Text>
               <Text>연락처 : {item.tel ? item.tel : '-'}</Text>
-              {item.homepage && (
-                <RenderHTML
-                  contentWidth={width}
-                  source={{html: item.homepage}}
-                />
-              )}
+              <HTMLView value={item.homepage} style={{marginVertical: 5}} />
             </View>
             <Text style={{marginTop: 10}}>
               {item.overview.replace(/<br\s*\/?>/gi, '\n')}
@@ -136,6 +134,15 @@ const styles = StyleSheet.create({
     objectFit: 'cover',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+  },
+
+  dotContainer: {
+    position: 'absolute',
+    bottom: 10,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   textContainer: {
