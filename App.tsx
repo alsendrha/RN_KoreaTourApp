@@ -1,6 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import Main from './src/screen/Main';
 import Option from './src/screen/Option';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -10,7 +10,7 @@ import IButton from './src/components/IButton';
 import MyBottomSheet from './src/components/BottomSheet/MyBottomSheet';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ReactQueryProvider from './src/reactQuery/proovider';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 
 function App() {
   const Tab = createBottomTabNavigator();
@@ -85,6 +85,18 @@ function App() {
               options={{
                 headerTransparent: true,
                 headerTitle: '',
+                headerLeft() {
+                  const navigation = useNavigation();
+                  return (
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                      <Icon
+                        name="chevron-back-outline"
+                        size={24}
+                        style={{color: 'gray', opacity: 1}}
+                      />
+                    </TouchableOpacity>
+                  );
+                },
               }}
             />
           </Stack.Navigator>

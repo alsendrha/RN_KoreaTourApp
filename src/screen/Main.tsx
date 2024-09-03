@@ -69,6 +69,10 @@ const Main = ({navigation}: any) => {
           <Text numberOfLines={1} style={styles.textStyle}>
             {item.title}
           </Text>
+          <Text>
+            {item.addr1}
+            {item.addr2}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -78,6 +82,7 @@ const Main = ({navigation}: any) => {
   return (
     <View style={styles.container}>
       <FlatList
+        contentContainerStyle={{height: iHeight * 50, alignItems: 'center'}}
         showsHorizontalScrollIndicator={false}
         data={areaList.map(item => item.name)}
         renderItem={({item}) => (
@@ -89,7 +94,7 @@ const Main = ({navigation}: any) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderWidth: 1,
+                borderWidth: 0.5,
                 borderRadius: 10,
                 margin: 5,
               }}>
