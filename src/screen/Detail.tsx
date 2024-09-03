@@ -35,7 +35,7 @@ const Detail = ({route}: DetailProps) => {
         <View key={item.contentid}>
           <View style={styles.imgContainer}>
             <Carousel
-              data={detailImages ? detailImages : item.firstimage}
+              data={detailImages.length > 0 ? detailImages : [item.firstimage]}
               width={width}
               onSnapToItem={index => setImagesIndex(index)}
               loop={true}
@@ -45,6 +45,8 @@ const Detail = ({route}: DetailProps) => {
                   source={
                     item.originimgurl
                       ? {uri: item.originimgurl}
+                      : item
+                      ? {uri: item}
                       : require('../assets/images/no_image.png')
                   }
                   alt="이미지"
