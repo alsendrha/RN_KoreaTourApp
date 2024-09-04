@@ -72,10 +72,7 @@ function App() {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              headerShown: true,
-              headerRight(props) {
-                return <IButton title="menu" buttonStyle="menu" />;
-              },
+              headerShown: false,
             }}>
             <Stack.Screen name="bottom" component={BottomTabScreen} />
             <Stack.Screen
