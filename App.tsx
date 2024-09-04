@@ -11,6 +11,7 @@ import MyBottomSheet from './src/components/BottomSheet/MyBottomSheet';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ReactQueryProvider from './src/reactQuery/proovider';
 import {TouchableOpacity} from 'react-native';
+import List from './src/screen/List';
 
 function App() {
   const Tab = createBottomTabNavigator();
@@ -49,6 +50,7 @@ function App() {
           name="option"
           component={Option}
           options={{
+            headerShown: true,
             tabBarIcon({focused}) {
               return (
                 <Icon
@@ -70,13 +72,15 @@ function App() {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              headerShown: true,
+              headerShown: false,
             }}>
+            <Stack.Screen name="bottom" component={BottomTabScreen} />
             <Stack.Screen
-              name="bottom"
-              component={BottomTabScreen}
+              name="list"
+              component={List}
               options={{
-                title: '홈',
+                headerShown: true,
+                title: '리스트',
                 headerRight(props) {
                   return <IButton title="menu" buttonStyle="menu" />;
                 },
@@ -88,6 +92,7 @@ function App() {
               options={{
                 headerTransparent: true,
                 headerTitle: '',
+                headerShown: true,
                 headerLeft() {
                   const navigation = useNavigation();
                   return (

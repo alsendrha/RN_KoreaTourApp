@@ -6,6 +6,7 @@ import {
   useBottomSheetRef,
   useContentsSelected,
 } from '../store/store';
+import {iHeight, iWidth} from '../../globalStyle';
 
 type IButtonProps = {
   title?: string;
@@ -67,12 +68,7 @@ const IButton = ({
         elevation: areaSelected === title ? 2 : 0,
       },
     ],
-    categories: [
-      styles.categoriesMenu,
-      {
-        backgroundColor: contentsSelected === category ? 'white' : 'gray',
-      },
-    ],
+    categories: [styles.categoriesMenu],
   };
 
   return (
@@ -117,20 +113,19 @@ const styles = StyleSheet.create({
 
   areaListMenu: {
     width: 70,
-    height: 30,
+    height: 40,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
-    margin: 5,
+    marginHorizontal: 5,
   },
 
   categoriesMenu: {
     paddingVertical: 5,
-    width: 60,
-    height: 70,
-    borderWidth: 0.5,
-    marginHorizontal: 5,
+    width: iWidth * 60,
+    height: iHeight * 64,
+    // borderWidth: 0.5,
     borderRadius: 10,
     flexDirection: 'column',
     justifyContent: 'space-between',

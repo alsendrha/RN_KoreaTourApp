@@ -18,12 +18,60 @@ export const areaList = [
 ];
 
 export const contentList = [
-  {id: 1, number: 12, name: '관광지', icon: 'rocket-outline'},
-  {id: 2, number: 14, name: '문화시설', icon: 'body-outline'},
-  {id: 3, number: 15, name: '행사/공연등', icon: 'game-controller-outline'},
-  {id: 4, number: 25, name: '여행코스', icon: 'footsteps-outline'},
-  {id: 5, number: 28, name: '레포츠', icon: 'football-outline'},
-  {id: 6, number: 32, name: '숙박', icon: 'storefront-outline'},
-  {id: 7, number: 38, name: '쇼핑', icon: 'cart-outline'},
-  {id: 8, number: 39, name: '음식점', icon: 'fast-food-outline'},
+  {
+    id: 1,
+    number: 12,
+    name: '관광지',
+    icon: 'rocket-outline',
+    img: require('../assets/categories/category01.png'),
+  },
+  {
+    id: 2,
+    number: 14,
+    name: '문화시설',
+    icon: 'body-outline',
+    img: require('../assets/categories/category02.png'),
+  },
+  {
+    id: 3,
+    number: 15,
+    name: '행사/공연등',
+    icon: 'game-controller-outline',
+    img: require('../assets/categories/category03.png'),
+  },
+  {
+    id: 4,
+    number: 25,
+    name: '여행코스',
+    icon: 'footsteps-outline',
+    img: require('../assets/categories/category04.png'),
+  },
+  {
+    id: 5,
+    number: 28,
+    name: '레포츠',
+    icon: 'football-outline',
+    img: require('../assets/categories/category05.png'),
+  },
+  {
+    id: 6,
+    number: 32,
+    name: '숙박',
+    icon: 'storefront-outline',
+    img: require('../assets/categories/category06.png'),
+  },
+  {
+    id: 7,
+    number: 38,
+    name: '쇼핑',
+    icon: 'cart-outline',
+    img: require('../assets/categories/category07.png'),
+  },
+  {
+    id: 8,
+    number: 39,
+    name: '음식점',
+    icon: 'fast-food-outline',
+    img: require('../assets/categories/category08.png'),
+  },
 ];
