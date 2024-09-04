@@ -1,6 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import IButton from '../IButton';
+import {iHeight, iWidth} from '../../../globalStyle';
 
 type MenuProps = {
   setMenuList: React.Dispatch<React.SetStateAction<string>>;
@@ -34,8 +35,8 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     display: 'flex',
-    width: 100,
-    height: 50,
+    width: iWidth * 90,
+    height: iHeight * 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,

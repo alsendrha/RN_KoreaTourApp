@@ -46,7 +46,7 @@ const TopMenu = () => {
                 onPress={() => setContentsSelected(item.number)}>
                 <Image
                   source={item.img}
-                  style={{width: 50, height: 50}}
+                  style={{width: iWidth * 40, height: iHeight * 40}}
                   alt="카테고리"
                 />
                 <Text

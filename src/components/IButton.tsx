@@ -1,11 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useRef} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {
-  useAreaSelected,
-  useBottomSheetRef,
-  useContentsSelected,
-} from '../store/store';
+import {useAreaSelected, useBottomSheetRef} from '../store/store';
 import {iHeight, iWidth} from '../../globalStyle';
 
 type IButtonProps = {
@@ -23,15 +19,8 @@ type IButtonProps = {
     | '700'
     | '800'
     | '900';
-  category?: number;
-  buttonStyle:
-    | 'menu'
-    | 'bottomSheetMenu'
-    | 'area'
-    | 'areaList'
-    | 'categories'
-    | 'arrowLeft'
-    | 'arrowRight';
+  buttonStyle: 'menu' | 'bottomSheetMenu' | 'area' | 'areaList' | 'categories';
+
   onPress?: () => void;
   children?: React.ReactNode;
 };
@@ -41,12 +30,10 @@ const IButton = ({
   titleColor,
   titleWeight,
   buttonStyle,
-  category,
   children,
   onPress,
 }: IButtonProps) => {
   const {areaSelected} = useAreaSelected();
-  const {contentsSelected} = useContentsSelected();
   const {setBottomSheetRef} = useBottomSheetRef();
   const bottomRef = useRef<BottomSheet>(null);
 
@@ -59,8 +46,6 @@ const IButton = ({
     menu: styles.menuBox,
     bottomSheetMenu: styles.menuContainer,
     area: styles.areaBox,
-    arrowLeft: styles.arrowLeft,
-    arrowRight: styles.arrowRight,
     areaList: [
       styles.areaListMenu,
       {
@@ -73,13 +58,6 @@ const IButton = ({
 
   return (
     <TouchableOpacity
-      style={
-        buttonStyle === 'arrowLeft'
-          ? styles.touchableLeft
-          : buttonStyle === 'arrowRight'
-          ? styles.touchableRight
-          : {}
-      }
       onPress={buttonStyle === 'menu' ? openBottomSheet : onPress}
       activeOpacity={1}>
       <View style={buttonStyleList[buttonStyle]}>
@@ -98,22 +76,9 @@ const IButton = ({
 export default IButton;
 
 const styles = StyleSheet.create({
-  touchableLeft: {
-    position: 'absolute',
-    top: '50%',
-    transform: [{translateY: -15}],
-    left: 10,
-  },
-  touchableRight: {
-    position: 'absolute',
-    top: '50%',
-    transform: [{translateY: -15}],
-    right: 10,
-  },
-
   areaListMenu: {
-    width: 70,
-    height: 40,
+    width: iWidth * 60,
+    height: iHeight * 35,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -124,7 +89,7 @@ const styles = StyleSheet.create({
   categoriesMenu: {
     paddingVertical: 5,
     width: iWidth * 60,
-    height: iHeight * 64,
+    height: iHeight * 60,
     // borderWidth: 0.5,
     borderRadius: 10,
     flexDirection: 'column',
@@ -134,8 +99,8 @@ const styles = StyleSheet.create({
 
   menuBox: {
     position: 'relative',
-    width: 100,
-    height: 30,
+    width: iWidth * 90,
+    height: iHeight * 30,
     backgroundColor: '#fff',
     elevation: 2,
     shadowRadius: 8,
@@ -147,8 +112,8 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     display: 'flex',
-    width: 100,
-    height: 50,
+    width: iWidth * 90,
+    height: iHeight * 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
@@ -156,32 +121,12 @@ const styles = StyleSheet.create({
   },
   areaBox: {
     display: 'flex',
-    width: 70,
-    height: 50,
+    width: iWidth * 60,
+    height: iHeight * 40,
     margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 8,
-  },
-  arrowLeft: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 30,
-    height: 30,
-    borderRadius: 999,
-    backgroundColor: '#fff',
-    elevation: 2,
-    opacity: 0.8,
-  },
-  arrowRight: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 30,
-    height: 30,
-    borderRadius: 999,
-    backgroundColor: '#fff',
-    elevation: 2,
-    opacity: 0.8,
   },
 });
