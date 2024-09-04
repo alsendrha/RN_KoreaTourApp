@@ -18,12 +18,12 @@ export const areaList = [
 ];
 
 export const contentList = [
-  {id: 1, number: 12, name: '관광지'},
-  {id: 2, number: 14, name: '문화시설'},
-  {id: 3, number: 15, name: '행사/공연등'},
-  {id: 4, number: 25, name: '여행코스'},
-  {id: 5, number: 28, name: '레포츠'},
-  {id: 6, number: 32, name: '숙박'},
-  {id: 7, number: 38, name: '쇼핑'},
-  {id: 8, number: 39, name: '음식점'},
+  {id: 1, number: 12, name: '관광지', icon: 'rocket-outline'},
+  {id: 2, number: 14, name: '문화시설', icon: 'body-outline'},
+  {id: 3, number: 15, name: '행사/공연등', icon: 'game-controller-outline'},
+  {id: 4, number: 25, name: '여행코스', icon: 'footsteps-outline'},
+  {id: 5, number: 28, name: '레포츠', icon: 'football-outline'},
+  {id: 6, number: 32, name: '숙박', icon: 'storefront-outline'},
+  {id: 7, number: 38, name: '쇼핑', icon: 'cart-outline'},
+  {id: 8, number: 39, name: '음식점', icon: 'fast-food-outline'},
 ];

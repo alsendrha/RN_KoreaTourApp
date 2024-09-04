@@ -10,7 +10,7 @@ import IButton from './src/components/IButton';
 import MyBottomSheet from './src/components/BottomSheet/MyBottomSheet';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ReactQueryProvider from './src/reactQuery/proovider';
-import {TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 
 function App() {
   const Tab = createBottomTabNavigator();
@@ -19,12 +19,15 @@ function App() {
   const BottomTabScreen = () => {
     return (
       <Tab.Navigator
+        sceneContainerStyle={{backgroundColor: 'White'}}
         screenOptions={({route}) => ({
           tabBarHideOnKeyboard: true,
           tabBarShowLabel: false,
           headerShown: false,
           tabBarStyle: {
             height: 70,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
           },
         })}>
         <Tab.Screen

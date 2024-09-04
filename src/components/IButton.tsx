@@ -1,22 +1,51 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useRef} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {useBottomSheetRef} from '../store/store';
+import {
+  useAreaSelected,
+  useBottomSheetRef,
+  useContentsSelected,
+} from '../store/store';
 
 type IButtonProps = {
   title?: string;
+  titleColor?: string;
+  titleWeight?:
+    | 'bold'
+    | 'normal'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900';
+  category?: number;
   buttonStyle:
     | 'menu'
     | 'bottomSheetMenu'
     | 'area'
     | 'areaList'
+    | 'categories'
     | 'arrowLeft'
     | 'arrowRight';
   onPress?: () => void;
   children?: React.ReactNode;
 };
 
-const IButton = ({title, buttonStyle, children, onPress}: IButtonProps) => {
+const IButton = ({
+  title,
+  titleColor,
+  titleWeight,
+  buttonStyle,
+  category,
+  children,
+  onPress,
+}: IButtonProps) => {
+  const {areaSelected} = useAreaSelected();
+  const {contentsSelected} = useContentsSelected();
   const {setBottomSheetRef} = useBottomSheetRef();
   const bottomRef = useRef<BottomSheet>(null);
 
@@ -31,7 +60,19 @@ const IButton = ({title, buttonStyle, children, onPress}: IButtonProps) => {
     area: styles.areaBox,
     arrowLeft: styles.arrowLeft,
     arrowRight: styles.arrowRight,
-    areaList: styles.areaListMenu,
+    areaList: [
+      styles.areaListMenu,
+      {
+        backgroundColor: areaSelected === title ? 'white' : '#ededed',
+        elevation: areaSelected === title ? 2 : 0,
+      },
+    ],
+    categories: [
+      styles.categoriesMenu,
+      {
+        backgroundColor: contentsSelected === category ? 'white' : 'gray',
+      },
+    ],
   };
 
   return (
@@ -46,7 +87,13 @@ const IButton = ({title, buttonStyle, children, onPress}: IButtonProps) => {
       onPress={buttonStyle === 'menu' ? openBottomSheet : onPress}
       activeOpacity={1}>
       <View style={buttonStyleList[buttonStyle]}>
-        {children ? children : <Text>{title}</Text>}
+        {children ? (
+          children
+        ) : (
+          <Text style={{color: titleColor, fontWeight: titleWeight}}>
+            {title}
+          </Text>
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -69,14 +116,25 @@ const styles = StyleSheet.create({
   },
 
   areaListMenu: {
-    width: 50,
+    width: 70,
     height: 30,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 0.5,
-    borderRadius: 10,
+    borderRadius: 50,
     margin: 5,
+  },
+
+  categoriesMenu: {
+    paddingVertical: 5,
+    width: 60,
+    height: 70,
+    borderWidth: 0.5,
+    marginHorizontal: 5,
+    borderRadius: 10,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   menuBox: {

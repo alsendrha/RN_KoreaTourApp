@@ -42,7 +42,6 @@ export const useGetToreList1 = (
         const items = res.data.response.body.items.item;
         const totalCount = res.data.response.body.totalCount;
         const totalPages = Math.ceil(totalCount / numOfRows);
-
         return {
           items,
           nextPage: pageParam < totalPages ? pageParam + 1 : undefined,
