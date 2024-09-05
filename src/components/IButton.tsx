@@ -19,7 +19,13 @@ type IButtonProps = {
     | '700'
     | '800'
     | '900';
-  buttonStyle: 'menu' | 'bottomSheetMenu' | 'area' | 'areaList' | 'categories';
+  buttonStyle:
+    | 'menu'
+    | 'bottomSheetMenu'
+    | 'area'
+    | 'areaList'
+    | 'categories'
+    | 'more';
 
   onPress?: () => void;
   children?: React.ReactNode;
@@ -54,6 +60,7 @@ const IButton = ({
       },
     ],
     categories: [styles.categoriesMenu],
+    more: styles.viewAll,
   };
 
   return (
@@ -129,4 +136,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
   },
+  viewAll: {},
 });

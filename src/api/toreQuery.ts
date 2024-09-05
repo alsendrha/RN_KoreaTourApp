@@ -1,5 +1,6 @@
 import {useInfiniteQuery, useQuery} from '@tanstack/react-query';
 import {baseUrl, detailImageUrl, detailUrl} from './axios';
+import {TourListType} from '../types/dataListType';
 
 export const useGetToreList = (
   keyword: string,
@@ -16,7 +17,7 @@ export const useGetToreList = (
           contentTypeId: contentType,
         },
       })
-      .then(res => res.data.response.body.items.item);
+      .then<TourListType[]>(res => res.data.response.body.items.item);
   return useQuery({
     queryKey: [`tourList${keyword}`],
     queryFn,

@@ -19,7 +19,8 @@ type areaSelected = {
 
 type contentsSelected = {
   contentsSelected: number;
-  setContentsSelected: (contents: number) => void;
+  contentTitle: string;
+  setContentsSelected: (contents: number, title: string) => void;
 };
 
 export const useBottomSheetRef = create<BottomSheetRefType>(set => ({
@@ -39,5 +40,7 @@ export const useAreaSelected = create<areaSelected>(set => ({
 
 export const useContentsSelected = create<contentsSelected>(set => ({
   contentsSelected: 12,
-  setContentsSelected: contents => set({contentsSelected: contents}),
+  contentTitle: '관광지',
+  setContentsSelected: (contents, title) =>
+    set({contentsSelected: contents, contentTitle: title}),
 }));

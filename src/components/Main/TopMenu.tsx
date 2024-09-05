@@ -43,7 +43,7 @@ const TopMenu = () => {
             <View key={item.id} style={styles.itemCard}>
               <IButton
                 buttonStyle="categories"
-                onPress={() => setContentsSelected(item.number)}>
+                onPress={() => setContentsSelected(item.number, item.name)}>
                 <Image
                   source={item.img}
                   style={{width: iWidth * 40, height: iHeight * 40}}
