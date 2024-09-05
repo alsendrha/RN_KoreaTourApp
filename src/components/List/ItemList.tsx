@@ -93,7 +93,7 @@ const ItemList = () => {
     <FlatList
       data={data?.pages.flatMap(page => page.items) || []}
       renderItem={renderItem}
-      keyExtractor={item => item.contentid.toString()}
+      keyExtractor={item => item.contentid}
       onEndReached={handleFetchNextPage}
       onEndReachedThreshold={0.5}
       ListFooterComponent={
