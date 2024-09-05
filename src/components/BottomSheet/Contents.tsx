@@ -16,8 +16,8 @@ const Contents = ({setMenuList}: ContentsProps) => {
   const {setContentsSelected} = useContentsSelected();
   const {bottomSheetRef} = useBottomSheetRef();
   const {scrollRef} = useScrollRef();
-  const handleContentsSelected = (contents: number) => {
-    setContentsSelected(contents);
+  const handleContentsSelected = (contents: number, title: string) => {
+    setContentsSelected(contents, title);
     setMenuList('menu');
     scrollRef.current?.scrollTo({
       y: 0,
@@ -32,7 +32,7 @@ const Contents = ({setMenuList}: ContentsProps) => {
           key={content.id}
           title={content.name}
           buttonStyle="area"
-          onPress={() => handleContentsSelected(content.number)}
+          onPress={() => handleContentsSelected(content.number, content.name)}
         />
       ))}
     </View>

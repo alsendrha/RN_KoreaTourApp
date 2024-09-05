@@ -12,7 +12,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useGetDetailData, useGetDetailImage} from '../api/toreQuery';
 import MapView, {Marker} from 'react-native-maps';
 import HTMLView from 'react-native-htmlview';
-import {iHeight, iWidth} from '../../globalStyle';
+import {colors, iHeight, iWidth} from '../../globalStyle';
 import Carousel from 'react-native-reanimated-carousel';
 
 type DetailProps = {
@@ -62,8 +62,9 @@ const Detail = ({route}: DetailProps) => {
                     width: index === imagesIndex ? 15 : 13,
                     height: index === imagesIndex ? 15 : 13,
                     borderRadius: 50,
-                    borderColor: '#fff',
-                    backgroundColor: index === imagesIndex ? '#fff' : 'gray',
+                    borderColor: colors.white,
+                    backgroundColor:
+                      index === imagesIndex ? colors.white : 'gray',
                     bottom: 10,
                     marginHorizontal: 2,
                   }}></View>
@@ -117,7 +118,7 @@ export default Detail;
 
 const styles = StyleSheet.create({
   bacColor: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
 
   imgContainer: {
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     elevation: 5,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
 
   img: {

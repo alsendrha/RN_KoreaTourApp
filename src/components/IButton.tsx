@@ -2,7 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useRef} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {useAreaSelected, useBottomSheetRef} from '../store/store';
-import {iHeight, iWidth} from '../../globalStyle';
+import {colors, iHeight, iWidth} from '../../globalStyle';
 
 type IButtonProps = {
   title?: string;
@@ -22,6 +22,7 @@ type IButtonProps = {
   buttonStyle:
     | 'menu'
     | 'item'
+    | 'back'
     | 'bottomSheetMenu'
     | 'area'
     | 'areaList'
@@ -51,6 +52,7 @@ const IButton = ({
 
   const buttonStyleList = {
     menu: styles.menuBox,
+    back: styles.backButton,
     bottomSheetMenu: styles.menuContainer,
     area: styles.areaBox,
     areaList: [
@@ -106,11 +108,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  backButton: {
+    marginRight: 10,
+  },
+
   menuBox: {
     position: 'relative',
     width: iWidth * 90,
     height: iHeight * 30,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     elevation: 2,
     shadowRadius: 8,
     shadowOffset: {width: 0, height: 2},

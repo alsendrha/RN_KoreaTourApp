@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import ReactQueryProvider from './src/reactQuery/proovider';
 import {TouchableOpacity} from 'react-native';
 import List from './src/screen/List';
+import {colors} from './globalStyle';
 
 function App() {
   const Tab = createBottomTabNavigator();
@@ -68,7 +69,7 @@ function App() {
 
   return (
     <ReactQueryProvider>
-      <GestureHandlerRootView style={{flex: 1, backgroundColor: '#fff'}}>
+      <GestureHandlerRootView style={{flex: 1, backgroundColor: colors.white}}>
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
@@ -81,6 +82,16 @@ function App() {
               options={{
                 headerShown: true,
                 title: '리스트',
+                headerLeft() {
+                  const navigation = useNavigation();
+                  return (
+                    <IButton
+                      buttonStyle="back"
+                      onPress={() => navigation.goBack()}>
+                      <Icon name="chevron-back-outline" size={24} />
+                    </IButton>
+                  );
+                },
                 headerRight(props) {
                   return <IButton title="menu" buttonStyle="menu" />;
                 },
@@ -96,13 +107,11 @@ function App() {
                 headerLeft() {
                   const navigation = useNavigation();
                   return (
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                      <Icon
-                        name="chevron-back-outline"
-                        size={24}
-                        style={{color: 'gray', opacity: 1}}
-                      />
-                    </TouchableOpacity>
+                    <IButton
+                      buttonStyle="back"
+                      onPress={() => navigation.goBack()}>
+                      <Icon name="chevron-back-outline" size={24} />
+                    </IButton>
                   );
                 },
               }}

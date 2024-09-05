@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useRef} from 'react';
-import {iHeight, iWidth} from '../../../globalStyle';
+import {colors, iHeight, iWidth} from '../../../globalStyle';
 import {useGetToreList1} from '../../api/toreQuery';
 import {useQueryClient} from '@tanstack/react-query';
 import {
@@ -18,15 +18,13 @@ import {
   useScrollRef,
 } from '../../store/store';
 import {TourListType} from '../../types/dataListType';
+import {useNavigation} from '@react-navigation/native';
 
-type ItemListProps = {
-  navigation: any;
-};
-
-const ItemList = ({navigation}: ItemListProps) => {
+const ItemList = () => {
   const scrollViewRef = useRef<ScrollView>(null);
   const {areaSelected} = useAreaSelected();
   const {contentsSelected} = useContentsSelected();
+  const navigation = useNavigation<any>();
   const {setScrollRef} = useScrollRef();
   const {data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage} =
     useGetToreList1(areaSelected, 10, contentsSelected);
@@ -35,7 +33,7 @@ const ItemList = ({navigation}: ItemListProps) => {
   useEffect(() => {
     setScrollRef(scrollViewRef);
     queryClient.resetQueries({
-      queryKey: ['tourList' + areaSelected],
+      queryKey: ['tourList1' + areaSelected],
       exact: true,
     });
   }, [areaSelected, contentsSelected]);
@@ -93,7 +91,7 @@ const ItemList = ({navigation}: ItemListProps) => {
     );
   return (
     <FlatList
-      data={data?.pages.flatMap(page => page.items)}
+      data={data?.pages.flatMap(page => page.items) || []}
       renderItem={renderItem}
       keyExtractor={item => item.contentid.toString()}
       onEndReached={handleFetchNextPage}
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginHorizontal: iWidth * 15,
     marginVertical: iWidth * 10,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderRadius: 8,
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.3,

@@ -49,7 +49,7 @@ export const useGetToreList1 = (
         };
       });
   return useInfiniteQuery({
-    queryKey: [`tourList${keyword}`],
+    queryKey: [`tourList1${keyword}`],
     queryFn,
     getNextPageParam: lastPage => lastPage.nextPage,
     initialPageParam: 1,

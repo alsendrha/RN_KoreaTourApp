@@ -3,7 +3,7 @@ import React from 'react';
 import {useAreaSelected, useContentsSelected} from '../../store/store';
 import {areaList, contentList} from '../../data/listData';
 import IButton from '../IButton';
-import {iHeight, iWidth} from '../../../globalStyle';
+import {colors, iHeight, iWidth} from '../../../globalStyle';
 
 const TopMenu = () => {
   const {areaSelected, setAreaSelected} = useAreaSelected();
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     elevation: 5,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
 
   titleContainer: {

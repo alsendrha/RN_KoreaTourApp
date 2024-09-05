@@ -11,7 +11,7 @@ import {useAreaSelected, useContentsSelected} from '../../store/store';
 import {useGetToreList} from '../../api/toreQuery';
 import IButton from '../IButton';
 import {useNavigation} from '@react-navigation/native';
-import {iHeight, iWidth} from '../../../globalStyle';
+import {colors, iHeight, iWidth} from '../../../globalStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const SelectedList = () => {
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     borderRadius: 12,
     overflow: 'hidden',
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},

@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {iHeight} from '../../globalStyle';
+import {colors, iHeight} from '../../globalStyle';
 
 const HeaderBar = (route: any) => {
   console.log('나오나', route);
@@ -17,6 +17,6 @@ export default HeaderBar;
 const styles = StyleSheet.create({
   container: {
     height: iHeight * 70,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
 });
