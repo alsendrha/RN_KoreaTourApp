@@ -4,7 +4,6 @@ import {
   Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useEffect} from 'react';
@@ -88,7 +87,6 @@ const SelectedList = () => {
             )}
             ListFooterComponent={
               <IButton
-                title="View All"
                 buttonStyle="more"
                 onPress={() => navigation.navigate('list')}>
                 <View style={styles.lastCard}>
