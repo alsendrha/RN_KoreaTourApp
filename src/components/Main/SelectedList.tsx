@@ -61,7 +61,7 @@ const SelectedList = () => {
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => (
               <IButton
-                buttonStyle="img"
+                buttonStyle="item"
                 onPress={() =>
                   navigation.navigate('detail', {
                     id: item.contentid,
@@ -93,7 +93,6 @@ const SelectedList = () => {
                 onPress={() => navigation.navigate('list')}>
                 <View style={styles.lastCard}>
                   <Icon name="arrow-forward-circle-outline" size={32} />
-
                   <Text>more</Text>
                 </View>
               </IButton>
