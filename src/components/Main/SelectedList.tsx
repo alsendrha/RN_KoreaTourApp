@@ -13,6 +13,7 @@ import {useGetToreList} from '../../api/toreQuery';
 import IButton from '../IButton';
 import {useNavigation} from '@react-navigation/native';
 import {iHeight, iWidth} from '../../../globalStyle';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const SelectedList = () => {
   const {areaSelected} = useAreaSelected();
@@ -59,8 +60,8 @@ const SelectedList = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => (
-              <TouchableOpacity
-                activeOpacity={0.95}
+              <IButton
+                buttonStyle="img"
                 onPress={() =>
                   navigation.navigate('detail', {
                     id: item.contentid,
@@ -83,8 +84,20 @@ const SelectedList = () => {
                     </Text>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </IButton>
             )}
+            ListFooterComponent={
+              <IButton
+                title="View All"
+                buttonStyle="more"
+                onPress={() => navigation.navigate('list')}>
+                <View style={styles.lastCard}>
+                  <Icon name="arrow-forward-circle-outline" size={32} />
+
+                  <Text>more</Text>
+                </View>
+              </IButton>
+            }
           />
         )}
       </View>
@@ -115,10 +128,23 @@ const styles = StyleSheet.create({
   itemCard: {
     width: iWidth * 200,
     height: iHeight * 240,
-    marginHorizontal: 10,
+    marginRight: 20,
     borderRadius: 12,
     overflow: 'hidden',
     backgroundColor: '#fff',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+  },
+  lastCard: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: iWidth * 70,
+    height: iHeight * 240,
+    backgroundColor: '#ededed',
+    borderRadius: 12,
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},

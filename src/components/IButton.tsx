@@ -21,6 +21,7 @@ type IButtonProps = {
     | '900';
   buttonStyle:
     | 'menu'
+    | 'img'
     | 'bottomSheetMenu'
     | 'area'
     | 'areaList'
@@ -61,6 +62,7 @@ const IButton = ({
     ],
     categories: [styles.categoriesMenu],
     more: styles.viewAll,
+    img: styles.imgContainer,
   };
 
   return (
@@ -137,4 +139,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   viewAll: {},
+  imgContainer: {},
 });

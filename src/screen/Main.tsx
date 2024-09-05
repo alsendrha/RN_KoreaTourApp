@@ -21,7 +21,6 @@ const Main = ({navigation}: any) => {
     <ScrollView style={styles.container}>
       <TopMenu />
       <SelectedList />
-      {/* <ItemList navigation={navigation} /> */}
     </ScrollView>
   );
 };
