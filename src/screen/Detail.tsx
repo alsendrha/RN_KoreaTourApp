@@ -59,12 +59,12 @@ const Detail = ({route}: DetailProps) => {
                 <View
                   key={index}
                   style={{
-                    width: index === imagesIndex ? 15 : 13,
-                    height: index === imagesIndex ? 15 : 13,
+                    width: index === imagesIndex ? 12 : 10,
+                    height: index === imagesIndex ? 12 : 10,
                     borderRadius: 50,
                     borderColor: colors.white,
                     backgroundColor:
-                      index === imagesIndex ? colors.white : 'gray',
+                      index === imagesIndex ? colors.white : colors.gray,
                     bottom: 10,
                     marginHorizontal: 2,
                   }}></View>

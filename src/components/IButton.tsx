@@ -116,7 +116,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  backButton: {},
+  backButton: {
+    width: iWidth * 30,
+    height: iHeight * 30,
+    borderRadius: 50,
+    overflow: 'hidden',
+    opacity: 0.7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
 
   menuBox: {
     width: iWidth * 25,
