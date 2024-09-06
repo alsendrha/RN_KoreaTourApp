@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
   },
 
   categoriesMenu: {
-    paddingVertical: 5,
     width: iWidth * 60,
     height: iHeight * 60,
     // borderWidth: 0.5,
@@ -108,7 +107,6 @@ const styles = StyleSheet.create({
   },
 
   bottomCategories: {
-    paddingVertical: 5,
     width: iWidth * 75,
     height: iHeight * 75,
     // borderWidth: 0.5,
