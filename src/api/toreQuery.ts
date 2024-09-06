@@ -17,7 +17,7 @@ export const useGetToreList = (
           contentTypeId: contentType,
         },
       })
-      .then<TourListType[]>(res => res.data.response.body.items.item);
+      .then<TourListType[]>(res => res.data?.response?.body?.items?.item || []);
   return useQuery({
     queryKey: [`tourList${keyword}`],
     queryFn,

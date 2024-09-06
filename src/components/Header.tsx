@@ -3,7 +3,6 @@ import React from 'react';
 import {colors, iHeight} from '../../globalStyle';
 
 const HeaderBar = (route: any) => {
-  console.log('나오나', route);
   return (
     <View style={styles.container}>
       <Text>{route.name}</Text>

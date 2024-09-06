@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Dimensions,
   FlatList,
   Image,
   ScrollView,
@@ -44,38 +45,41 @@ const ItemList = () => {
     }
   };
 
-  const renderItem = ({item}: {item: TourListType}) => (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('detail', {
-          id: item.contentid,
-          contentType: item.contenttypeid,
-        })
-      }
-      key={item.contentid}
-      activeOpacity={0.8}>
-      <View style={styles.itemCard}>
-        <Image
-          style={styles.imageSize}
-          source={
-            item.firstimage
-              ? {uri: item.firstimage}
-              : require('../../assets/images/no_image.png')
-          }
-          alt="이미지"
-        />
-        <View style={styles.textContainer}>
-          <Text numberOfLines={1} style={styles.textStyle}>
-            {item.title}
-          </Text>
-          <Text>
-            {item.addr1}
-            {item.addr2}
-          </Text>
+  const renderItem = ({item}: {item: TourListType}) => {
+    if (!item) return null;
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('detail', {
+            id: item.contentid,
+            contentType: item.contenttypeid,
+          })
+        }
+        key={item.contentid}
+        activeOpacity={0.8}>
+        <View style={styles.itemCard}>
+          <Image
+            style={styles.imageSize}
+            source={
+              item.firstimage
+                ? {uri: item.firstimage}
+                : require('../../assets/images/no_image.png')
+            }
+            alt="이미지"
+          />
+          <View style={styles.textContainer}>
+            <Text numberOfLines={1} style={styles.textStyle}>
+              {item.title}
+            </Text>
+            <Text>
+              {item.addr1}
+              {item.addr2}
+            </Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
+      </TouchableOpacity>
+    );
+  };
 
   if (isLoading)
     return (
@@ -89,16 +93,35 @@ const ItemList = () => {
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
+
+  const items =
+    data?.pages
+      .flatMap(page => page.items)
+      .filter(item => item !== undefined) || [];
+
   return (
     <FlatList
-      data={data?.pages.flatMap(page => page.items) || []}
+      data={items}
       renderItem={renderItem}
-      keyExtractor={item => item.contentid}
+      keyExtractor={item => item?.contentid || 'default-key'}
       onEndReached={handleFetchNextPage}
       onEndReachedThreshold={0.5}
       ListFooterComponent={
         isFetchingNextPage ? (
           <ActivityIndicator size="large" color="#0000ff" />
+        ) : null
+      }
+      ListEmptyComponent={
+        items.length === 0 ? (
+          <View
+            style={{
+              width: Dimensions.get('screen').width,
+              height: Dimensions.get('screen').height - iHeight * 300,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text>검색 결과가 없습니다</Text>
+          </View>
         ) : null
       }
     />

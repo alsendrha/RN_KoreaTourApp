@@ -27,7 +27,8 @@ type IButtonProps = {
     | 'areaList'
     | 'categories'
     | 'bottomCategories'
-    | 'more';
+    | 'more'
+    | 'delete';
 
   onPress?: () => void;
   children?: React.ReactNode;
@@ -64,6 +65,7 @@ const IButton = ({
     bottomCategories: styles.bottomCategories,
     more: styles.viewAll,
     item: styles.itemContainer,
+    delete: styles.delete,
   };
 
   return (
@@ -143,4 +145,5 @@ const styles = StyleSheet.create({
   },
   viewAll: {},
   itemContainer: {},
+  delete: {},
 });

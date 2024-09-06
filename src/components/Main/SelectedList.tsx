@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Dimensions,
   FlatList,
   Image,
   StyleSheet,
@@ -27,6 +28,8 @@ const SelectedList = () => {
     refetch();
   }, [areaSelected, contentsSelected]);
 
+  const getData = data;
+
   return (
     <View style={styles.container}>
       <View style={styles.mainTextContainer}>
@@ -53,47 +56,65 @@ const SelectedList = () => {
           </View>
         ) : (
           <FlatList
-            data={data}
+            data={getData || []}
             contentContainerStyle={{height: iHeight * 245}}
             keyExtractor={item => item.contentid}
             horizontal
             showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => (
-              <IButton
-                buttonStyle="item"
-                onPress={() =>
-                  navigation.navigate('detail', {
-                    id: item.contentid,
-                    contentType: item.contenttypeid,
-                  })
-                }>
-                <View style={styles.itemCard}>
-                  <Image
-                    source={
-                      item.firstimage
-                        ? {uri: item.firstimage}
-                        : require('../../assets/images/no_image.png')
-                    }
-                    style={styles.itemImg}
-                    alt="아이템 이미지"
-                  />
-                  <View style={styles.cardTextContainer}>
-                    <Text numberOfLines={1} style={{fontWeight: 'bold'}}>
-                      {item.title}
-                    </Text>
+            renderItem={({item}) => {
+              if (!item) return null;
+              return (
+                <IButton
+                  buttonStyle="item"
+                  onPress={() =>
+                    navigation.navigate('detail', {
+                      id: item.contentid,
+                      contentType: item.contenttypeid,
+                    })
+                  }>
+                  <View style={styles.itemCard}>
+                    <Image
+                      source={
+                        item.firstimage
+                          ? {uri: item.firstimage}
+                          : require('../../assets/images/no_image.png')
+                      }
+                      style={styles.itemImg}
+                      alt="아이템 이미지"
+                    />
+                    <View style={styles.cardTextContainer}>
+                      <Text numberOfLines={1} style={{fontWeight: 'bold'}}>
+                        {item.title}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              </IButton>
-            )}
+                </IButton>
+              );
+            }}
             ListFooterComponent={
-              <IButton
-                buttonStyle="more"
-                onPress={() => navigation.navigate('list')}>
-                <View style={styles.lastCard}>
-                  <Icon name="arrow-forward-circle-outline" size={32} />
-                  <Text>more</Text>
+              getData?.length !== 0 ? (
+                <IButton
+                  buttonStyle="more"
+                  onPress={() => navigation.navigate('list')}>
+                  <View style={styles.lastCard}>
+                    <Icon name="arrow-forward-circle-outline" size={32} />
+                    <Text>more</Text>
+                  </View>
+                </IButton>
+              ) : null
+            }
+            ListEmptyComponent={
+              getData?.length === 0 ? (
+                <View
+                  style={{
+                    flex: 1,
+                    width: Dimensions.get('screen').width - 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text>검색 결과가 없습니다</Text>
                 </View>
-              </IButton>
+              ) : null
             }
           />
         )}

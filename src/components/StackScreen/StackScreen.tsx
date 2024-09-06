@@ -10,8 +10,8 @@ import Detail from '../../screen/Detail';
 import {useAreaSelected, useContentsSelected} from '../../store/store';
 const StackScreen = () => {
   const Stack = createNativeStackNavigator();
-  const {areaSelected} = useAreaSelected();
-  const {contentTitle} = useContentsSelected();
+  const {areaSelected, setAreaSelected} = useAreaSelected();
+  const {contentTitle, setContentsSelected} = useContentsSelected();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -23,13 +23,19 @@ const StackScreen = () => {
         component={List}
         options={{
           headerShown: true,
-          title: `${areaSelected} ${contentTitle}`,
+          title: `${areaSelected} (${contentTitle})`,
           headerTitleAlign: 'center',
           headerShadowVisible: false,
           headerLeft() {
             const navigation = useNavigation();
             return (
-              <IButton buttonStyle="back" onPress={() => navigation.goBack()}>
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  setAreaSelected('서울');
+                  setContentsSelected(12, '관광지');
+                  navigation.goBack();
+                }}>
                 <Icon name="chevron-back-outline" size={24} />
               </IButton>
             );
