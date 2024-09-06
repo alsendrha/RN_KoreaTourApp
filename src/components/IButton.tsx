@@ -1,8 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useRef} from 'react';
-import BottomSheet from '@gorhom/bottom-sheet';
+import React from 'react';
 import {useAreaSelected, useBottomSheetRef} from '../store/store';
-import {colors, iHeight, iWidth} from '../../globalStyle';
+import {iHeight, iWidth} from '../../globalStyle';
 
 type IButtonProps = {
   title?: string;
@@ -27,6 +26,7 @@ type IButtonProps = {
     | 'area'
     | 'areaList'
     | 'categories'
+    | 'bottomCategories'
     | 'more';
 
   onPress?: () => void;
@@ -45,7 +45,6 @@ const IButton = ({
   const {bottomSheetRef} = useBottomSheetRef();
 
   const openBottomSheet = () => {
-    console.log('클릭되는거야?', bottomSheetRef.current);
     bottomSheetRef.current?.expand();
   };
 
@@ -62,6 +61,7 @@ const IButton = ({
       },
     ],
     categories: [styles.categoriesMenu],
+    bottomCategories: styles.bottomCategories,
     more: styles.viewAll,
     item: styles.itemContainer,
   };
@@ -107,23 +107,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  bottomCategories: {
+    paddingVertical: 5,
+    width: iWidth * 75,
+    height: iHeight * 75,
+    // borderWidth: 0.5,
+    borderRadius: 10,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
   backButton: {},
 
   menuBox: {
-    // position: 'relative',
     width: iWidth * 25,
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'red',
     height: iHeight * 25,
-    // backgroundColor: colors.white,
-    // elevation: 2,
-    // shadowRadius: 8,
-    // shadowOffset: {width: 0, height: 2},
-    // borderRadius: 8,
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
   menuContainer: {
     display: 'flex',

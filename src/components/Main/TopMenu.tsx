@@ -1,13 +1,10 @@
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {useAreaSelected, useContentsSelected} from '../../store/store';
-import {areaList, contentList} from '../../data/listData';
-import IButton from '../IButton';
 import {colors, iHeight, iWidth} from '../../../globalStyle';
+import AreaList from './AreaList';
+import Categories from './Categories';
 
 const TopMenu = () => {
-  const {areaSelected, setAreaSelected} = useAreaSelected();
-  const {contentsSelected, setContentsSelected} = useContentsSelected();
   return (
     <View style={styles.menuContainer}>
       <View style={{alignItems: 'center'}}>
@@ -16,56 +13,9 @@ const TopMenu = () => {
             어디로 가볼까요?
           </Text>
         </View>
-        <View style={styles.areaListContainer}>
-          <FlatList
-            contentContainerStyle={{alignItems: 'center'}}
-            showsHorizontalScrollIndicator={false}
-            data={areaList.map(item => item.name)}
-            renderItem={({item}) => (
-              <IButton
-                title={item}
-                buttonStyle="areaList"
-                titleWeight={item === areaSelected ? 'bold' : 'normal'}
-                onPress={() => setAreaSelected(item)}
-              />
-            )}
-            keyExtractor={item => item.toString()}
-            horizontal
-          />
-        </View>
+        <AreaList />
       </View>
-      <View>
-        <View style={styles.titleContainer}>
-          <Text style={{fontWeight: 'bold'}}>Categories</Text>
-        </View>
-        <View style={styles.contentListContainer}>
-          {contentList.map(item => (
-            <View key={item.id} style={styles.itemCard}>
-              <IButton
-                buttonStyle="categories"
-                onPress={() => setContentsSelected(item.number, item.name)}>
-                <Image
-                  source={item.img}
-                  style={{width: iWidth * 40, height: iHeight * 40}}
-                  alt="카테고리"
-                />
-                <Text
-                  style={[
-                    styles.itemTitle,
-                    {
-                      color:
-                        item.number === contentsSelected ? '#4a7bed' : '#777',
-                      fontWeight:
-                        item.number === contentsSelected ? 'bold' : 'normal',
-                    },
-                  ]}>
-                  {item.name}
-                </Text>
-              </IButton>
-            </View>
-          ))}
-        </View>
-      </View>
+      <Categories />
     </View>
   );
 };
@@ -84,33 +34,5 @@ const styles = StyleSheet.create({
 
   titleContainer: {
     marginVertical: 10,
-  },
-
-  areaListContainer: {
-    marginTop: 10,
-    width: '100%',
-    height: iHeight * 45,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ededed',
-    borderRadius: 50,
-    paddingHorizontal: 3,
-    overflow: 'hidden',
-  },
-
-  contentListContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-
-  itemCard: {
-    alignItems: 'center',
-    marginVertical: 5,
-  },
-
-  itemTitle: {
-    fontSize: 12,
-    marginTop: 3,
   },
 });

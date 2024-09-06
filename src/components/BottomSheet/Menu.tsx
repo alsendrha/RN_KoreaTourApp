@@ -1,14 +1,12 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import IButton from '../IButton';
-import {iHeight, iWidth} from '../../../globalStyle';
+import {colors, iHeight, iWidth} from '../../../globalStyle';
 import {useBottomSheetRef} from '../../store/store';
 import Icon from 'react-native-vector-icons/Ionicons';
-type MenuProps = {
-  setMenuList: React.Dispatch<React.SetStateAction<string>>;
-};
+import AreaList from '../Main/AreaList';
+import Categories from '../Main/Categories';
 
-const Menu = ({setMenuList}: MenuProps) => {
+const Menu = () => {
   const {bottomSheetRef} = useBottomSheetRef();
   return (
     <View>
@@ -17,7 +15,6 @@ const Menu = ({setMenuList}: MenuProps) => {
         <View style={styles.closeButtonContainer}>
           <TouchableOpacity
             onPress={() => {
-              setMenuList('menu');
               bottomSheetRef.current?.close();
             }}>
             <Icon name="close-outline" size={24} />
@@ -25,19 +22,16 @@ const Menu = ({setMenuList}: MenuProps) => {
         </View>
       </View>
       <View style={styles.mainContent}>
-        <View>
-          <Text>지역</Text>
+        <View style={styles.contentTitleContainer}>
+          <Text style={styles.areaTitle}>지역 선택</Text>
         </View>
-        <IButton
-          title="지역"
-          buttonStyle="bottomSheetMenu"
-          onPress={() => setMenuList('area')}
-        />
-        <IButton
-          title="컨텐츠"
-          buttonStyle="bottomSheetMenu"
-          onPress={() => setMenuList('contents')}
-        />
+        <AreaList />
+        <View style={styles.contentTitleContainer}>
+          <Text style={styles.areaTitle}>카테고리 선택</Text>
+        </View>
+        <View>
+          <Categories modal={'modal'} />
+        </View>
       </View>
     </View>
   );
@@ -58,7 +52,18 @@ const styles = StyleSheet.create({
 
   mainContent: {
     height: '100%',
-    backgroundColor: 'red',
+    marginTop: 5,
+    borderTopWidth: 0.5,
+    borderColor: colors.darkGray,
+  },
+
+  contentTitleContainer: {
+    marginTop: 10,
+  },
+
+  areaTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 
   closeButtonContainer: {
@@ -67,6 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   menuContainer: {
     display: 'flex',
     width: iWidth * 90,
