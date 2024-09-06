@@ -42,12 +42,11 @@ const IButton = ({
   onPress,
 }: IButtonProps) => {
   const {areaSelected} = useAreaSelected();
-  const {setBottomSheetRef} = useBottomSheetRef();
-  const bottomRef = useRef<BottomSheet>(null);
+  const {bottomSheetRef} = useBottomSheetRef();
 
   const openBottomSheet = () => {
-    setBottomSheetRef(bottomRef);
-    bottomRef.current?.expand();
+    console.log('클릭되는거야?', bottomSheetRef.current);
+    bottomSheetRef.current?.expand();
   };
 
   const buttonStyleList = {
@@ -108,22 +107,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  backButton: {
-    marginRight: 10,
-  },
+  backButton: {},
 
   menuBox: {
-    position: 'relative',
-    width: iWidth * 90,
-    height: iHeight * 30,
-    backgroundColor: colors.white,
-    elevation: 2,
-    shadowRadius: 8,
-    shadowOffset: {width: 0, height: 2},
-    borderRadius: 8,
-    flex: 1,
-    justifyContent: 'center',
+    // position: 'relative',
+    width: iWidth * 25,
     alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: 'red',
+    height: iHeight * 25,
+    // backgroundColor: colors.white,
+    // elevation: 2,
+    // shadowRadius: 8,
+    // shadowOffset: {width: 0, height: 2},
+    // borderRadius: 8,
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   menuContainer: {
     display: 'flex',

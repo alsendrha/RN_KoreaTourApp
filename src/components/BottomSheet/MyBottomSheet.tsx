@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
@@ -9,12 +9,14 @@ import Area from './Area';
 import Contents from './Contents';
 import Menu from './Menu';
 
+import {iHeight, iWidth} from '../../../globalStyle';
+
 const MyBottomSheet = () => {
   const [menuList, setMenuList] = useState('menu');
   const snapPoints = useMemo(() => {
     switch (menuList) {
       case 'menu':
-        return ['25%'];
+        return ['50%'];
       case 'area':
         return ['40%'];
       case 'contents':
@@ -23,7 +25,8 @@ const MyBottomSheet = () => {
         return ['25%'];
     }
   }, [menuList]);
-  const {bottomSheetRef} = useBottomSheetRef();
+  const {setBottomSheetRef} = useBottomSheetRef();
+  const bottomRef = useRef<BottomSheet>(null);
   const ContentList: any = {
     menu: <Menu setMenuList={setMenuList} />,
     area: <Area setMenuList={setMenuList} />,
@@ -41,24 +44,19 @@ const MyBottomSheet = () => {
     [],
   );
 
+  useEffect(() => {
+    setBottomSheetRef(bottomRef);
+  }, []);
+
   return (
     <BottomSheet
-      ref={bottomSheetRef}
+      ref={bottomRef}
       snapPoints={snapPoints}
       enablePanDownToClose={true}
       backdropComponent={renderBackdrop}
       index={-1}
       style={styles.contentContainer}>
       <BottomSheetView style={styles.bottomSheetView}>
-        <TouchableOpacity
-          onPress={() => {
-            setMenuList('menu');
-            bottomSheetRef.current?.close();
-          }}>
-          <View style={styles.innerContainer}>
-            <Text>close</Text>
-          </View>
-        </TouchableOpacity>
         <View style={styles.contentWrapper}>{ContentList[menuList]}</View>
       </BottomSheetView>
     </BottomSheet>
@@ -70,17 +68,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomSheetView: {
-    paddingRight: 10,
+    paddingHorizontal: 10,
     flex: 1,
     width: '100%',
     height: '100%',
     justifyContent: 'center',
   },
   innerContainer: {
-    padding: 10,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
+
   bottomSheetClose: {
     borderWidth: 1,
   },
