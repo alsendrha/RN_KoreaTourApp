@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     // borderWidth: 0.5,
     borderRadius: 10,
     flexDirection: 'column',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
 
@@ -112,7 +111,6 @@ const styles = StyleSheet.create({
     // borderWidth: 0.5,
     borderRadius: 10,
     flexDirection: 'column',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
 

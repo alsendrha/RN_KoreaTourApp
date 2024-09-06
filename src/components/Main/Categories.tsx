@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
 
   itemTitle: {
     fontSize: 12,
-    marginTop: 3,
+    marginTop: 5,
   },
 });

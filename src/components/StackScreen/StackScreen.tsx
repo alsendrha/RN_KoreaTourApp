@@ -7,8 +7,11 @@ import {useNavigation} from '@react-navigation/native';
 import IButton from '../IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Detail from '../../screen/Detail';
+import {useAreaSelected, useContentsSelected} from '../../store/store';
 const StackScreen = () => {
   const Stack = createNativeStackNavigator();
+  const {areaSelected} = useAreaSelected();
+  const {contentTitle} = useContentsSelected();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -20,7 +23,7 @@ const StackScreen = () => {
         component={List}
         options={{
           headerShown: true,
-          title: '',
+          title: `${areaSelected} ${contentTitle}`,
           headerTitleAlign: 'center',
           headerShadowVisible: false,
           headerLeft() {
@@ -31,7 +34,7 @@ const StackScreen = () => {
               </IButton>
             );
           },
-          headerRight(props) {
+          headerRight() {
             return (
               <IButton buttonStyle="menu">
                 <Icon name="reorder-four-outline" size={28} />
