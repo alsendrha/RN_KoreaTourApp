@@ -3,15 +3,20 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BottomTabScreen from '../MainTabBar/BottomTabScreen';
 import List from '../../screen/List';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
 import IButton from '../IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Detail from '../../screen/Detail';
-import {useAreaSelected, useContentsSelected} from '../../store/store';
+import {
+  useAreaSelected,
+  useBottomSheetRef,
+  useContentsSelected,
+} from '../../store/store';
 const StackScreen = () => {
   const Stack = createNativeStackNavigator();
   const {areaSelected, setAreaSelected} = useAreaSelected();
   const {contentTitle, setContentsSelected} = useContentsSelected();
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -58,8 +63,14 @@ const StackScreen = () => {
           headerShown: true,
           headerLeft() {
             const navigation = useNavigation();
+            const {bottomSheetRef} = useBottomSheetRef();
             return (
-              <IButton buttonStyle="back" onPress={() => navigation.goBack()}>
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  bottomSheetRef.current?.close();
+                  navigation.goBack();
+                }}>
                 <Icon name="chevron-back-outline" size={24} />
               </IButton>
             );

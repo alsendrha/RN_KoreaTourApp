@@ -2,6 +2,11 @@ import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSh
 import {ScrollView} from 'react-native';
 import {create} from 'zustand';
 
+type pageInfo = {
+  pageInfo: string;
+  setPageInfo: (pageName: string) => void;
+};
+
 type BottomSheetRefType = {
   bottomSheetRef: React.RefObject<BottomSheet>;
   setBottomSheetRef: (ref: React.RefObject<BottomSheet>) => void;
@@ -22,6 +27,11 @@ type contentsSelected = {
   contentTitle: string;
   setContentsSelected: (contents: number, title: string) => void;
 };
+
+export const usePageInfo = create<pageInfo>(set => ({
+  pageInfo: '',
+  setPageInfo: pageName => set({pageInfo: pageName}),
+}));
 
 export const useBottomSheetRef = create<BottomSheetRefType>(set => ({
   bottomSheetRef: {current: null},

@@ -13,19 +13,25 @@ import {useGetDetailData, useGetDetailImage} from '../api/toreQuery';
 import MapView, {Marker} from 'react-native-maps';
 import HTMLView from 'react-native-htmlview';
 import {colors, iHeight, iWidth} from '../../globalStyle';
-import Carousel from 'react-native-reanimated-carousel';
+// import Carousel from 'react-native-reanimated-carousel';
+import {usePageInfo} from '../store/store';
+import {useNavigationState} from '@react-navigation/native';
 
-type DetailProps = {
-  route: any;
-};
-
-const Detail = ({route}: DetailProps) => {
+const Detail = ({route}: any) => {
   const {id, contentTypeId} = route.params;
   const {data, isLoading} = useGetDetailData(id, contentTypeId);
   const {data: detailImages = [], isLoading: imagesLoading} =
     useGetDetailImage(id);
   const [imagesIndex, setImagesIndex] = useState(0);
   const {width} = useWindowDimensions();
+  const {setPageInfo} = usePageInfo();
+  const currentRouteName = useNavigationState(state => {
+    const route = state.routes[state.index]; // 현재 활성화된 스크린
+    return route.name; // 활성화된 스크린의 이름 반환
+  });
+  useEffect(() => {
+    setPageInfo(currentRouteName);
+  }, [currentRouteName]);
 
   if (isLoading || imagesLoading)
     return (
@@ -38,7 +44,7 @@ const Detail = ({route}: DetailProps) => {
       {data.map((item: DetailItemType) => (
         <View key={item.contentid}>
           <View style={styles.imgContainer}>
-            <Carousel
+            {/* <Carousel
               data={detailImages.length > 0 ? detailImages : [item.firstimage]}
               width={width}
               onSnapToItem={index => setImagesIndex(index)}
@@ -56,7 +62,7 @@ const Detail = ({route}: DetailProps) => {
                   alt="이미지"
                 />
               )}
-            />
+            /> */}
 
             <View style={styles.dotContainer}>
               {detailImages.map((img: string[], index: number) => (

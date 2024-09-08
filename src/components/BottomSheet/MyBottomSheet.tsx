@@ -1,17 +1,20 @@
 import {View, StyleSheet} from 'react-native';
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
-import {useBottomSheetRef} from '../../store/store';
+import {useBottomSheetRef, usePageInfo} from '../../store/store';
 import Menu from './Menu';
+import Review from './Review';
 
 const MyBottomSheet = () => {
+  const {pageInfo} = usePageInfo();
+  console.log('MyBottomSheet pageInfo', pageInfo);
   const snapPoints = useMemo(() => {
-    return ['48%'];
-  }, []);
+    return pageInfo === 'list' ? ['48%'] : ['10%', '48%'];
+  }, [pageInfo]);
   const {setBottomSheetRef} = useBottomSheetRef();
   const bottomRef = useRef<BottomSheet>(null);
   const renderBackdrop = useCallback(
@@ -30,22 +33,26 @@ const MyBottomSheet = () => {
   }, []);
 
   return (
-    <BottomSheet
-      ref={bottomRef}
-      snapPoints={snapPoints}
-      enablePanDownToClose={true}
-      enableContentPanningGesture={false}
-      backdropComponent={renderBackdrop}
-      index={-1}
-      style={styles.contentContainer}>
-      <BottomSheetView style={styles.bottomSheetView}>
-        <BottomSheetScrollView>
-          <View style={styles.contentWrapper}>
-            <Menu />
-          </View>
-        </BottomSheetScrollView>
-      </BottomSheetView>
-    </BottomSheet>
+    <>
+      {(pageInfo === 'list' || pageInfo === 'detail') && (
+        <BottomSheet
+          ref={bottomRef}
+          snapPoints={snapPoints}
+          enablePanDownToClose={pageInfo === 'list' ? true : false}
+          enableContentPanningGesture={pageInfo === 'list' ? false : true}
+          backdropComponent={pageInfo === 'list' ? renderBackdrop : null}
+          index={pageInfo === 'list' ? -1 : 0}
+          style={styles.contentContainer}>
+          <BottomSheetView style={styles.bottomSheetView}>
+            <BottomSheetScrollView>
+              <View style={styles.contentWrapper}>
+                {pageInfo === 'list' ? <Menu /> : <Review />}
+              </View>
+            </BottomSheetScrollView>
+          </BottomSheetView>
+        </BottomSheet>
+      )}
+    </>
   );
 };
 

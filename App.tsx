@@ -12,7 +12,7 @@ function App() {
       <GestureHandlerRootView style={{flex: 1, backgroundColor: colors.white}}>
         <NavigationContainer>
           <StackScreen />
-          <MyBottomSheet />
+          {/* <MyBottomSheet /> */}
         </NavigationContainer>
       </GestureHandlerRootView>
     </ReactQueryProvider>
