@@ -30,7 +30,12 @@ const Review = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Review</Text>
-      <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+      <View
+        style={{
+          marginTop: 30,
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+        }}>
         {reViewPoint.map((item: ReviewType) => (
           <TouchableOpacity
             key={item.id}
