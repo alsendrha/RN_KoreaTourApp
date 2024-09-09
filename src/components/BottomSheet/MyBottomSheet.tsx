@@ -8,16 +8,16 @@ import BottomSheet, {
 import {useBottomSheetRef, usePageInfo} from '../../store/store';
 import Menu from './Menu';
 import Review from './Review';
+import {colors} from '../../../globalStyle';
 
 const MyBottomSheet = () => {
   const {pageInfo} = usePageInfo();
-  console.log('pageInfo', pageInfo);
   const snapPoints = useMemo(() => {
     switch (pageInfo) {
       case 'list':
         return ['48%'];
       case 'detail':
-        return ['10%', '48%'];
+        return ['10%', '50%', '100%'];
       default:
         return ['50%'];
     }
@@ -39,32 +39,6 @@ const MyBottomSheet = () => {
     setBottomSheetRef(bottomRef);
   }, []);
 
-  useEffect(() => {
-    setBottomSheetRef(bottomRef);
-
-    // 뒤로가기 핸들러 등록
-    const backAction = () => {
-      if (pageInfo === 'list' && bottomRef.current) {
-        bottomRef.current.close(); // BottomSheet 닫기
-        return true; // 뒤로 가기 버튼의 기본 동작 방지
-      }
-      return false; // 기본 뒤로 가기 동작 허용
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-
-    return () => backHandler.remove();
-  }, [pageInfo]);
-
-  useEffect(() => {
-    if (pageInfo === 'list') {
-      bottomRef.current?.close();
-    }
-  }, [pageInfo]);
-
   return (
     <>
       {(pageInfo === 'list' || pageInfo === 'detail') && (
@@ -74,6 +48,9 @@ const MyBottomSheet = () => {
           enablePanDownToClose={pageInfo === 'list' ? true : false}
           enableContentPanningGesture={pageInfo === 'list' ? false : true}
           backdropComponent={pageInfo === 'list' ? renderBackdrop : null}
+          backgroundStyle={{
+            backgroundColor: pageInfo === 'list' ? 'white' : colors.lightGray,
+          }}
           index={pageInfo === 'list' ? -1 : 0}
           style={styles.contentContainer}>
           <BottomSheetView style={styles.bottomSheetView}>
@@ -92,6 +69,7 @@ const MyBottomSheet = () => {
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
+    backgroundColor: 'white',
   },
   bottomSheetView: {
     paddingHorizontal: 10,

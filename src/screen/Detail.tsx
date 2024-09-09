@@ -55,7 +55,7 @@ const Detail = ({route}: any) => {
       </View>
     );
   return (
-    <ScrollView style={styles.bacColor}>
+    <ScrollView style={styles.backColor}>
       {data.map((item: DetailItemType) => (
         <View key={item.contentid}>
           <View style={styles.imgContainer}>
@@ -142,8 +142,9 @@ const Detail = ({route}: any) => {
 export default Detail;
 
 const styles = StyleSheet.create({
-  bacColor: {
+  backColor: {
     backgroundColor: colors.white,
+    marginBottom: 88,
   },
 
   imgContainer: {
