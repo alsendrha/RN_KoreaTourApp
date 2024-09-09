@@ -46,7 +46,6 @@ const IButton = ({
   const {bottomSheetRef} = useBottomSheetRef();
 
   const openBottomSheet = useCallback(() => {
-    console.log('openBottomSheet');
     bottomSheetRef.current?.expand();
   }, []);
 

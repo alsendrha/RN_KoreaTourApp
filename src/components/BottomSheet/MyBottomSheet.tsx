@@ -1,8 +1,7 @@
-import {View, StyleSheet} from 'react-native';
-import React, {useCallback, useEffect, useMemo, useRef} from 'react';
+import {View, StyleSheet, BackHandler} from 'react-native';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import BottomSheet, {
   BottomSheetBackdrop,
-  BottomSheetModal,
   BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
@@ -12,6 +11,7 @@ import Review from './Review';
 
 const MyBottomSheet = () => {
   const {pageInfo} = usePageInfo();
+  console.log('pageInfo', pageInfo);
   const snapPoints = useMemo(() => {
     switch (pageInfo) {
       case 'list':
@@ -38,6 +38,32 @@ const MyBottomSheet = () => {
   useEffect(() => {
     setBottomSheetRef(bottomRef);
   }, []);
+
+  useEffect(() => {
+    setBottomSheetRef(bottomRef);
+
+    // 뒤로가기 핸들러 등록
+    const backAction = () => {
+      if (pageInfo === 'list' && bottomRef.current) {
+        bottomRef.current.close(); // BottomSheet 닫기
+        return true; // 뒤로 가기 버튼의 기본 동작 방지
+      }
+      return false; // 기본 뒤로 가기 동작 허용
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [pageInfo]);
+
+  useEffect(() => {
+    if (pageInfo === 'list') {
+      bottomRef.current?.close();
+    }
+  }, [pageInfo]);
 
   return (
     <>

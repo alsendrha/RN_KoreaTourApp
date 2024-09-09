@@ -63,12 +63,10 @@ const StackScreen = () => {
           headerShown: true,
           headerLeft() {
             const navigation = useNavigation();
-            const {bottomSheetRef} = useBottomSheetRef();
             return (
               <IButton
                 buttonStyle="back"
                 onPress={() => {
-                  bottomSheetRef.current?.close();
                   navigation.goBack();
                 }}>
                 <Icon name="chevron-back-outline" size={24} />
