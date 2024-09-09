@@ -13,7 +13,7 @@ import {useGetDetailData, useGetDetailImage} from '../api/toreQuery';
 import MapView, {Marker} from 'react-native-maps';
 import HTMLView from 'react-native-htmlview';
 import {colors, iHeight, iWidth} from '../../globalStyle';
-// import Carousel from 'react-native-reanimated-carousel';
+import Carousel from 'react-native-reanimated-carousel';
 import {usePageInfo} from '../store/store';
 import {useNavigationState} from '@react-navigation/native';
 
@@ -44,7 +44,7 @@ const Detail = ({route}: any) => {
       {data.map((item: DetailItemType) => (
         <View key={item.contentid}>
           <View style={styles.imgContainer}>
-            {/* <Carousel
+            <Carousel
               data={detailImages.length > 0 ? detailImages : [item.firstimage]}
               width={width}
               onSnapToItem={index => setImagesIndex(index)}
@@ -62,7 +62,7 @@ const Detail = ({route}: any) => {
                   alt="이미지"
                 />
               )}
-            /> */}
+            />
 
             <View style={styles.dotContainer}>
               {detailImages.map((img: string[], index: number) => (

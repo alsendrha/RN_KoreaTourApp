@@ -1,4 +1,5 @@
-import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
+import BottomSheet from '@gorhom/bottom-sheet';
+import {RefObject} from 'react';
 import {ScrollView} from 'react-native';
 import {create} from 'zustand';
 
@@ -8,13 +9,13 @@ type pageInfo = {
 };
 
 type BottomSheetRefType = {
-  bottomSheetRef: React.RefObject<BottomSheet>;
-  setBottomSheetRef: (ref: React.RefObject<BottomSheet>) => void;
+  bottomSheetRef: RefObject<BottomSheet>;
+  setBottomSheetRef: (ref: RefObject<BottomSheet>) => void;
 };
 
 type ScrollRefType = {
-  scrollRef: React.RefObject<ScrollView>;
-  setScrollRef: (ref: React.RefObject<ScrollView>) => void;
+  scrollRef: RefObject<ScrollView>;
+  setScrollRef: (ref: RefObject<ScrollView>) => void;
 };
 
 type areaSelected = {

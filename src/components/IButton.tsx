@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useAreaSelected, useBottomSheetRef} from '../store/store';
 import {iHeight, iWidth} from '../../globalStyle';
 
@@ -45,9 +45,10 @@ const IButton = ({
   const {areaSelected} = useAreaSelected();
   const {bottomSheetRef} = useBottomSheetRef();
 
-  const openBottomSheet = () => {
+  const openBottomSheet = useCallback(() => {
+    console.log('openBottomSheet');
     bottomSheetRef.current?.expand();
-  };
+  }, []);
 
   const buttonStyleList = {
     menu: styles.menuBox,

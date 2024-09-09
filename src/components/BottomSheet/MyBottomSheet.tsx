@@ -2,6 +2,7 @@ import {View, StyleSheet} from 'react-native';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import BottomSheet, {
   BottomSheetBackdrop,
+  BottomSheetModal,
   BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
@@ -11,9 +12,15 @@ import Review from './Review';
 
 const MyBottomSheet = () => {
   const {pageInfo} = usePageInfo();
-  console.log('MyBottomSheet pageInfo', pageInfo);
   const snapPoints = useMemo(() => {
-    return pageInfo === 'list' ? ['48%'] : ['10%', '48%'];
+    switch (pageInfo) {
+      case 'list':
+        return ['48%'];
+      case 'detail':
+        return ['10%', '48%'];
+      default:
+        return ['50%'];
+    }
   }, [pageInfo]);
   const {setBottomSheetRef} = useBottomSheetRef();
   const bottomRef = useRef<BottomSheet>(null);
