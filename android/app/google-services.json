@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "207968821757",
+    "project_id": "koreatureapp",
+    "storage_bucket": "koreatureapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207968821757:android:fb75e5348533514a7db994",
+        "android_client_info": {
+          "package_name": "com.koreatourapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMhauqRHnUsiwFIJZGkBh5VpGmNjJRMmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
