@@ -6,6 +6,7 @@ import {useAreaSelected, usePageInfo} from '../store/store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IButton from '../components/IButton';
 import {useNavigationState} from '@react-navigation/native';
+import IInput from '../components/IInput';
 
 const List = () => {
   const {setAreaSelected} = useAreaSelected();
@@ -22,18 +23,16 @@ const List = () => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInputStyle}
-          placeholder="검색어를 입력해주세요"
+        <IInput
           value={inputText}
-          onChangeText={value => {
-            setInputText(value);
-          }}
-          onSubmitEditing={value => {
-            setAreaSelected(value.nativeEvent.text);
-          }}
+          placeholder="검색어를 입력해주세요"
+          height={iHeight * 40}
+          borderRadius={50}
+          onChangeText={value => setInputText(value)}
+          onSubmitEditing={value => setAreaSelected(value.nativeEvent.text)}
           maxLength={20}
         />
+
         {inputText ? (
           <View style={styles.iconStyle}>
             <IButton buttonStyle="delete" onPress={() => setInputText('')}>
@@ -66,13 +65,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 
-  textInputStyle: {
-    height: iHeight * 40,
-    borderWidth: 0.5,
-    marginHorizontal: 15,
-    paddingHorizontal: 18,
-    borderRadius: 50,
-  },
   iconStyle: {
     position: 'absolute',
     top: '50%',

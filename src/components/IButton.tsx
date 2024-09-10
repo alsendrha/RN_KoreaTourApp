@@ -6,6 +6,7 @@ import {iHeight, iWidth} from '../../globalStyle';
 type IButtonProps = {
   title?: string;
   titleColor?: string;
+  fontSize?: number;
   titleWeight?:
     | 'bold'
     | 'normal'
@@ -22,6 +23,7 @@ type IButtonProps = {
     | 'menu'
     | 'item'
     | 'back'
+    | 'submit'
     | 'bottomSheetMenu'
     | 'area'
     | 'areaList'
@@ -36,6 +38,7 @@ type IButtonProps = {
 
 const IButton = ({
   title,
+  fontSize,
   titleColor,
   titleWeight,
   buttonStyle,
@@ -66,6 +69,7 @@ const IButton = ({
     more: styles.viewAll,
     item: styles.itemContainer,
     delete: styles.delete,
+    submit: styles.submit,
   };
 
   return (
@@ -76,7 +80,12 @@ const IButton = ({
         {children ? (
           children
         ) : (
-          <Text style={{color: titleColor, fontWeight: titleWeight}}>
+          <Text
+            style={{
+              fontSize: fontSize,
+              color: titleColor,
+              fontWeight: titleWeight,
+            }}>
             {title}
           </Text>
         )}
@@ -155,4 +164,12 @@ const styles = StyleSheet.create({
   viewAll: {},
   itemContainer: {},
   delete: {},
+  submit: {
+    width: iWidth * 120,
+    height: iHeight * 40,
+    borderWidth: 0.5,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
