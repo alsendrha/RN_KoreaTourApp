@@ -1,14 +1,24 @@
 import {StyleSheet} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useNavigation} from '@react-navigation/native';
+
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
 import IButton from '../IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Detail from '../../screen/Detail';
-import {useBottomSheetRef} from '../../store/store';
+
 import SignUp from '../../screen/SignUp';
 import SignIn from '../../screen/SignIn';
-const StackScreen = () => {
+import MyPage from '../../screen/MyPage';
+
+type MyPageStackScreenProps = {
+  navigation: NavigationProp<ParamListBase>;
+};
+
+const MyPageScreen = ({navigation}: MyPageStackScreenProps) => {
   const Stack = createNativeStackNavigator();
 
   return (
@@ -16,6 +26,14 @@ const StackScreen = () => {
       screenOptions={{
         headerShown: false,
       }}>
+      <Stack.Screen
+        name="myPage"
+        component={MyPage}
+        options={{
+          headerTitle: '',
+          headerShown: true,
+        }}
+      />
       <Stack.Screen
         name="signUp"
         component={SignUp}
@@ -26,7 +44,6 @@ const StackScreen = () => {
           headerTitleAlign: 'center',
           headerShown: true,
           headerLeft() {
-            const navigation = useNavigation();
             return (
               <IButton
                 buttonStyle="back"
@@ -47,7 +64,6 @@ const StackScreen = () => {
           headerTitle: '',
           headerShown: true,
           headerLeft() {
-            const navigation = useNavigation();
             return (
               <IButton
                 buttonStyle="back"
@@ -64,6 +80,6 @@ const StackScreen = () => {
   );
 };
 
-export default StackScreen;
+export default MyPageScreen;
 
 const styles = StyleSheet.create({});

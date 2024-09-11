@@ -144,7 +144,6 @@ export default Detail;
 const styles = StyleSheet.create({
   backColor: {
     backgroundColor: colors.white,
-    marginBottom: 88,
   },
 
   imgContainer: {
@@ -191,6 +190,7 @@ const styles = StyleSheet.create({
 
   mapContainer: {
     marginTop: iHeight * 10,
+    marginBottom: 88,
   },
 
   mapSize: {

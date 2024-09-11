@@ -19,7 +19,11 @@ import {
   emailCheck,
   nicknameCheck,
 } from '../utils/validation';
-import {useNavigation} from '@react-navigation/native';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
 import CustomIndicator from '../components/CustomIndicator';
 
 const SignUp = () => {
@@ -40,7 +44,7 @@ const SignUp = () => {
     passwordCheck: '',
     nickname: '',
   });
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
   const userSignUp = async () => {
     try {
@@ -84,7 +88,7 @@ const SignUp = () => {
                 nickname: '',
               });
               setCheckEmailAndNickname({email: false, nickname: false});
-              navigation.navigate('SignIn');
+              navigation.navigate('signIn');
             },
           },
         ],
@@ -97,6 +101,13 @@ const SignUp = () => {
       }
       setIsLoading(false);
     }
+  };
+
+  const yoyo = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'signIn'}],
+    });
   };
 
   return (
@@ -223,11 +234,7 @@ const SignUp = () => {
               </View>
             </View>
             <View style={styles.buttonContainer}>
-              <IButton
-                buttonStyle="submit"
-                title="회원가입"
-                onPress={userSignUp}
-              />
+              <IButton buttonStyle="submit" title="회원가입" onPress={yoyo} />
             </View>
           </ScrollView>
         </View>
