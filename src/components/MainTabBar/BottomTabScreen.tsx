@@ -3,7 +3,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Main from '../../screen/Main';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Option from '../../screen/Option';
+import MyPage from '../../screen/MyPage';
 const BottomTabScreen = () => {
   const Tab = createBottomTabNavigator();
   return (
@@ -13,10 +13,12 @@ const BottomTabScreen = () => {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
         headerShown: false,
+        headerShadowVisible: false,
         tabBarStyle: {
           height: 70,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
+          elevation: 0,
         },
       })}>
       <Tab.Screen
@@ -35,14 +37,16 @@ const BottomTabScreen = () => {
         }}
       />
       <Tab.Screen
-        name="option"
-        component={Option}
+        name="myPage"
+        component={MyPage}
         options={{
-          headerShown: true,
+          title: '마이페이지',
+          headerTitleAlign: 'center',
+          // headerShown: true,
           tabBarIcon({focused}) {
             return (
               <Icon
-                name="settings-outline"
+                name="person-outline"
                 size={24}
                 color={focused ? 'blue' : 'black'}
               />

@@ -1,7 +1,7 @@
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {useContentsSelected} from '../../store/store';
-import {contentList} from '../../data/listData';
+import {contentList} from '../../utils/listData';
 import IButton from '../IButton';
 import {iHeight, iWidth} from '../../../globalStyle';
 

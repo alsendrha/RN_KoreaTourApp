@@ -20,6 +20,7 @@ import {
 } from '../../store/store';
 import {TourListType} from '../../types/dataListType';
 import {useNavigation} from '@react-navigation/native';
+import CustomIndicator from '../CustomIndicator';
 
 const ItemList = () => {
   const scrollViewRef = useRef<ScrollView>(null);
@@ -81,50 +82,40 @@ const ItemList = () => {
     );
   };
 
-  if (isLoading)
-    return (
-      <View
-        style={{
-          marginTop: iHeight * -80,
-          height: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-
   const items =
     data?.pages
       .flatMap(page => page.items)
       .filter(item => item !== undefined) || [];
 
   return (
-    <FlatList
-      data={items}
-      renderItem={renderItem}
-      keyExtractor={item => item?.contentid || 'default-key'}
-      onEndReached={handleFetchNextPage}
-      onEndReachedThreshold={0.5}
-      ListFooterComponent={
-        isFetchingNextPage ? (
-          <ActivityIndicator size="large" color="#0000ff" />
-        ) : null
-      }
-      ListEmptyComponent={
-        items.length === 0 ? (
-          <View
-            style={{
-              width: Dimensions.get('screen').width,
-              height: Dimensions.get('screen').height - iHeight * 300,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text>검색 결과가 없습니다</Text>
-          </View>
-        ) : null
-      }
-    />
+    <View>
+      {isLoading && <CustomIndicator marginTop={iHeight * -100} />}
+      <FlatList
+        data={items}
+        renderItem={renderItem}
+        keyExtractor={item => item?.contentid || 'default-key'}
+        onEndReached={handleFetchNextPage}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={
+          isFetchingNextPage ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : null
+        }
+        ListEmptyComponent={
+          items.length === 0 ? (
+            <View
+              style={{
+                width: Dimensions.get('screen').width,
+                height: Dimensions.get('screen').height - iHeight * 300,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text>검색 결과가 없습니다</Text>
+            </View>
+          ) : null
+        }
+      />
+    </View>
   );
 };
 

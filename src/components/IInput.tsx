@@ -7,12 +7,18 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
+import {colors} from '../../globalStyle';
 
 type IInputProps = {
   value: string;
   lengthView?: boolean;
   height?: number;
   placeholder?: string;
+  errorMsg?: boolean;
+  titleEnable?: boolean;
+  fontSize?: number;
+  titleText?: string;
+  errorText?: string;
   multiline?: boolean;
   borderRadius?: number;
   maxLength?: number;
@@ -43,6 +49,11 @@ const IInput = ({
   maxLength = 0,
   height,
   multiline = false,
+  titleEnable = false,
+  titleText,
+  fontSize = 18,
+  errorMsg = false,
+  errorText,
   borderRadius,
   returnKeyType = 'default',
   numberOfLines = 1,
@@ -56,13 +67,19 @@ const IInput = ({
   };
   return (
     <View style={styles.inputContainer}>
+      {titleEnable && (
+        <View style={styles.titleContainer}>
+          <Text style={styles.titleText}>{titleText}</Text>
+        </View>
+      )}
       {lengthView && <Text> {`${textLength}/${maxLength}`}</Text>}
       <TextInput
         style={[
           styles.textInputStyle,
-          {height: height, borderRadius: borderRadius},
+          {height: height, borderRadius: borderRadius, fontSize: fontSize},
         ]}
         placeholder={placeholder}
+        placeholderTextColor={colors.gray}
         value={value}
         onChangeText={handleOnChangeText}
         onSubmitEditing={onSubmitEditing}
@@ -71,6 +88,11 @@ const IInput = ({
         numberOfLines={numberOfLines}
         multiline={multiline}
       />
+      {errorMsg && (
+        <View style={styles.errorTextContainer}>
+          <Text style={styles.errorText}>{errorText}</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -83,11 +105,28 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
 
+  titleContainer: {
+    width: '100%',
+    marginBottom: 2,
+  },
+  titleText: {
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+
   textInputStyle: {
     width: '100%',
     borderWidth: 0.5,
     paddingHorizontal: 18,
     textAlignVertical: 'top',
     fontSize: 18,
+  },
+  errorTextContainer: {
+    marginVertical: 1,
+    width: '100%',
+    justifyContent: 'flex-start',
+  },
+  errorText: {
+    color: colors.error,
   },
 });

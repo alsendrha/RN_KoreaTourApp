@@ -24,6 +24,7 @@ type IButtonProps = {
     | 'item'
     | 'back'
     | 'submit'
+    | 'check'
     | 'bottomSheetMenu'
     | 'area'
     | 'areaList'
@@ -55,6 +56,7 @@ const IButton = ({
   const buttonStyleList = {
     menu: styles.menuBox,
     back: styles.backButton,
+    check: styles.check,
     bottomSheetMenu: styles.menuContainer,
     area: styles.areaBox,
     areaList: [
@@ -134,6 +136,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+  },
+
+  check: {
+    borderWidth: 0.5,
+    paddingHorizontal: 10,
+    height: iHeight * 42,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 4,
   },
 
   menuBox: {

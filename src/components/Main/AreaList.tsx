@@ -1,7 +1,7 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import IButton from '../IButton';
-import {areaList} from '../../data/listData';
+import {areaList} from '../../utils/listData';
 import {useAreaSelected} from '../../store/store';
 import {iHeight} from '../../../globalStyle';
 

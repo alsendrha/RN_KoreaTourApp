@@ -12,6 +12,8 @@ import {
   useBottomSheetRef,
   useContentsSelected,
 } from '../../store/store';
+import SignUp from '../../screen/SignUp';
+import SignIn from '../../screen/SignIn';
 const StackScreen = () => {
   const Stack = createNativeStackNavigator();
   const {areaSelected, setAreaSelected} = useAreaSelected();
@@ -69,6 +71,50 @@ const StackScreen = () => {
                 buttonStyle="back"
                 onPress={() => {
                   bottomSheetRef.current?.close();
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="signUp"
+        component={SignUp}
+        options={{
+          headerTransparent: true,
+          headerShadowVisible: false,
+          headerTitle: '',
+          headerTitleAlign: 'center',
+          headerShown: true,
+          headerLeft() {
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SignIn"
+        component={SignIn}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+          headerShown: true,
+          headerLeft() {
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
                   navigation.goBack();
                 }}>
                 <Icon name="chevron-back-outline" size={24} />

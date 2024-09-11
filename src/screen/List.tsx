@@ -13,8 +13,8 @@ const List = () => {
   const [inputText, setInputText] = useState('');
   const {setPageInfo} = usePageInfo();
   const currentRouteName = useNavigationState(state => {
-    const route = state.routes[state.index]; // 현재 활성화된 스크린
-    return route.name; // 활성화된 스크린의 이름 반환
+    const route = state.routes[state.index];
+    return route.name;
   });
   useEffect(() => {
     setPageInfo(currentRouteName);
@@ -41,7 +41,7 @@ const List = () => {
           </View>
         ) : (
           <View style={styles.iconStyle}>
-            <IButton buttonStyle="delete" onPress={() => setInputText('')}>
+            <IButton buttonStyle="delete">
               <Icon name="search-outline" size={26} />
             </IButton>
           </View>
