@@ -25,15 +25,9 @@ const MyPageScreen = ({navigation}: MyPageStackScreenProps) => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-      }}>
-      <Stack.Screen
-        name="myPage"
-        component={MyPage}
-        options={{
-          headerTitle: '',
-          headerShown: true,
-        }}
-      />
+      }}
+      initialRouteName="myPage">
+      <Stack.Screen name="myPage" component={MyPage} />
       <Stack.Screen
         name="signUp"
         component={SignUp}

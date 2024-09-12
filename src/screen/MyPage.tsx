@@ -1,13 +1,19 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
-import {colors, iHeight, iWidth} from '../../globalStyle';
-import TopUserInfo from '../components/MyPage/TopUserInfo';
+import {View, StyleSheet} from 'react-native';
+import React from 'react';
+import {iHeight, iWidth} from '../../globalStyle';
+import TopComponent from '../components/MyPage/TopComponent';
+import UserInfo from '../components/MyPage/UserInfo';
+import MenuList from '../components/MyPage/MenuList/MenuList';
 
 const MyPage = () => {
   return (
-    <View style={styles.container}>
-      <TopUserInfo />
-      <View style={styles.menuListContainer}></View>
+    <View style={styles.myPageContainer}>
+      <TopComponent />
+      <View style={styles.bottomContainer}></View>
+      <View style={styles.menuContainer}>
+        <UserInfo />
+        <MenuList />
+      </View>
     </View>
   );
 };
@@ -15,22 +21,33 @@ const MyPage = () => {
 export default MyPage;
 
 const styles = StyleSheet.create({
-  container: {
+  myPageContainer: {
+    position: 'relative',
     backgroundColor: 'white',
     width: '100%',
     height: '100%',
   },
 
-  menuListContainer: {
+  bottomContainer: {
     width: '100%',
     height: '100%',
     backgroundColor: 'white',
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
-    elevation: 4,
     shadowOffset: {width: 0, height: -2},
     shadowColor: 'black',
     shadowOpacity: 0.5,
     shadowRadius: 3.5,
+  },
+
+  menuContainer: {
+    position: 'absolute',
+    overflow: 'hidden',
+    height: '77%',
+    left: iWidth * 30,
+    right: iWidth * 30,
+    borderRadius: 20,
+    top: '50%',
+    transform: [{translateY: -350}],
+    elevation: 4,
+    backgroundColor: 'white',
   },
 });

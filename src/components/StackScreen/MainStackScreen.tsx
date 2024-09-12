@@ -16,6 +16,7 @@ import {
   useAreaSelected,
   useBottomSheetRef,
   useContentsSelected,
+  usePageInfo,
 } from '../../store/store';
 import Main from '../../screen/Main';
 
@@ -26,18 +27,16 @@ type MainStackScreenProps = {
 
 const MainStackScreen = ({navigation, route}: MainStackScreenProps) => {
   const Stack = createNativeStackNavigator();
+  const {setPageInfo} = usePageInfo();
   const {areaSelected, setAreaSelected} = useAreaSelected();
   const {contentTitle, setContentsSelected} = useContentsSelected();
-  console.log(route.name);
+  const currentRouteName = useNavigationState(state => {
+    const route = state.routes[state.index];
+    return route.name;
+  });
   useEffect(() => {
-    if (route.name === 'undefined') {
-      navigation.setOptions({
-        tabBarStyle: {
-          display: 'none',
-        },
-      });
-    }
-  }, [route.name]);
+    setPageInfo(currentRouteName);
+  }, [currentRouteName]);
   return (
     <Stack.Navigator
       screenOptions={{

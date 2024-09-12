@@ -75,3 +75,31 @@ export const contentList = [
     img: require('../assets/categories/category08.png'),
   },
 ];
+
+export const myPageMenuList = [
+  {
+    id: 1,
+    title: '나의 정보',
+    icon: 'body-outline',
+  },
+  {
+    id: 2,
+    title: '공지사항',
+    icon: 'newspaper-outline',
+  },
+  {
+    id: 3,
+    title: '내 후기글',
+    icon: 'chatbox-outline',
+  },
+  {
+    id: 4,
+    title: '앱정보',
+    icon: 'alert-circle-outline',
+  },
+  {
+    id: 5,
+    title: '로그아웃',
+    icon: 'exit-outline',
+  },
+];

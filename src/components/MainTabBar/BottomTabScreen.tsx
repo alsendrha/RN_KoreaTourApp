@@ -5,10 +5,13 @@ import Main from '../../screen/Main';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MyPage from '../../screen/MyPage';
 import MainStackScreen from '../StackScreen/MainStackScreen';
+import {usePageInfo} from '../../store/store';
+import MyPageScreen from '../StackScreen/MyPageScreen';
 
 const BottomTabScreen = () => {
   const Tab = createBottomTabNavigator();
-
+  const {pageInfo} = usePageInfo();
+  console.log('현재페이지', pageInfo);
   return (
     <Tab.Navigator
       sceneContainerStyle={{backgroundColor: 'White'}}
@@ -27,6 +30,12 @@ const BottomTabScreen = () => {
           bottom: 10,
           height: 70,
           borderRadius: 20,
+          display:
+            pageInfo === 'detail' ||
+            pageInfo === 'signIn' ||
+            pageInfo === 'signUp'
+              ? 'none'
+              : 'flex',
           backgroundColor: 'white',
           elevation: 2,
           shadowOffset: {width: 0, height: -2},
@@ -48,8 +57,8 @@ const BottomTabScreen = () => {
         }}
       />
       <Tab.Screen
-        name="myPage"
-        component={MyPage}
+        name="myPageTab"
+        component={MyPageScreen}
         options={{
           title: '마이페이지',
           headerTitleAlign: 'center',

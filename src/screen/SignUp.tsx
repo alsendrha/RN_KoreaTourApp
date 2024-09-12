@@ -103,13 +103,6 @@ const SignUp = () => {
     }
   };
 
-  const yoyo = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'signIn'}],
-    });
-  };
-
   return (
     <Pressable
       style={[styles.container, {position: 'relative'}]}
@@ -234,7 +227,11 @@ const SignUp = () => {
               </View>
             </View>
             <View style={styles.buttonContainer}>
-              <IButton buttonStyle="submit" title="회원가입" onPress={yoyo} />
+              <IButton
+                buttonStyle="submit"
+                title="회원가입"
+                onPress={userSignUp}
+              />
             </View>
           </ScrollView>
         </View>
