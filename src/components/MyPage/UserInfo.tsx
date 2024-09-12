@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {TextInput} from 'react-native-gesture-handler';
 
 const UserInfo = () => {
-  const [isChangeNickname, setIsChangeNickname] = useState(false);
   const [nickname, setNickname] = useState('닉네임');
   return (
     <View style={styles.userInfo}>
@@ -17,28 +16,7 @@ const UserInfo = () => {
         </View>
       </View>
       <View style={styles.userTextContainer}>
-        {isChangeNickname ? (
-          <TextInput
-            style={{
-              width: 100,
-              height: iHeight * 35,
-              borderRadius: 50,
-              borderWidth: 1,
-            }}
-            value={nickname}
-            onChangeText={text => {
-              setNickname(text);
-            }}
-          />
-        ) : (
-          <Text style={styles.userNickname}>{nickname}님</Text>
-        )}
-        <TouchableOpacity
-          onPress={() => setIsChangeNickname(!isChangeNickname)}>
-          <View style={styles.iconContainer}>
-            <Icon name="brush-outline" size={15} color="black" />
-          </View>
-        </TouchableOpacity>
+        <Text style={styles.userNickname}>{nickname}님</Text>
       </View>
     </View>
   );
@@ -81,14 +59,5 @@ const styles = StyleSheet.create({
 
   userNickname: {
     fontSize: 25,
-  },
-
-  iconContainer: {
-    width: iWidth * 20,
-    height: iWidth * 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: iWidth * 2,
-    borderRadius: 50,
   },
 });

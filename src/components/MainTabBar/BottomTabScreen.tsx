@@ -11,6 +11,7 @@ import MyPageScreen from '../StackScreen/MyPageScreen';
 const BottomTabScreen = () => {
   const Tab = createBottomTabNavigator();
   const {pageInfo} = usePageInfo();
+
   console.log('현재페이지', pageInfo);
   return (
     <Tab.Navigator
@@ -22,6 +23,15 @@ const BottomTabScreen = () => {
         headerShadowVisible: false,
         headerBackgroundContainerStyle: {
           backgroundColor: 'white',
+        },
+        tabBarIcon({focused}) {
+          return (
+            <Icon
+              name="home-outline"
+              size={24}
+              color={focused ? '#8C6A4E' : 'white'}
+            />
+          );
         },
         tabBarStyle: {
           position: 'absolute',
@@ -36,7 +46,7 @@ const BottomTabScreen = () => {
             pageInfo === 'signUp'
               ? 'none'
               : 'flex',
-          backgroundColor: 'white',
+          backgroundColor: '#ded3c1',
           elevation: 2,
           shadowOffset: {width: 0, height: -2},
         },
@@ -50,7 +60,7 @@ const BottomTabScreen = () => {
               <Icon
                 name="home-outline"
                 size={24}
-                color={focused ? 'blue' : 'black'}
+                color={focused ? '#8C6A4E' : 'white'}
               />
             );
           },
@@ -67,7 +77,7 @@ const BottomTabScreen = () => {
               <Icon
                 name="person-outline"
                 size={24}
-                color={focused ? 'blue' : 'black'}
+                color={focused ? '#8C6A4E' : 'white'}
               />
             );
           },

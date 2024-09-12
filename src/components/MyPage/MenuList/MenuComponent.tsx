@@ -12,7 +12,7 @@ type MenuComponentProps = {
 const MenuComponent = ({menu}: MenuComponentProps) => {
   return (
     <View style={styles.menuContainer}>
-      <Icon name={menu.icon} size={24} color="black" />
+      <Icon name={menu.icon} size={24} color="#8C6A4E" />
       <Text style={styles.menuTitleText}>{menu.title}</Text>
     </View>
   );

@@ -30,6 +30,7 @@ const MainStackScreen = ({navigation, route}: MainStackScreenProps) => {
   const {setPageInfo} = usePageInfo();
   const {areaSelected, setAreaSelected} = useAreaSelected();
   const {contentTitle, setContentsSelected} = useContentsSelected();
+
   const currentRouteName = useNavigationState(state => {
     const route = state.routes[state.index];
     return route.name;
@@ -37,6 +38,7 @@ const MainStackScreen = ({navigation, route}: MainStackScreenProps) => {
   useEffect(() => {
     setPageInfo(currentRouteName);
   }, [currentRouteName]);
+
   return (
     <Stack.Navigator
       screenOptions={{
