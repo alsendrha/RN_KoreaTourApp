@@ -1,14 +1,8 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import BottomTabScreen from '../MainTabBar/BottomTabScreen';
 import List from '../../screen/List';
-import {
-  NavigationProp,
-  ParamListBase,
-  useNavigation,
-  useNavigationState,
-} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import IButton from '../IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Detail from '../../screen/Detail';
@@ -16,28 +10,13 @@ import {
   useAreaSelected,
   useBottomSheetRef,
   useContentsSelected,
-  usePageInfo,
 } from '../../store/store';
 import Main from '../../screen/Main';
 
-type MainStackScreenProps = {
-  navigation: NavigationProp<ParamListBase>;
-  route: any;
-};
-
-const MainStackScreen = ({navigation, route}: MainStackScreenProps) => {
+const MainStackScreen = () => {
   const Stack = createNativeStackNavigator();
-  const {setPageInfo} = usePageInfo();
   const {areaSelected, setAreaSelected} = useAreaSelected();
   const {contentTitle, setContentsSelected} = useContentsSelected();
-
-  const currentRouteName = useNavigationState(state => {
-    const route = state.routes[state.index];
-    return route.name;
-  });
-  useEffect(() => {
-    setPageInfo(currentRouteName);
-  }, [currentRouteName]);
 
   return (
     <Stack.Navigator
@@ -55,6 +34,7 @@ const MainStackScreen = ({navigation, route}: MainStackScreenProps) => {
           headerTitleAlign: 'center',
           headerShadowVisible: false,
           headerLeft() {
+            const navigation = useNavigation();
             return (
               <IButton
                 buttonStyle="back"
@@ -85,6 +65,7 @@ const MainStackScreen = ({navigation, route}: MainStackScreenProps) => {
           headerShown: true,
           headerLeft() {
             const {bottomSheetRef} = useBottomSheetRef();
+            const navigation = useNavigation();
             return (
               <IButton
                 buttonStyle="back"

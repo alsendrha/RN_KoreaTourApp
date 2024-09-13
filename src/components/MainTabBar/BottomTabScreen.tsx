@@ -1,9 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Main from '../../screen/Main';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MyPage from '../../screen/MyPage';
 import MainStackScreen from '../StackScreen/MainStackScreen';
 import {usePageInfo} from '../../store/store';
 import MyPageScreen from '../StackScreen/MyPageScreen';
@@ -13,6 +11,13 @@ const BottomTabScreen = () => {
   const {pageInfo} = usePageInfo();
 
   console.log('현재페이지', pageInfo);
+
+  const getTabBarVisibility = (routeName: string) => {
+    return (
+      pageInfo !== 'detail' && pageInfo !== 'signIn' && pageInfo !== 'signUp'
+    );
+  };
+
   return (
     <Tab.Navigator
       sceneContainerStyle={{backgroundColor: 'White'}}
@@ -24,32 +29,12 @@ const BottomTabScreen = () => {
         headerBackgroundContainerStyle: {
           backgroundColor: 'white',
         },
-        tabBarIcon({focused}) {
-          return (
-            <Icon
-              name="home-outline"
-              size={24}
-              color={focused ? '#8C6A4E' : 'white'}
-            />
-          );
-        },
-        tabBarStyle: {
-          position: 'absolute',
-          left: 16,
-          right: 16,
-          bottom: 10,
-          height: 70,
-          borderRadius: 20,
-          display:
-            pageInfo === 'detail' ||
-            pageInfo === 'signIn' ||
-            pageInfo === 'signUp'
-              ? 'none'
-              : 'flex',
-          backgroundColor: '#ded3c1',
-          elevation: 2,
-          shadowOffset: {width: 0, height: -2},
-        },
+        tabBarStyle: [
+          styles.tabBarStyle,
+          {
+            display: getTabBarVisibility(route.name) ? 'flex' : 'none',
+          },
+        ],
       })}>
       <Tab.Screen
         name="homeTab"
@@ -60,7 +45,7 @@ const BottomTabScreen = () => {
               <Icon
                 name="home-outline"
                 size={24}
-                color={focused ? '#8C6A4E' : 'white'}
+                color={focused ? 'white' : '#1E0A00'}
               />
             );
           },
@@ -70,14 +55,12 @@ const BottomTabScreen = () => {
         name="myPageTab"
         component={MyPageScreen}
         options={{
-          title: '마이페이지',
-          headerTitleAlign: 'center',
           tabBarIcon({focused}) {
             return (
               <Icon
                 name="person-outline"
                 size={24}
-                color={focused ? '#8C6A4E' : 'white'}
+                color={focused ? 'white' : '#1E0A00'}
               />
             );
           },
@@ -89,4 +72,16 @@ const BottomTabScreen = () => {
 
 export default BottomTabScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  tabBarStyle: {
+    position: 'absolute',
+    left: 16,
+    right: 16,
+    bottom: 10,
+    height: 70,
+    borderRadius: 20,
+    backgroundColor: '#E07039',
+    elevation: 2,
+    shadowOffset: {width: 0, height: -2},
+  },
+});

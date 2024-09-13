@@ -9,7 +9,7 @@ import {
   Text,
   Dimensions,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import IInput from '../components/IInput';
 import IButton from '../components/IButton';
 import {createUser, signUp} from '../api/firebase';
@@ -23,8 +23,10 @@ import {
   NavigationProp,
   ParamListBase,
   useNavigation,
+  useNavigationState,
 } from '@react-navigation/native';
 import CustomIndicator from '../components/CustomIndicator';
+import {usePageInfo} from '../store/store';
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -44,11 +46,22 @@ const SignUp = () => {
     passwordCheck: '',
     nickname: '',
   });
+
+  const {setPageInfo} = usePageInfo();
+  const currentRouteName = useNavigationState(state => {
+    const route = state.routes[state.index];
+    return route.name;
+  });
+
+  useEffect(() => {
+    setPageInfo(currentRouteName);
+  }, [currentRouteName]);
+
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
   const userSignUp = async () => {
     try {
-      const check = await duplicationAndNullCheck({
+      const check = duplicationAndNullCheck({
         email: userData.email,
         password: userData.password,
         passwordCheck: userData.passwordCheck,
@@ -162,6 +175,7 @@ const SignUp = () => {
               value={userData.password}
               titleEnable={true}
               titleText="비밀번호"
+              secureTextEntry={true}
               maxLength={20}
               height={iHeight * 40}
               borderRadius={10}
@@ -177,6 +191,7 @@ const SignUp = () => {
               value={userData.passwordCheck}
               titleEnable={true}
               titleText="비밀번호 확인"
+              secureTextEntry={true}
               maxLength={20}
               height={iHeight * 40}
               borderRadius={10}

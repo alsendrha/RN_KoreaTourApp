@@ -1,34 +1,71 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {colors, iHeight, iWidth} from '../../../globalStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {TextInput} from 'react-native-gesture-handler';
-
-const UserInfo = () => {
-  const [nickname, setNickname] = useState('닉네임');
+import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+type UserInfoProps = {
+  userData: FirebaseFirestoreTypes.DocumentData | undefined;
+  userLoading: boolean;
+};
+const UserInfo = ({userData, userLoading}: UserInfoProps) => {
   return (
-    <View style={styles.userInfo}>
-      <View style={styles.userImgContainer}>
-        <View style={styles.userImg}>
-          <View style={styles.imgIconContainer}>
-            <Icon name="camera-outline" size={32} color="black" />
+    <>
+      {userLoading ? (
+        <View style={styles.loadingContainer}>
+          <View style={styles.loadingContainer2}>
+            <ActivityIndicator size="large" />
           </View>
         </View>
-      </View>
-      <View style={styles.userTextContainer}>
-        <Text style={styles.userNickname}>{nickname}님</Text>
-      </View>
-    </View>
+      ) : (
+        <View style={styles.userInfo}>
+          {userData?.profileUrl ? (
+            <View>
+              <Image
+                source={{uri: userData?.profileUrl}}
+                style={styles.userImg}
+                alt="프로필 이미지"
+              />
+            </View>
+          ) : (
+            <View style={styles.userImgContainer}>
+              <View style={styles.userImg}>
+                <View style={styles.imgIconContainer}>
+                  <Icon name="camera-outline" size={32} color="black" />
+                </View>
+              </View>
+            </View>
+          )}
+          <View style={styles.userTextContainer}>
+            <Text style={styles.userNickname} numberOfLines={1}>
+              {userData?.nickname}님
+            </Text>
+          </View>
+        </View>
+      )}
+    </>
   );
 };
 
 export default UserInfo;
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    paddingVertical: iHeight * 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    elevation: 4,
+  },
+
+  loadingContainer2: {
+    height: iWidth * 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   userInfo: {
     paddingVertical: iHeight * 30,
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     elevation: 4,
@@ -36,7 +73,7 @@ const styles = StyleSheet.create({
 
   userImgContainer: {
     position: 'relative',
-    marginRight: iWidth * 25,
+    marginLeft: iWidth * 20,
   },
 
   userImg: {
@@ -53,8 +90,7 @@ const styles = StyleSheet.create({
   },
 
   userTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    marginLeft: iWidth * 15,
   },
 
   userNickname: {

@@ -9,7 +9,7 @@ import Categories from '../Main/Categories';
 const Menu = () => {
   const {bottomSheetRef} = useBottomSheetRef();
   return (
-    <View>
+    <View style={{paddingHorizontal: 10}}>
       <View style={styles.topPosition}>
         <Text style={styles.titleText}>Menu</Text>
         <View style={styles.closeButtonContainer}>

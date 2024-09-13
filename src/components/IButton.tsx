@@ -62,7 +62,7 @@ const IButton = ({
     areaList: [
       styles.areaListMenu,
       {
-        backgroundColor: areaSelected === title ? 'white' : '#ded3c1',
+        backgroundColor: areaSelected === title ? 'white' : '#E7966D',
         elevation: areaSelected === title ? 2 : 0,
       },
     ],

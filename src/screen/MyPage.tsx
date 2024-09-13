@@ -1,17 +1,38 @@
 import {View, StyleSheet} from 'react-native';
-import React from 'react';
-import {iHeight, iWidth} from '../../globalStyle';
+import React, {useEffect} from 'react';
+import {iWidth} from '../../globalStyle';
 import TopComponent from '../components/MyPage/TopComponent';
 import UserInfo from '../components/MyPage/UserInfo';
 import MenuList from '../components/MyPage/MenuList/MenuList';
+import UserLogin from '../components/MyPage/UserLogin';
+import {usePageInfo} from '../store/store';
+import {useNavigationState} from '@react-navigation/native';
+import {useGetUSerInfo, useGetUser} from '../api/firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MyPage = () => {
+  const {setPageInfo} = usePageInfo();
+  const {data} = useGetUser();
+  const {data: userData, isLoading: userLoading} = useGetUSerInfo();
+
+  const currentRouteName = useNavigationState(state => {
+    const route = state.routes[state.index];
+    return route.name;
+  });
+
+  useEffect(() => {
+    setPageInfo(currentRouteName);
+  }, [currentRouteName]);
   return (
     <View style={styles.myPageContainer}>
       <TopComponent />
       <View style={styles.bottomContainer}></View>
       <View style={styles.menuContainer}>
-        <UserInfo />
+        {data ? (
+          <UserInfo userData={userData} userLoading={userLoading} />
+        ) : (
+          <UserLogin />
+        )}
         <MenuList />
       </View>
     </View>

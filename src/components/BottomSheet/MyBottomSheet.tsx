@@ -45,6 +45,12 @@ const MyBottomSheet = () => {
         <BottomSheet
           ref={bottomRef}
           snapPoints={snapPoints}
+          handleStyle={{
+            backgroundColor: pageInfo === 'list' ? 'white' : '#ECE0DA',
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            elevation: 0,
+          }}
           enablePanDownToClose={pageInfo === 'list' ? true : false}
           enableContentPanningGesture={pageInfo === 'list' ? false : true}
           backdropComponent={pageInfo === 'list' ? renderBackdrop : undefined}
@@ -73,7 +79,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   bottomSheetView: {
-    paddingHorizontal: 10,
     flex: 1,
     width: '100%',
     height: '100%',

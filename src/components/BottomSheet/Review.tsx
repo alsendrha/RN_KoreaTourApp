@@ -1,88 +1,76 @@
 import {
+  ActivityIndicator,
+  FlatList,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
-import {iHeight} from '../../../globalStyle';
-import IButton from '../IButton';
-import IInput from '../IInput';
+import React, {useEffect} from 'react';
+import {useItemInfo} from '../../store/store';
 
-type ReviewType = {
-  id: number;
-  point: number;
-  clicked: boolean;
-};
+import PointAndInput from './Review/PointAndInput';
+import {getUsers, useGetMyReview, useGetReviews} from '../../api/firebase';
+import {iHeight} from '../../../globalStyle';
 
 const Review = () => {
-  const [reViewPoint, setReViewPoint] = useState<ReviewType[]>([
-    {id: 1, point: 1, clicked: false},
-    {id: 2, point: 2, clicked: false},
-    {id: 3, point: 3, clicked: false},
-    {id: 4, point: 4, clicked: false},
-    {id: 5, point: 5, clicked: false},
-  ]);
+  const {itemId, itemTitle} = useItemInfo();
 
-  const [reviewData, setReviewData] = useState({
-    id: 1,
-    reviewPoint: 0,
-    reviewContent: '',
-  });
+  const {data, refetch} = useGetReviews(itemId);
+  const {data: myReview, isLoading: myLoading} = useGetMyReview(itemId);
+  console.log('myReview', myReview);
 
-  const handlePress = (id: number) => {
-    const clickedPoint = reViewPoint.find(item => item.id === id)?.point || 0;
-    setReviewData({...reviewData, reviewPoint: clickedPoint});
-    setReViewPoint(prev =>
-      prev.map(item => ({
-        ...item,
-        clicked: item.point <= clickedPoint,
-      })),
-    );
+  const getUsersData = async () => {
+    const users = await getUsers();
+    console.log('users', users);
   };
 
-  console.log(reviewData);
+  useEffect(() => {
+    getUsersData();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Review</Text>
-      <View
-        style={{
-          marginTop: 30,
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-        }}>
-        {reViewPoint.map((item: ReviewType) => (
-          <TouchableOpacity
-            key={item.id}
-            activeOpacity={1}
-            onPress={() => handlePress(item.id)}>
-            <Icon
-              name={item.clicked ? 'star' : 'star-outline'}
-              size={40}
-              style={{color: '#ffca42'}}
-            />
-          </TouchableOpacity>
-        ))}
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>Review</Text>
       </View>
-      <View style={styles.inputContainer}>
-        <IInput
-          lengthView={true}
-          maxLength={200}
-          numberOfLines={6}
-          borderRadius={10}
-          multiline={true}
-          value={reviewData.reviewContent}
-          onChangeText={value => {
-            setReviewData({...reviewData, reviewContent: value});
-          }}
-          returnKeyType="done"
-        />
-        <View style={styles.buttonContainer}>
-          <IButton title="입력" fontSize={16} buttonStyle="submit" />
+      <View style={styles.itemTitleContainer}>
+        <Text style={styles.titleText}>{itemTitle}</Text>
+      </View>
+
+      {myLoading ? (
+        <View>
+          <ActivityIndicator />
         </View>
-      </View>
+      ) : (
+        <View>
+          {myReview?.length !== 1 ? (
+            <PointAndInput
+              itemId={itemId}
+              itemTitle={itemTitle}
+              refetch={refetch}
+            />
+          ) : (
+            <View
+              style={{
+                marginTop: iHeight * 20,
+                height: iHeight * 500,
+                borderWidth: 0.5,
+                borderRadius: 10,
+                padding: 10,
+              }}>
+              <FlatList
+                data={data}
+                renderItem={({item}) => (
+                  <View>
+                    <Text>{item.reviewContent}</Text>
+                  </View>
+                )}
+                keyExtractor={(item, index) => item.userId.toString()}
+              />
+            </View>
+          )}
+        </View>
+      )}
     </View>
   );
 };
@@ -90,20 +78,25 @@ const Review = () => {
 export default Review;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    paddingHorizontal: 20,
+  },
+
+  titleContainer: {
+    width: '100%',
+    paddingVertical: 20,
+    flexDirection: 'row',
+
+    // backgroundColor: 'red',
+  },
 
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
   },
 
-  inputContainer: {
-    marginTop: 30,
-  },
-
-  buttonContainer: {
-    marginTop: 20,
-    width: '100%',
+  itemTitleContainer: {
+    marginVertical: 10,
     alignItems: 'center',
   },
 });

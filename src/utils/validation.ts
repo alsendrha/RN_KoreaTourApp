@@ -3,6 +3,7 @@ import {Alert} from 'react-native';
 import {
   DuplicationAndNullCheckType,
   EmailAndNicknameCheck,
+  LoginDuplicationAndNullCheckType,
 } from '../types/validationType';
 
 export const emailCheck = async ({
@@ -69,7 +70,7 @@ export const nicknameCheck = async ({
   }
 };
 
-export const duplicationAndNullCheck = async ({
+export const duplicationAndNullCheck = ({
   email,
   password,
   passwordCheck,
@@ -112,6 +113,31 @@ export const duplicationAndNullCheck = async ({
     return false;
   } else if (!NicknameRegex.test(nickname)) {
     setErrorMsg({...errorMsg, nickname: '특수문자는 사용할 수 없습니다.'});
+    return false;
+  }
+  return true;
+};
+
+export const loginCheck = ({
+  email,
+  password,
+  errorMsg,
+  setErrorMsg,
+}: LoginDuplicationAndNullCheckType) => {
+  const emailRegex =
+    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+  if (email === '') {
+    setErrorMsg({...errorMsg, email: '이메일을 입력해주세요'});
+    return false;
+  } else if (!emailRegex.test(email)) {
+    setErrorMsg({...errorMsg, email: '잘못된 이메일 형식입니다.'});
+    return false;
+  }
+  if (password === '') {
+    setErrorMsg({...errorMsg, password: '비밀번호를 입력해주세요'});
+    return false;
+  } else if (password.length < 6) {
+    setErrorMsg({...errorMsg, password: '비밀번호는 6자리 이상입니다.'});
     return false;
   }
   return true;

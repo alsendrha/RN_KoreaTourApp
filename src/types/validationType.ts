@@ -47,3 +47,18 @@ export type DuplicationAndNullCheckType = {
     }>
   >;
 };
+
+export type LoginDuplicationAndNullCheckType = {
+  email: string;
+  password: string;
+  errorMsg: {
+    email: string;
+    password: string;
+  };
+  setErrorMsg: React.Dispatch<
+    React.SetStateAction<{
+      email: string;
+      password: string;
+    }>
+  >;
+};

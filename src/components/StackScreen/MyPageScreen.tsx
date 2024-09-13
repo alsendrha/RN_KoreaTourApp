@@ -1,24 +1,15 @@
 import {StyleSheet} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-import {
-  NavigationProp,
-  ParamListBase,
-  useNavigation,
-} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import IButton from '../IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-import SignUp from '../../screen/SignUp';
-import SignIn from '../../screen/SignIn';
 import MyPage from '../../screen/MyPage';
+import {usePageInfo} from '../../store/store';
+import SignIn from '../../screen/SignIn';
+import SignUp from '../../screen/SignUp';
 
-type MyPageStackScreenProps = {
-  navigation: NavigationProp<ParamListBase>;
-};
-
-const MyPageScreen = ({navigation}: MyPageStackScreenProps) => {
+const MyPageScreen = () => {
   const Stack = createNativeStackNavigator();
 
   return (
@@ -38,6 +29,7 @@ const MyPageScreen = ({navigation}: MyPageStackScreenProps) => {
           headerTitleAlign: 'center',
           headerShown: true,
           headerLeft() {
+            const navigation = useNavigation();
             return (
               <IButton
                 buttonStyle="back"
@@ -58,6 +50,7 @@ const MyPageScreen = ({navigation}: MyPageStackScreenProps) => {
           headerTitle: '',
           headerShown: true,
           headerLeft() {
+            const navigation = useNavigation();
             return (
               <IButton
                 buttonStyle="back"

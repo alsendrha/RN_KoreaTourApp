@@ -17,6 +17,7 @@ type IInputProps = {
   errorMsg?: boolean;
   titleEnable?: boolean;
   fontSize?: number;
+  secureTextEntry?: boolean;
   titleText?: string;
   errorText?: string;
   multiline?: boolean;
@@ -53,6 +54,7 @@ const IInput = ({
   titleText,
   fontSize = 18,
   errorMsg = false,
+  secureTextEntry = false,
   errorText,
   borderRadius,
   returnKeyType = 'default',
@@ -81,6 +83,7 @@ const IInput = ({
         placeholder={placeholder}
         placeholderTextColor={colors.gray}
         value={value}
+        secureTextEntry={secureTextEntry}
         onChangeText={handleOnChangeText}
         onSubmitEditing={onSubmitEditing}
         returnKeyType={returnKeyType}

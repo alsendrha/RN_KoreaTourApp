@@ -4,7 +4,6 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import MyBottomSheet from './src/components/BottomSheet/MyBottomSheet';
 import ReactQueryProvider from './src/reactQuery/proovider';
 import {colors} from './globalStyle';
-import StackScreen from './src/components/StackScreen/StackScreen';
 import SplashScreen from 'react-native-splash-screen';
 import BottomTabScreen from './src/components/MainTabBar/BottomTabScreen';
 

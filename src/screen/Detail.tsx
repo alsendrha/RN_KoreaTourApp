@@ -15,8 +15,8 @@ import MapView, {Marker} from 'react-native-maps';
 import HTMLView from 'react-native-htmlview';
 import {colors, iHeight, iWidth} from '../../globalStyle';
 import Carousel from 'react-native-reanimated-carousel';
-import {useBottomSheetRef, usePageInfo} from '../store/store';
-import {useFocusEffect, useNavigationState} from '@react-navigation/native';
+import {useBottomSheetRef, useItemInfo, usePageInfo} from '../store/store';
+import {useNavigationState} from '@react-navigation/native';
 
 const Detail = ({route}: any) => {
   const {id, contentTypeId} = route.params;
@@ -27,9 +27,10 @@ const Detail = ({route}: any) => {
   const {width} = useWindowDimensions();
   const {bottomSheetRef} = useBottomSheetRef();
   const {setPageInfo} = usePageInfo();
+  const {setItemId, setItemTitle} = useItemInfo();
   const currentRouteName = useNavigationState(state => {
-    const route = state.routes[state.index]; // 현재 활성화된 스크린
-    return route.name; // 활성화된 스크린의 이름 반환
+    const route = state.routes[state.index];
+    return route.name;
   });
 
   const goBack = () => {
@@ -40,6 +41,12 @@ const Detail = ({route}: any) => {
   useEffect(() => {
     setPageInfo(currentRouteName);
   }, [currentRouteName]);
+
+  useEffect(() => {
+    if (isLoading) return;
+    setItemId(id);
+    setItemTitle(data[0].title);
+  }, [isLoading]);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', goBack);

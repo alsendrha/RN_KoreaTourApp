@@ -18,7 +18,7 @@ const AreaList = () => {
           <IButton
             title={item}
             buttonStyle="areaList"
-            titleColor={item === areaSelected ? '#8C6A4E' : 'white'}
+            titleColor={item === areaSelected ? '#1E0A00' : 'white'}
             titleWeight={item === areaSelected ? 'bold' : 'normal'}
             onPress={() => setAreaSelected(item)}
           />
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     height: iHeight * 45,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ded3c1',
+    backgroundColor: '#E7966D',
     borderRadius: 50,
     paddingHorizontal: 3,
     overflow: 'hidden',
