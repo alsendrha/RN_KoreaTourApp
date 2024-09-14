@@ -82,14 +82,14 @@ export const useSignOut = () => {
 
 export const useGetUSerInfo = () => {
   const queryFn = async () => {
-    const token = await AsyncStorage.getItem('userId');
-    if (!token) {
+    const userId = await AsyncStorage.getItem('userId');
+    if (!userId) {
       throw new Error('No userId found');
     }
 
     const res = await fireStore()
       .collection('users')
-      .where('id', '==', token)
+      .where('id', '==', userId)
       .get();
     const data = res.docs.map(doc => doc.data());
     console.log('data', data);
@@ -115,8 +115,8 @@ export const createUser = ({
   });
 };
 
-export const getUsers = () => {
-  return userCollection.get().then(res => res.docs.map(doc => doc.data()));
+export const getUsers = (id: string) => {
+  return userCollection.where('id', '==', id).get();
 };
 
 export const createReview = ({
