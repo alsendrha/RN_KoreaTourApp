@@ -191,6 +191,6 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 10,
     backgroundColor: '#E7966D',
-    elevation: 5,
+    elevation: 2,
   },
 });

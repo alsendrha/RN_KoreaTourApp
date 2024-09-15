@@ -67,7 +67,7 @@ const TotalScore = ({data}: TotalScoreProps) => {
 
   return (
     <View style={styles.pointContainer}>
-      {data && <Text style={styles.pointText}>{averagePoint}</Text>}
+      {data && <Text style={styles.pointText}>{averagePoint.toFixed(1)}</Text>}
       <View style={styles.starContainer}>{renderStars()}</View>
     </View>
   );
