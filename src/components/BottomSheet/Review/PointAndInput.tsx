@@ -10,9 +10,11 @@ import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IInput from '../../IInput';
 import IButton from '../../IButton';
-import {createReview, useGetUSerInfo} from '../../../api/firebase';
-import {useItemInfo} from '../../../store/store';
-import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import {
+  createReview,
+  useGetReviews,
+  useGetUSerInfo,
+} from '../../../api/firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   NavigationProp,
@@ -28,11 +30,11 @@ type ReviewType = {
 type PointAndInputProps = {
   itemId: string;
   itemTitle: string;
-  refetch: () => void;
 };
 
-const PointAndInput = ({itemId, itemTitle, refetch}: PointAndInputProps) => {
+const PointAndInput = ({itemId, itemTitle}: PointAndInputProps) => {
   const [isDataLoading, setIsDataLoading] = useState(false);
+  const {refetch} = useGetReviews(itemId);
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const [reViewPoint, setReViewPoint] = useState<ReviewType[]>([
     {id: 1, point: 1, clicked: false},
@@ -107,6 +109,7 @@ const PointAndInput = ({itemId, itemTitle, refetch}: PointAndInputProps) => {
                 clicked: false,
               })),
             );
+            navigation.goBack();
           },
         },
       ]);
@@ -114,8 +117,6 @@ const PointAndInput = ({itemId, itemTitle, refetch}: PointAndInputProps) => {
       console.log('error', error);
     }
   };
-
-  console.log('reviewData', reviewData);
 
   return (
     <>

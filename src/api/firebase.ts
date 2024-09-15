@@ -92,7 +92,6 @@ export const useGetUSerInfo = () => {
       .where('id', '==', userId)
       .get();
     const data = res.docs.map(doc => doc.data());
-    console.log('data', data);
     return data[0];
   };
   return useQuery({
@@ -153,7 +152,6 @@ export const useGetReviews = (itemId: string) => {
       .collection('review')
       .get();
     const data = res.docs.map(doc => doc.data());
-    console.log('data', data);
     return data.length > 0 ? data : [];
   };
   return useQuery({
@@ -176,12 +174,11 @@ export const useGetMyReview = (itemId: string) => {
       .get();
 
     const data = res.docs.map(doc => doc.data());
-    console.log('data', data);
     return data.length > 0 ? data : [];
   };
 
   return useQuery({
-    queryKey: [`myReview`, itemId],
+    queryKey: [`myReview${itemId}`],
     queryFn,
     enabled: !!itemId,
   });

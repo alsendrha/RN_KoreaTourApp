@@ -61,6 +61,7 @@ const Detail = ({route}: any) => {
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
+
   return (
     <ScrollView style={styles.backColor}>
       {data.map((item: DetailItemType) => (

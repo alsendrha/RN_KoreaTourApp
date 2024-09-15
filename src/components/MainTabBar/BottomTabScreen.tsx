@@ -12,9 +12,12 @@ const BottomTabScreen = () => {
 
   console.log('현재페이지', pageInfo);
 
-  const getTabBarVisibility = (routeName: string) => {
+  const getTabBarVisibility = () => {
     return (
-      pageInfo !== 'detail' && pageInfo !== 'signIn' && pageInfo !== 'signUp'
+      pageInfo !== 'detail' &&
+      pageInfo !== 'signIn' &&
+      pageInfo !== 'signUp' &&
+      pageInfo !== 'reviewInsert'
     );
   };
 
@@ -32,7 +35,7 @@ const BottomTabScreen = () => {
         tabBarStyle: [
           styles.tabBarStyle,
           {
-            display: getTabBarVisibility(route.name) ? 'flex' : 'none',
+            display: getTabBarVisibility() ? 'flex' : 'none',
           },
         ],
       })}>

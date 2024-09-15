@@ -12,6 +12,7 @@ import {
   useContentsSelected,
 } from '../../store/store';
 import Main from '../../screen/Main';
+import ReviewInsert from '../../screen/ReviewInsert';
 
 const MainStackScreen = () => {
   const Stack = createNativeStackNavigator();
@@ -71,6 +72,28 @@ const MainStackScreen = () => {
                 buttonStyle="back"
                 onPress={() => {
                   bottomSheetRef.current?.close();
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="reviewInsert"
+        component={ReviewInsert}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+          headerShown: true,
+          headerLeft() {
+            const {bottomSheetRef} = useBottomSheetRef();
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
                   navigation.goBack();
                 }}>
                 <Icon name="chevron-back-outline" size={24} />

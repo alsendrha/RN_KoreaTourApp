@@ -31,6 +31,7 @@ type IButtonProps = {
     | 'categories'
     | 'bottomCategories'
     | 'more'
+    | 'review'
     | 'delete';
 
   onPress?: () => void;
@@ -69,6 +70,7 @@ const IButton = ({
     categories: [styles.categoriesMenu],
     bottomCategories: styles.bottomCategories,
     more: styles.viewAll,
+    review: styles.reviewButton,
     item: styles.itemContainer,
     delete: styles.delete,
     submit: styles.submit,
@@ -183,5 +185,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  reviewButton: {
+    padding: 5,
+    borderRadius: 10,
+    backgroundColor: '#E7966D',
+    elevation: 5,
   },
 });

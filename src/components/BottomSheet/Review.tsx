@@ -11,75 +11,60 @@ import {useItemInfo} from '../../store/store';
 import PointAndInput from './Review/PointAndInput';
 import {getUsers, useGetMyReview, useGetReviews} from '../../api/firebase';
 import {iHeight} from '../../../globalStyle';
+import ReviewList from './Review/ReviewList';
+import IButton from '../IButton';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import TotalReviewPoint from './Review/TotalReview/TotalReviewPoint';
 
 const Review = () => {
   const {itemId, itemTitle} = useItemInfo();
-  const {data, refetch} = useGetReviews(itemId);
+  const {data} = useGetReviews(itemId);
   const {data: myReview, isLoading: myLoading} = useGetMyReview(itemId);
   const [dataInfo, setDataInfo] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
   useEffect(() => {
     if (!data) return;
     const fetchDataAndUserInfo = async () => {
-      setLoading(true); // 로딩 시작
+      setLoading(true);
       const tempDataInfo: any[] = [];
       for (const item of data) {
         const res = await getUsers(item.userId);
-        const userData = res.docs.map(doc => doc.data())[0]; // 유저 데이터 가져오기
-        tempDataInfo.push({...item, userData}); // 게시물과 유저 데이터 결합
+        const userData = res.docs.map(doc => doc.data())[0];
+        tempDataInfo.push({...item, userData});
       }
-
-      setDataInfo(tempDataInfo); // 상태 업데이트
-      setLoading(false); // 로딩 끝
+      setDataInfo(tempDataInfo);
+      setLoading(false);
     };
 
     fetchDataAndUserInfo();
   }, [data]);
 
+  console.log('myReview', !myReview?.length);
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Review</Text>
-      </View>
-      <View style={styles.itemTitleContainer}>
-        <Text style={styles.titleText}>{itemTitle}</Text>
-      </View>
-
-      <View>
-        <PointAndInput
-          itemId={itemId}
-          itemTitle={itemTitle}
-          refetch={refetch}
-        />
-
-        {loading ? (
-          <View>
-            <ActivityIndicator size="large" color="#0000ff" />
-          </View>
-        ) : (
-          <View
-            style={{
-              marginTop: iHeight * 20,
-              height: iHeight * 350,
-              borderWidth: 0.5,
-              borderRadius: 10,
-              padding: 10,
-            }}>
-            {dataInfo.map((data: any) => {
-              return (
-                <View key={data.userId}>
-                  <Text>{data.userData.nickname}</Text>
-                  {data.point01 !== 0 && <Text>{data.point01}</Text>}
-                  {data.point02 !== 0 && <Text>{data.point01}</Text>}
-                  {data.point03 !== 0 && <Text>{data.point01}</Text>}
-                  {data.point04 !== 0 && <Text>{data.point01}</Text>}
-                  {data.point05 !== 0 && <Text>{data.point01}</Text>}
-                </View>
-              );
-            })}
-          </View>
+        {!myReview?.length && (
+          <IButton
+            buttonStyle="review"
+            titleColor="white"
+            title="리뷰 작성하기"
+            onPress={() => {
+              navigation.navigate('reviewInsert');
+            }}
+          />
         )}
+      </View>
+      {data && <TotalReviewPoint data={data} />}
+      <View style={styles.reviewListContainer}>
+        <ReviewList dataInfo={dataInfo} loading={loading} />
       </View>
     </View>
   );
@@ -96,8 +81,8 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingVertical: 20,
     flexDirection: 'row',
-
-    // backgroundColor: 'red',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   titleText: {
@@ -105,8 +90,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  itemTitleContainer: {
-    marginVertical: 10,
-    alignItems: 'center',
+  reviewListContainer: {
+    marginTop: iHeight * 15,
   },
 });

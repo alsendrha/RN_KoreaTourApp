@@ -60,7 +60,7 @@ const MyBottomSheet = () => {
           index={pageInfo === 'list' ? -1 : 0}
           style={styles.contentContainer}>
           <BottomSheetView style={styles.bottomSheetView}>
-            <BottomSheetScrollView>
+            <BottomSheetScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.contentWrapper}>
                 {pageInfo === 'list' ? <Menu /> : <Review />}
               </View>
