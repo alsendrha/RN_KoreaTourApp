@@ -45,8 +45,6 @@ const Review = () => {
     fetchDataAndUserInfo();
   }, [data]);
 
-  console.log('myReview', !myReview?.length);
-
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
