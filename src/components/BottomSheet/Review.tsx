@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useItemInfo} from '../../store/store';
+import {useItemInfo, useRefetchStore} from '../../store/store';
 import {getUsers, useGetMyReview, useGetReviews} from '../../api/firebase';
 import {iHeight} from '../../../globalStyle';
 import ReviewList from './Review/ReviewList';
@@ -20,14 +20,19 @@ import TotalReviewPoint from './Review/TotalReview/TotalReviewPoint';
 
 const Review = () => {
   const {itemId, itemTitle} = useItemInfo();
-  const {data} = useGetReviews(itemId);
-  const {data: myReview, isLoading: myLoading} = useGetMyReview(itemId);
+  const {data, refetch} = useGetReviews(itemId);
+  const {
+    data: myReview,
+    isLoading: myLoading,
+    refetch: myRefetch,
+  } = useGetMyReview(itemId);
   const [dataInfo, setDataInfo] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
   useEffect(() => {
     if (!data) return;
+    myRefetch();
     const fetchDataAndUserInfo = async () => {
       setLoading(true);
       const tempDataInfo: any[] = [];
@@ -50,6 +55,7 @@ const Review = () => {
         {!myReview?.length && (
           <IButton
             buttonStyle="review"
+            backgroundColor="#E7966D"
             titleColor="white"
             title="리뷰 작성하기"
             onPress={() => {

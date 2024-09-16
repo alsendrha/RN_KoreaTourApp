@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     paddingLeft: 18,
     paddingRight: 30,
+    textAlignVertical: 'top',
   },
   errorTextContainer: {
     marginVertical: 1,

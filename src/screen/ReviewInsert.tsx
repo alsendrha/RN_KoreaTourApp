@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {useNavigationState} from '@react-navigation/native';
 import {useItemInfo, usePageInfo} from '../store/store';
@@ -6,7 +6,7 @@ import PointAndInput from '../components/BottomSheet/Review/PointAndInput';
 import {iHeight} from '../../globalStyle';
 
 const ReviewInsert = () => {
-  const {itemId, itemTitle} = useItemInfo();
+  const {itemId, itemTitle, contentTypeId} = useItemInfo();
   const {setPageInfo} = usePageInfo();
   const currentRouteName = useNavigationState(state => {
     const route = state.routes[state.index];
@@ -18,12 +18,16 @@ const ReviewInsert = () => {
   }, [currentRouteName]);
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={() => Keyboard.dismiss()}>
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>{itemTitle}</Text>
       </View>
-      <PointAndInput itemId={itemId} itemTitle={itemTitle} />
-    </View>
+      <PointAndInput
+        itemId={itemId}
+        itemTitle={itemTitle}
+        contentTypeId={contentTypeId}
+      />
+    </Pressable>
   );
 };
 
@@ -31,7 +35,9 @@ export default ReviewInsert;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: iHeight * 30,
+    flex: 1,
+    backgroundColor: 'white',
+    paddingTop: iHeight * 30,
   },
 
   titleContainer: {

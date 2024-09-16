@@ -47,10 +47,10 @@ const MenuComponent = ({menu}: MenuComponentProps) => {
 
         return null;
       } else {
-        console.log('나의 정보');
+        navigation.navigate('myStatus');
       }
     } else if (menu.title === '공지사항') {
-      console.log('공지사항');
+      navigation.navigate('notice');
     } else if (menu.title === '내 후기글') {
       if (!userId) {
         Alert.alert('로그인이 필요한 서비스입니다.', '', [
@@ -61,10 +61,10 @@ const MenuComponent = ({menu}: MenuComponentProps) => {
         ]);
         return null;
       } else {
-        console.log('내 후기글');
+        navigation.navigate('myReview');
       }
     } else if (menu.title === '앱정보') {
-      console.log('앱정보');
+      navigation.navigate('appInfo');
     } else if (menu.title === '로그아웃') {
       mutate();
     }

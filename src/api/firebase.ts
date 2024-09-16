@@ -1,9 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
-import fireStore, {
-  FirebaseFirestoreTypes,
-} from '@react-native-firebase/firestore';
+import fireStore from '@react-native-firebase/firestore';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {useState} from 'react';
 import {Alert} from 'react-native';
 
 type SignUpProps = {
@@ -20,6 +19,7 @@ type CreateUserProps = {
 
 type ReviewProps = {
   itemId: string;
+  contentTypeId: string;
   itemTitle: string;
   userId: string;
   point01: number;
@@ -126,6 +126,7 @@ export const getUsers = (id: string) => {
 
 export const createReview = ({
   itemId,
+  contentTypeId,
   itemTitle,
   userId,
   point01,
@@ -138,6 +139,7 @@ export const createReview = ({
 }: ReviewProps) => {
   return reviewCollection.doc(itemId).collection('review').doc(userId).set({
     itemId,
+    contentTypeId,
     itemTitle,
     userId,
     point01,
@@ -148,6 +150,39 @@ export const createReview = ({
     reviewContent,
     date,
   });
+};
+
+export const createMyReviews = ({
+  itemId,
+  contentTypeId,
+  itemTitle,
+  userId,
+  point01,
+  point02,
+  point03,
+  point04,
+  point05,
+  reviewContent,
+  date,
+}: ReviewProps) => {
+  return fireStore()
+    .collection('myReviews')
+    .doc(userId)
+    .collection('review')
+    .doc(itemId)
+    .set({
+      itemId,
+      contentTypeId,
+      itemTitle,
+      userId,
+      point01,
+      point02,
+      point03,
+      point04,
+      point05,
+      reviewContent,
+      date,
+    });
 };
 
 export const useGetReviews = (itemId: string) => {
@@ -163,6 +198,78 @@ export const useGetReviews = (itemId: string) => {
   return useQuery({
     queryKey: [`ReviewsInfo${itemId}`],
     queryFn,
+  });
+};
+
+export const useGetMyReviews = () => {
+  const [userId, setUserId] = useState('');
+  const queryFn = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    setUserId(userId!);
+    if (!userId) {
+      throw new Error('No userId found');
+    }
+    const res = await fireStore()
+      .collection('myReviews')
+      .doc(userId)
+      .collection('review')
+      .get();
+    const data = res.docs.map(doc => doc.data());
+    return data.length > 0 ? data : [];
+  };
+  return useQuery({
+    queryKey: [`myReviews${userId}`],
+    queryFn,
+  });
+};
+
+export const useDeleteMyReview = () => {
+  const [userId, setUserId] = useState('');
+  const queryClient = useQueryClient();
+  const mutationFn = async (itemId: string) => {
+    const userId = await AsyncStorage.getItem('userId');
+    setUserId(userId!);
+    if (!userId) {
+      throw new Error('No userId found');
+    }
+    await fireStore()
+      .collection('myReviews')
+      .doc(userId)
+      .collection('review')
+      .doc(itemId)
+      .delete();
+  };
+
+  return useMutation({
+    mutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: [`myReviews${userId}`]});
+    },
+  });
+};
+
+export const useDeleteReview = () => {
+  const [itemId, setItemId] = useState('');
+  const queryClient = useQueryClient();
+  const mutationFn = async (itemId: string) => {
+    const userId = await AsyncStorage.getItem('userId');
+    setItemId(itemId);
+    if (!userId) {
+      throw new Error('No userId found');
+    }
+    await fireStore()
+      .collection('reviews')
+      .doc(itemId)
+      .collection('review')
+      .doc(userId)
+      .delete();
+  };
+
+  return useMutation({
+    mutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: [`ReviewsInfo${itemId}`]});
+    },
   });
 };
 

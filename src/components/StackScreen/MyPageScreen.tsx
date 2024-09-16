@@ -8,6 +8,10 @@ import MyPage from '../../screen/MyPage';
 import {usePageInfo} from '../../store/store';
 import SignIn from '../../screen/SignIn';
 import SignUp from '../../screen/SignUp';
+import AppInfo from '../../screen/AppInfo';
+import Notice from '../../screen/Notice';
+import MyStatus from '../../screen/MySatus';
+import MyReview from '../../screen/MyReview';
 
 const MyPageScreen = () => {
   const Stack = createNativeStackNavigator();
@@ -45,6 +49,91 @@ const MyPageScreen = () => {
       <Stack.Screen
         name="signIn"
         component={SignIn}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+          headerShown: true,
+          headerLeft() {
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="myStatus"
+        component={MyStatus}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+          headerShown: true,
+          headerLeft() {
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="notice"
+        component={Notice}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+          headerShown: true,
+          headerLeft() {
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="myReview"
+        component={MyReview}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+          headerShown: true,
+          headerLeft() {
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="appInfo"
+        component={AppInfo}
         options={{
           headerTransparent: true,
           headerTitle: '',

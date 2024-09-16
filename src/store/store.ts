@@ -26,14 +26,21 @@ type AreaSelected = {
 type ItemInfo = {
   itemTitle: string;
   itemId: string;
+  contentTypeId: string;
   setItemTitle: (item: string) => void;
   setItemId: (id: string) => void;
+  setContentTypeId: (type: string) => void;
 };
 
 type ContentsSelected = {
   contentsSelected: number;
   contentTitle: string;
   setContentsSelected: (contents: number, title: string) => void;
+};
+
+type RefetchStore = {
+  refetchReviews: (() => void) | null;
+  setRefetchReviews: (refetch: () => void) => void;
 };
 
 export const usePageInfo = create<PageInfo>(set => ({
@@ -66,6 +73,13 @@ export const useContentsSelected = create<ContentsSelected>(set => ({
 export const useItemInfo = create<ItemInfo>(set => ({
   itemTitle: '',
   itemId: '',
+  contentTypeId: '',
   setItemTitle: item => set({itemTitle: item}),
   setItemId: id => set({itemId: id}),
+  setContentTypeId: type => set({contentTypeId: type}),
+}));
+
+export const useRefetchStore = create<RefetchStore>(set => ({
+  refetchReviews: null,
+  setRefetchReviews: refetch => set({refetchReviews: refetch}),
 }));

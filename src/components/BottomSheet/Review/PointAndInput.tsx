@@ -11,9 +11,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import IInput from '../../IInput';
 import IButton from '../../IButton';
 import {
+  createMyReviews,
   createReview,
   useGetReviews,
-  useGetUSerInfo,
 } from '../../../api/firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -30,9 +30,14 @@ type ReviewType = {
 type PointAndInputProps = {
   itemId: string;
   itemTitle: string;
+  contentTypeId: string;
 };
 
-const PointAndInput = ({itemId, itemTitle}: PointAndInputProps) => {
+const PointAndInput = ({
+  itemId,
+  itemTitle,
+  contentTypeId,
+}: PointAndInputProps) => {
   const [isDataLoading, setIsDataLoading] = useState(false);
   const {refetch} = useGetReviews(itemId);
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -86,6 +91,7 @@ const PointAndInput = ({itemId, itemTitle}: PointAndInputProps) => {
       setIsDataLoading(true);
       await createReview({
         itemId,
+        contentTypeId,
         itemTitle,
         userId: userId,
         point01: reviewData.reviewPoint === 1 ? reviewData.reviewPoint : 0,
@@ -96,6 +102,21 @@ const PointAndInput = ({itemId, itemTitle}: PointAndInputProps) => {
         reviewContent: reviewData.reviewContent,
         date: new Date(),
       });
+
+      await createMyReviews({
+        itemId,
+        contentTypeId,
+        itemTitle,
+        userId: userId,
+        point01: reviewData.reviewPoint === 1 ? reviewData.reviewPoint : 0,
+        point02: reviewData.reviewPoint === 2 ? reviewData.reviewPoint : 0,
+        point03: reviewData.reviewPoint === 3 ? reviewData.reviewPoint : 0,
+        point04: reviewData.reviewPoint === 4 ? reviewData.reviewPoint : 0,
+        point05: reviewData.reviewPoint === 5 ? reviewData.reviewPoint : 0,
+        reviewContent: reviewData.reviewContent,
+        date: new Date(),
+      });
+
       setIsDataLoading(false);
       Alert.alert('리뷰가 등록되었습니다', '리뷰가 등록되었습니다', [
         {

@@ -19,15 +19,15 @@ import {useBottomSheetRef, useItemInfo, usePageInfo} from '../store/store';
 import {useNavigationState} from '@react-navigation/native';
 
 const Detail = ({route}: any) => {
-  const {id, contentTypeId} = route.params;
-  const {data, isLoading} = useGetDetailData(id, contentTypeId);
+  const {id, contentType} = route.params;
+  const {data, isLoading} = useGetDetailData(id, contentType);
   const {data: detailImages = [], isLoading: imagesLoading} =
     useGetDetailImage(id);
   const [imagesIndex, setImagesIndex] = useState(0);
   const {width} = useWindowDimensions();
   const {bottomSheetRef} = useBottomSheetRef();
   const {setPageInfo} = usePageInfo();
-  const {setItemId, setItemTitle} = useItemInfo();
+  const {setItemId, setItemTitle, setContentTypeId} = useItemInfo();
   const currentRouteName = useNavigationState(state => {
     const route = state.routes[state.index];
     return route.name;
@@ -46,6 +46,7 @@ const Detail = ({route}: any) => {
     if (isLoading) return;
     setItemId(id);
     setItemTitle(data[0].title);
+    setContentTypeId(contentType);
   }, [isLoading]);
 
   useEffect(() => {

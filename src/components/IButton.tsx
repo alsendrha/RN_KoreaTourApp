@@ -45,7 +45,7 @@ const IButton = ({
   titleColor,
   titleWeight,
   buttonStyle,
-  backgroundColor,
+  backgroundColor = 'white',
   border = 0.5,
   children,
   onPress,
@@ -76,7 +76,7 @@ const IButton = ({
     categories: [styles.categoriesMenu],
     bottomCategories: styles.bottomCategories,
     more: styles.viewAll,
-    review: styles.reviewButton,
+    review: [styles.reviewButton, {backgroundColor: backgroundColor}],
     item: styles.itemContainer,
     delete: styles.delete,
     submit: [
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   reviewButton: {
     padding: 5,
     borderRadius: 10,
-    backgroundColor: '#E7966D',
+
     elevation: 2,
   },
 });
