@@ -7,10 +7,13 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {colors} from '../../globalStyle';
+import {colors, iHeight} from '../../globalStyle';
+import Icon from 'react-native-vector-icons/Ionicons';
+import IButton from './IButton';
 
 type IInputProps = {
   value: string;
+  deleteValue?: () => void;
   lengthView?: boolean;
   height?: number;
   placeholder?: string;
@@ -49,6 +52,7 @@ const IInput = ({
   placeholder,
   maxLength = 0,
   height,
+  deleteValue,
   multiline = false,
   titleEnable = false,
   titleText,
@@ -67,6 +71,14 @@ const IInput = ({
     setTextLength(value.length);
     onChangeText && onChangeText(value);
   };
+
+  const handleDeleteValue = () => {
+    if (deleteValue) {
+      deleteValue();
+    }
+    setTextLength(0);
+  };
+
   return (
     <View style={styles.inputContainer}>
       <View
@@ -84,22 +96,31 @@ const IInput = ({
 
         {lengthView && <Text> {`${textLength}/${maxLength}`}</Text>}
       </View>
-      <TextInput
-        style={[
-          styles.textInputStyle,
-          {height: height, borderRadius: borderRadius, fontSize: fontSize},
-        ]}
-        placeholder={placeholder}
-        placeholderTextColor={colors.gray}
-        value={value}
-        secureTextEntry={secureTextEntry}
-        onChangeText={handleOnChangeText}
-        onSubmitEditing={onSubmitEditing}
-        returnKeyType={returnKeyType}
-        maxLength={maxLength}
-        numberOfLines={numberOfLines}
-        multiline={multiline}
-      />
+      <View style={styles.inputAndIconContainer}>
+        <TextInput
+          style={[
+            styles.textInputStyle,
+            {height: height, borderRadius: borderRadius, fontSize: fontSize},
+          ]}
+          placeholder={placeholder}
+          placeholderTextColor={colors.gray}
+          value={value}
+          secureTextEntry={secureTextEntry}
+          onChangeText={handleOnChangeText}
+          onSubmitEditing={onSubmitEditing}
+          returnKeyType={returnKeyType}
+          maxLength={maxLength}
+          numberOfLines={numberOfLines}
+          multiline={multiline}
+        />
+        {value && (
+          <View style={styles.iconContainer}>
+            <IButton buttonStyle="delete" onPress={handleDeleteValue}>
+              <Icon name="close-circle-outline" size={20} color="gray" />
+            </IButton>
+          </View>
+        )}
+      </View>
       {errorMsg && (
         <View style={styles.errorTextContainer}>
           <Text style={styles.errorText}>{errorText}</Text>
@@ -130,12 +151,24 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 
+  inputAndIconContainer: {
+    position: 'relative',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  iconContainer: {
+    position: 'absolute',
+    top: '50%',
+    transform: [{translateY: -10.5}],
+    right: 8,
+  },
+
   textInputStyle: {
     width: '100%',
     borderWidth: 0.5,
-    paddingHorizontal: 18,
-    textAlignVertical: 'top',
-    fontSize: 18,
+    paddingLeft: 18,
+    paddingRight: 30,
   },
   errorTextContainer: {
     marginVertical: 1,

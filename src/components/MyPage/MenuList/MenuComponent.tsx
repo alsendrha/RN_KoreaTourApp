@@ -38,7 +38,13 @@ const MenuComponent = ({menu}: MenuComponentProps) => {
     console.log('userId', userId);
     if (menu.title === '나의 정보') {
       if (!userId) {
-        Alert.alert('로그인이 필요한 서비스입니다.');
+        Alert.alert('로그인이 필요한 서비스입니다.', '', [
+          {
+            text: '확인',
+            onPress: () => navigation.navigate('signIn'),
+          },
+        ]);
+
         return null;
       } else {
         console.log('나의 정보');
@@ -47,7 +53,12 @@ const MenuComponent = ({menu}: MenuComponentProps) => {
       console.log('공지사항');
     } else if (menu.title === '내 후기글') {
       if (!userId) {
-        Alert.alert('로그인이 필요한 서비스입니다.');
+        Alert.alert('로그인이 필요한 서비스입니다.', '', [
+          {
+            text: '확인',
+            onPress: () => navigation.navigate('signIn'),
+          },
+        ]);
         return null;
       } else {
         console.log('내 후기글');

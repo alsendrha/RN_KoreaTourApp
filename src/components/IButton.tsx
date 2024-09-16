@@ -60,7 +60,10 @@ const IButton = ({
   const buttonStyleList = {
     menu: styles.menuBox,
     back: styles.backButton,
-    check: styles.check,
+    check: [
+      styles.check,
+      {backgroundColor: backgroundColor, borderWidth: border},
+    ],
     bottomSheetMenu: styles.menuContainer,
     area: styles.areaBox,
     areaList: [
@@ -147,7 +150,6 @@ const styles = StyleSheet.create({
   },
 
   check: {
-    borderWidth: 0.5,
     paddingHorizontal: 10,
     height: iHeight * 42,
     borderRadius: 10,

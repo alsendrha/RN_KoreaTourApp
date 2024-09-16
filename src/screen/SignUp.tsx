@@ -120,7 +120,7 @@ const SignUp = () => {
     <Pressable
       style={[styles.container, {position: 'relative'}]}
       onPress={() => Keyboard.dismiss()}>
-      <View>
+      <View style={styles.contentContainer}>
         {isLoading && <CustomIndicator marginTop={iHeight * -30} />}
         <View style={styles.inputAllContainer}>
           <View
@@ -140,6 +140,7 @@ const SignUp = () => {
               <View style={{width: iWidth * 220}}>
                 <IInput
                   value={userData.email}
+                  deleteValue={() => setUserData({...userData, email: ''})}
                   titleEnable={true}
                   titleText="이메일"
                   maxLength={30}
@@ -160,6 +161,9 @@ const SignUp = () => {
                 <IButton
                   title="확인"
                   buttonStyle="check"
+                  backgroundColor="#C6A391"
+                  border={0}
+                  titleColor="white"
                   onPress={() =>
                     emailCheck({
                       errorMsg,
@@ -174,10 +178,12 @@ const SignUp = () => {
             </View>
             <IInput
               value={userData.password}
+              deleteValue={() => setUserData({...userData, password: ''})}
               titleEnable={true}
               titleText="비밀번호"
               secureTextEntry={true}
               maxLength={20}
+              fontSize={16}
               height={iHeight * 40}
               borderRadius={10}
               placeholder="비밀번호를 입력해주세요"
@@ -191,9 +197,11 @@ const SignUp = () => {
             <IInput
               value={userData.passwordCheck}
               titleEnable={true}
+              deleteValue={() => setUserData({...userData, passwordCheck: ''})}
               titleText="비밀번호 확인"
               secureTextEntry={true}
               maxLength={20}
+              fontSize={16}
               height={iHeight * 40}
               borderRadius={10}
               placeholder="비밀번호를 다시 입력해주세요"
@@ -212,9 +220,11 @@ const SignUp = () => {
               <View style={{width: iWidth * 220}}>
                 <IInput
                   value={userData.nickname}
+                  deleteValue={() => setUserData({...userData, nickname: ''})}
                   titleEnable={true}
                   titleText="닉네임"
                   maxLength={10}
+                  fontSize={16}
                   lengthView={true}
                   borderRadius={10}
                   height={iHeight * 40}
@@ -231,6 +241,9 @@ const SignUp = () => {
                 <IButton
                   title="확인"
                   buttonStyle="check"
+                  backgroundColor="#C6A391"
+                  border={0}
+                  titleColor="white"
                   onPress={() =>
                     nicknameCheck({
                       errorMsg,
@@ -265,13 +278,21 @@ export default SignUp;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#E07039',
     height: '100%',
   },
 
-  inputAllContainer: {
+  contentContainer: {
+    backgroundColor: 'white',
+    borderRadius: 50,
     marginTop: iHeight * 80,
-    paddingHorizontal: iWidth * 30,
+    marginHorizontal: iWidth * 10,
+    paddingVertical: iHeight * 50,
+  },
+
+  inputAllContainer: {
+    // marginTop: iHeight * 50,
+    paddingHorizontal: iWidth * 10,
   },
 
   buttonContainer: {

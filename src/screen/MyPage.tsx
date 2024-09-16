@@ -8,7 +8,6 @@ import UserLogin from '../components/MyPage/UserLogin';
 import {usePageInfo} from '../store/store';
 import {useNavigationState} from '@react-navigation/native';
 import {useGetUSerInfo, useGetUser} from '../api/firebase';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MyPage = () => {
   const {setPageInfo} = usePageInfo();
