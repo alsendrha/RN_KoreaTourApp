@@ -1,10 +1,15 @@
 import axios from 'axios';
+import {
+  TOUR_DETAIL_BASE_URL,
+  TOUR_IMAGE_BASE_URL,
+  TOUR_SEARCH_BASE_URL,
+  TOUR_SERVICE_KEY,
+} from 'react-native-dotenv';
 
 export const baseUrl = axios.create({
-  baseURL: 'https://apis.data.go.kr/B551011/KorService1/searchKeyword1',
+  baseURL: TOUR_SEARCH_BASE_URL,
   params: {
-    serviceKey:
-      'D6HvbqfFj6otDTGY3883h0C51xIplWlMUXEF+l5ZX9DTpTTNODdcI/6StO1BbYtjTAtOOKyj25hhnMVj4ASszw==',
+    serviceKey: TOUR_SERVICE_KEY,
     MobileOS: 'ETC',
     MobileApp: 'AppTest',
     _type: 'json',
@@ -14,10 +19,9 @@ export const baseUrl = axios.create({
 });
 
 export const detailUrl = axios.create({
-  baseURL: 'https://apis.data.go.kr/B551011/KorService1/detailCommon1',
+  baseURL: TOUR_DETAIL_BASE_URL,
   params: {
-    serviceKey:
-      'D6HvbqfFj6otDTGY3883h0C51xIplWlMUXEF+l5ZX9DTpTTNODdcI/6StO1BbYtjTAtOOKyj25hhnMVj4ASszw==',
+    serviceKey: TOUR_SERVICE_KEY,
     MobileOS: 'ETC',
     MobileApp: 'AppTest',
     _type: 'json',
@@ -33,10 +37,9 @@ export const detailUrl = axios.create({
 });
 
 export const detailImageUrl = axios.create({
-  baseURL: 'https://apis.data.go.kr/B551011/KorService1/detailImage1',
+  baseURL: TOUR_IMAGE_BASE_URL,
   params: {
-    serviceKey:
-      'D6HvbqfFj6otDTGY3883h0C51xIplWlMUXEF+l5ZX9DTpTTNODdcI/6StO1BbYtjTAtOOKyj25hhnMVj4ASszw==',
+    serviceKey: TOUR_SERVICE_KEY,
     MobileOS: 'ETC',
     MobileApp: 'AppTest',
     _type: 'json',

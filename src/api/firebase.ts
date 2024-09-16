@@ -4,6 +4,7 @@ import fireStore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {Alert} from 'react-native';
 
 type SignUpProps = {
   email: string;
@@ -41,6 +42,10 @@ export const signIn = ({email, password}: SignUpProps) => {
   return auth().signInWithEmailAndPassword(email, password);
 };
 
+export const userPasswordReset = ({email}: {email: string}) => {
+  return auth().sendPasswordResetEmail(email);
+};
+
 export const useSignIn = () => {
   const queryClient = useQueryClient();
   const mutationFn = ({email, password}: SignUpProps) =>
@@ -53,6 +58,7 @@ export const useSignIn = () => {
     },
     onError: error => {
       console.log('로그인 실패', error);
+      Alert.alert('이메일 없거나 또는 비밀번호를 확인해주세요');
     },
   });
   return mutation;

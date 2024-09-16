@@ -33,7 +33,8 @@ type IButtonProps = {
     | 'more'
     | 'review'
     | 'delete';
-
+  border?: number;
+  backgroundColor?: string;
   onPress?: () => void;
   children?: React.ReactNode;
 };
@@ -44,6 +45,8 @@ const IButton = ({
   titleColor,
   titleWeight,
   buttonStyle,
+  backgroundColor,
+  border = 0.5,
   children,
   onPress,
 }: IButtonProps) => {
@@ -73,7 +76,10 @@ const IButton = ({
     review: styles.reviewButton,
     item: styles.itemContainer,
     delete: styles.delete,
-    submit: styles.submit,
+    submit: [
+      styles.submit,
+      {backgroundColor: backgroundColor, borderWidth: border},
+    ],
   };
 
   return (
@@ -181,7 +187,6 @@ const styles = StyleSheet.create({
   submit: {
     width: iWidth * 120,
     height: iHeight * 40,
-    borderWidth: 0.5,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',

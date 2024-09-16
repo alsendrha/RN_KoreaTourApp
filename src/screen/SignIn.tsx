@@ -1,6 +1,6 @@
 import {Alert, Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {signIn, useSignIn} from '../api/firebase';
+import {useSignIn} from '../api/firebase';
 import {
   NavigationProp,
   ParamListBase,
@@ -13,7 +13,7 @@ import IButton from '../components/IButton';
 import {loginCheck} from '../utils/validation';
 import {iHeight} from '../../globalStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import PasswordModal from '../components/SignIn/PasswordModal';
 const SignIn = () => {
   const {setPageInfo} = usePageInfo();
   const {mutate} = useSignIn();
@@ -21,8 +21,8 @@ const SignIn = () => {
     email: '',
     password: '',
   });
+  const [isOpen, setIsOpen] = useState(false);
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
-
   const currentRouteName = useNavigationState(state => {
     const route = state.routes[state.index];
     return route.name;
@@ -54,7 +54,8 @@ const SignIn = () => {
             {
               text: '확인',
               onPress: () => {
-                navigation.goBack();
+                navigation.navigate('myPage');
+                navigation.navigate('main');
                 setUserData({email: '', password: ''});
               },
             },
@@ -67,46 +68,76 @@ const SignIn = () => {
     }
   };
 
+  console.log('userData', userData.email);
   return (
     <Pressable onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <View>
-          <Text>로그인</Text>
-        </View>
-        <IInput
-          value={userData.email}
-          borderRadius={10}
-          errorMsg={true}
-          errorText={errorMsg.email}
-          maxLength={30}
-          onChangeText={text => {
-            setUserData({...userData, email: text});
-            setErrorMsg({...errorMsg, email: ''});
-          }}
-        />
-        <IInput
-          value={userData.password}
-          borderRadius={10}
-          secureTextEntry={true}
-          errorMsg={true}
-          errorText={errorMsg.password}
-          maxLength={15}
-          onChangeText={text => {
-            setUserData({...userData, password: text});
-            setErrorMsg({...errorMsg, password: ''});
-          }}
-        />
-        <View style={{alignItems: 'center'}}>
-          <IButton buttonStyle="submit" title="로그인" onPress={userSignIn} />
-        </View>
-        <View>
-          <IButton
-            buttonStyle="more"
-            title="회원가입"
-            onPress={() => navigation.navigate('signUp')}
-          />
+        <View style={styles.loginView}>
+          <View style={styles.loginTextContainer}>
+            <Text style={styles.loginText}>Login</Text>
+          </View>
+          <View style={styles.inputContainer}>
+            <IInput
+              value={userData.email}
+              borderRadius={10}
+              titleEnable={true}
+              titleText="email"
+              errorMsg={true}
+              errorText={errorMsg.email}
+              maxLength={30}
+              onChangeText={text => {
+                setUserData({...userData, email: text});
+                setErrorMsg({...errorMsg, email: ''});
+              }}
+            />
+            <IInput
+              value={userData.password}
+              borderRadius={10}
+              titleEnable={true}
+              titleText="password"
+              secureTextEntry={true}
+              errorMsg={true}
+              errorText={errorMsg.password}
+              maxLength={15}
+              onChangeText={text => {
+                setUserData({...userData, password: text});
+                setErrorMsg({...errorMsg, password: ''});
+              }}
+            />
+            <View style={{alignItems: 'center'}}>
+              <IButton
+                buttonStyle="submit"
+                border={0}
+                backgroundColor="#E07039"
+                title="로그인"
+                titleColor="white"
+                titleWeight="bold"
+                onPress={userSignIn}
+              />
+            </View>
+            <View style={styles.signUpButtonContainer}>
+              <Text>비밀번호가 생각이 안난다면 </Text>
+              <IButton
+                buttonStyle="more"
+                title="비밀번호 찾기"
+                titleColor="#4E8DF2"
+                onPress={() => setIsOpen(true)}
+              />
+            </View>
+            <View
+              style={[styles.signUpButtonContainer, {marginTop: iHeight * 8}]}>
+              <Text>아직 회원이 아니시라면 </Text>
+              <IButton
+                buttonStyle="more"
+                title="회원가입"
+                titleColor="#4E8DF2"
+                onPress={() => navigation.navigate('signUp')}
+              />
+            </View>
+          </View>
         </View>
       </View>
+      <PasswordModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </Pressable>
   );
 };
@@ -114,5 +145,41 @@ const SignIn = () => {
 export default SignIn;
 
 const styles = StyleSheet.create({
-  container: {marginTop: iHeight * 200},
+  container: {
+    height: '100%',
+    backgroundColor: '#E07039',
+    position: 'relative',
+  },
+  loginView: {
+    position: 'absolute',
+    width: '100%',
+    height: '85%',
+    bottom: 0,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 100,
+    paddingHorizontal: 20,
+  },
+
+  loginTextContainer: {
+    alignItems: 'center',
+    marginTop: iHeight * 70,
+  },
+
+  loginText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+
+  inputContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    marginTop: iHeight * 30,
+  },
+
+  signUpButtonContainer: {
+    marginTop: iHeight * 15,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

@@ -7,8 +7,6 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useItemInfo} from '../../store/store';
-
-import PointAndInput from './Review/PointAndInput';
 import {getUsers, useGetMyReview, useGetReviews} from '../../api/firebase';
 import {iHeight} from '../../../globalStyle';
 import ReviewList from './Review/ReviewList';
