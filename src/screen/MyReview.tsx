@@ -25,8 +25,7 @@ import {
 const MyReview = () => {
   const {data, isLoading, refetch} = useGetMyReviews();
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
-  const {mutate} = useDeleteMyReview();
-  const {mutate: reviewMutate} = useDeleteReview();
+  const {mutate} = useDeleteReview();
   const handleDelete = (itemId: string) => {
     Alert.alert('리뷰를 삭제하시겠습니까?', '', [
       {
@@ -36,7 +35,6 @@ const MyReview = () => {
       {
         text: '확인',
         onPress: () => {
-          reviewMutate(itemId);
           mutate(itemId, {
             onSuccess: () => {
               Alert.alert('리뷰가 삭제되었습니다', '', [
@@ -64,89 +62,98 @@ const MyReview = () => {
           <Text style={styles.titleText}>{data?.length}개</Text>
         )}
       </View>
-      <FlatList
-        style={{marginBottom: iHeight * 100, paddingBottom: iHeight * 10}}
-        showsVerticalScrollIndicator={false}
-        data={data}
-        renderItem={({item}) => {
-          const points = [
-            {label: 'point01', value: item.point01},
-            {label: 'point02', value: item.point02},
-            {label: 'point03', value: item.point03},
-            {label: 'point04', value: item.point04},
-            {label: 'point05', value: item.point05},
-          ].filter(point => point.value !== 0);
-          return (
-            <View style={styles.listContainer}>
-              <IButton
-                buttonStyle="more"
-                onPress={() =>
-                  navigation.navigate('detail', {
-                    id: item.itemId,
-                    contentType: item.contentTypeId,
-                  })
-                }>
-                <View style={styles.reviewTitleContainer}>
-                  <Text style={styles.reviewTitleText}>{item.itemTitle} </Text>
-                  <Icon name={'chevron-forward-outline'} size={16} />
-                </View>
-              </IButton>
-              <View style={styles.starButtonContainer}>
-                {points.map(point => (
-                  <View key={point.label} style={styles.starContainer}>
-                    {Array(5)
-                      .fill(null)
-                      .map((_, index) => (
-                        <Icon
-                          key={index}
-                          name={'star'}
-                          size={18}
-                          style={{
-                            color: index < point.value ? '#ffca42' : '#e3e3e3',
-                            marginRight: 2,
-                          }}
-                        />
-                      ))}
+      {isLoading ? (
+        <View>
+          <ActivityIndicator size="large" color="black" />
+        </View>
+      ) : (
+        <FlatList
+          style={{marginBottom: iHeight * 100, paddingBottom: iHeight * 10}}
+          showsVerticalScrollIndicator={false}
+          data={data}
+          renderItem={({item}) => {
+            const points = [
+              {label: 'point01', value: item.point01},
+              {label: 'point02', value: item.point02},
+              {label: 'point03', value: item.point03},
+              {label: 'point04', value: item.point04},
+              {label: 'point05', value: item.point05},
+            ].filter(point => point.value !== 0);
+            return (
+              <View style={styles.listContainer}>
+                <IButton
+                  buttonStyle="more"
+                  onPress={() =>
+                    navigation.navigate('detail', {
+                      id: item.itemId,
+                      contentType: item.contentTypeId,
+                    })
+                  }>
+                  <View style={styles.reviewTitleContainer}>
+                    <Text style={styles.reviewTitleText}>
+                      {item.itemTitle}{' '}
+                    </Text>
+                    <Icon name={'chevron-forward-outline'} size={16} />
                   </View>
-                ))}
+                </IButton>
+                <View style={styles.starButtonContainer}>
+                  {points.map(point => (
+                    <View key={point.label} style={styles.starContainer}>
+                      {Array(5)
+                        .fill(null)
+                        .map((_, index) => (
+                          <Icon
+                            key={index}
+                            name={'star'}
+                            size={18}
+                            style={{
+                              color:
+                                index < point.value ? '#ffca42' : '#e3e3e3',
+                              marginRight: 2,
+                            }}
+                          />
+                        ))}
+                    </View>
+                  ))}
 
-                <View style={styles.menuButtonContainer}>
-                  <View style={{marginRight: 5}}>
-                    <IButton
-                      buttonStyle="review"
-                      backgroundColor="#e3e3e3"
-                      title="수정"
-                    />
-                  </View>
-                  <View>
-                    <IButton
-                      buttonStyle="review"
-                      backgroundColor="#e3e3e3"
-                      title="삭제"
-                      onPress={() => handleDelete(item.itemId)}
-                    />
+                  <View style={styles.menuButtonContainer}>
+                    <View style={{marginRight: 5}}>
+                      <IButton
+                        buttonStyle="review"
+                        backgroundColor="#e3e3e3"
+                        title="수정"
+                      />
+                    </View>
+                    <View>
+                      <IButton
+                        buttonStyle="review"
+                        backgroundColor="#e3e3e3"
+                        title="삭제"
+                        onPress={() => handleDelete(item.itemId)}
+                      />
+                    </View>
                   </View>
                 </View>
+                <View style={styles.contentContainer}>
+                  <Text>{item.reviewContent}</Text>
+                </View>
               </View>
-              <View style={styles.contentContainer}>
-                <Text>{item.reviewContent}</Text>
-              </View>
+            );
+          }}
+          keyExtractor={item => item.itemId}
+          ListEmptyComponent={
+            <View
+              style={{
+                width: '100%',
+                height: Dimensions.get('screen').height - 250,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text>작성한 리뷰가 없습니다</Text>
             </View>
-          );
-        }}
-        keyExtractor={item => item.itemId}
-        ListEmptyComponent={
-          <View
-            style={{
-              width: '100%',
-              height: Dimensions.get('screen').height - 250,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text>작성한 리뷰가 없습니다</Text>
-          </View>
-        }
-      />
+          }
+        />
+      )}
     </View>
   );
 };

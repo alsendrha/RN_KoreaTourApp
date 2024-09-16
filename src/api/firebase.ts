@@ -124,53 +124,14 @@ export const getUsers = (id: string) => {
   return userCollection.where('id', '==', id).get();
 };
 
-export const createReview = ({
-  itemId,
-  contentTypeId,
-  itemTitle,
-  userId,
-  point01,
-  point02,
-  point03,
-  point04,
-  point05,
-  reviewContent,
-  date,
-}: ReviewProps) => {
-  return reviewCollection.doc(itemId).collection('review').doc(userId).set({
-    itemId,
-    contentTypeId,
-    itemTitle,
-    userId,
-    point01,
-    point02,
-    point03,
-    point04,
-    point05,
-    reviewContent,
-    date,
+export const useCreateReview = () => {
+  const [reviewsData, setReviewsData] = useState({
+    itemId: '',
+    userId: '',
   });
-};
-
-export const createMyReviews = ({
-  itemId,
-  contentTypeId,
-  itemTitle,
-  userId,
-  point01,
-  point02,
-  point03,
-  point04,
-  point05,
-  reviewContent,
-  date,
-}: ReviewProps) => {
-  return fireStore()
-    .collection('myReviews')
-    .doc(userId)
-    .collection('review')
-    .doc(itemId)
-    .set({
+  const queryClient = useQueryClient();
+  const mutationFn = async (reviewData: ReviewProps) => {
+    const {
       itemId,
       contentTypeId,
       itemTitle,
@@ -182,7 +143,62 @@ export const createMyReviews = ({
       point05,
       reviewContent,
       date,
-    });
+    } = reviewData;
+    setReviewsData({itemId, userId});
+    const reviewRef = fireStore()
+      .collection('reviews')
+      .doc(itemId)
+      .collection('review')
+      .doc(userId);
+
+    const myReviewRef = fireStore()
+      .collection('myReviews')
+      .doc(userId)
+      .collection('review')
+      .doc(itemId);
+
+    // 두 개의 리뷰를 동시에 Firestore에 저장
+    await Promise.all([
+      reviewRef.set({
+        itemId,
+        contentTypeId,
+        itemTitle,
+        userId,
+        point01,
+        point02,
+        point03,
+        point04,
+        point05,
+        reviewContent,
+        date,
+      }),
+      myReviewRef.set({
+        itemId,
+        contentTypeId,
+        itemTitle,
+        userId,
+        point01,
+        point02,
+        point03,
+        point04,
+        point05,
+        reviewContent,
+        date,
+      }),
+    ]);
+  };
+
+  return useMutation({
+    mutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [`ReviewsInfo${reviewsData.itemId}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`myReviews${reviewsData.userId}`],
+      });
+    },
+  });
 };
 
 export const useGetReviews = (itemId: string) => {
@@ -232,12 +248,6 @@ export const useDeleteMyReview = () => {
     if (!userId) {
       throw new Error('No userId found');
     }
-    await fireStore()
-      .collection('myReviews')
-      .doc(userId)
-      .collection('review')
-      .doc(itemId)
-      .delete();
   };
 
   return useMutation({
@@ -249,25 +259,33 @@ export const useDeleteMyReview = () => {
 };
 
 export const useDeleteReview = () => {
-  const [itemId, setItemId] = useState('');
+  const [userId, setUserId] = useState('');
   const queryClient = useQueryClient();
   const mutationFn = async (itemId: string) => {
     const userId = await AsyncStorage.getItem('userId');
-    setItemId(itemId);
+    setUserId(userId!);
     if (!userId) {
       throw new Error('No userId found');
     }
-    await fireStore()
+    const myReviewRef = fireStore()
       .collection('reviews')
       .doc(itemId)
       .collection('review')
+      .doc(userId);
+
+    const reviewRef = fireStore()
+      .collection('myReviews')
       .doc(userId)
-      .delete();
+      .collection('review')
+      .doc(itemId);
+
+    await Promise.all([myReviewRef.delete(), reviewRef.delete()]);
   };
 
   return useMutation({
     mutationFn,
-    onSuccess: () => {
+    onSuccess: (_, itemId) => {
+      queryClient.invalidateQueries({queryKey: [`myReviews${userId}`]});
       queryClient.invalidateQueries({queryKey: [`ReviewsInfo${itemId}`]});
     },
   });

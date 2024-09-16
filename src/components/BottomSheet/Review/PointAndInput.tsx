@@ -11,8 +11,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import IInput from '../../IInput';
 import IButton from '../../IButton';
 import {
-  createMyReviews,
-  createReview,
+  useCreateReview,
+  useGetMyReviews,
   useGetReviews,
 } from '../../../api/firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -39,6 +39,8 @@ const PointAndInput = ({
   contentTypeId,
 }: PointAndInputProps) => {
   const [isDataLoading, setIsDataLoading] = useState(false);
+  const {mutate} = useCreateReview();
+  const {refetch: myReviewRefetch} = useGetMyReviews();
   const {refetch} = useGetReviews(itemId);
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const [reViewPoint, setReViewPoint] = useState<ReviewType[]>([
@@ -89,51 +91,43 @@ const PointAndInput = ({
     }
     try {
       setIsDataLoading(true);
-      await createReview({
-        itemId,
-        contentTypeId,
-        itemTitle,
-        userId: userId,
-        point01: reviewData.reviewPoint === 1 ? reviewData.reviewPoint : 0,
-        point02: reviewData.reviewPoint === 2 ? reviewData.reviewPoint : 0,
-        point03: reviewData.reviewPoint === 3 ? reviewData.reviewPoint : 0,
-        point04: reviewData.reviewPoint === 4 ? reviewData.reviewPoint : 0,
-        point05: reviewData.reviewPoint === 5 ? reviewData.reviewPoint : 0,
-        reviewContent: reviewData.reviewContent,
-        date: new Date(),
-      });
-
-      await createMyReviews({
-        itemId,
-        contentTypeId,
-        itemTitle,
-        userId: userId,
-        point01: reviewData.reviewPoint === 1 ? reviewData.reviewPoint : 0,
-        point02: reviewData.reviewPoint === 2 ? reviewData.reviewPoint : 0,
-        point03: reviewData.reviewPoint === 3 ? reviewData.reviewPoint : 0,
-        point04: reviewData.reviewPoint === 4 ? reviewData.reviewPoint : 0,
-        point05: reviewData.reviewPoint === 5 ? reviewData.reviewPoint : 0,
-        reviewContent: reviewData.reviewContent,
-        date: new Date(),
-      });
-
-      setIsDataLoading(false);
-      Alert.alert('리뷰가 등록되었습니다', '리뷰가 등록되었습니다', [
+      mutate(
         {
-          text: '확인',
-          onPress: () => {
-            refetch();
-            setReviewData({id: 1, reviewPoint: 0, reviewContent: ''});
-            setReViewPoint(prev =>
-              prev.map(item => ({
-                ...item,
-                clicked: false,
-              })),
-            );
-            navigation.goBack();
+          itemId,
+          contentTypeId,
+          itemTitle,
+          userId: userId,
+          point01: reviewData.reviewPoint === 1 ? reviewData.reviewPoint : 0,
+          point02: reviewData.reviewPoint === 2 ? reviewData.reviewPoint : 0,
+          point03: reviewData.reviewPoint === 3 ? reviewData.reviewPoint : 0,
+          point04: reviewData.reviewPoint === 4 ? reviewData.reviewPoint : 0,
+          point05: reviewData.reviewPoint === 5 ? reviewData.reviewPoint : 0,
+          reviewContent: reviewData.reviewContent,
+          date: new Date(),
+        },
+        {
+          onSuccess: () => {
+            setIsDataLoading(false);
+            Alert.alert('리뷰가 등록되었습니다', '리뷰가 등록되었습니다', [
+              {
+                text: '확인',
+                onPress: () => {
+                  refetch();
+                  myReviewRefetch();
+                  setReviewData({id: 1, reviewPoint: 0, reviewContent: ''});
+                  setReViewPoint(prev =>
+                    prev.map(item => ({
+                      ...item,
+                      clicked: false,
+                    })),
+                  );
+                  navigation.goBack();
+                },
+              },
+            ]);
           },
         },
-      ]);
+      );
     } catch (error) {
       console.log('error', error);
     }
