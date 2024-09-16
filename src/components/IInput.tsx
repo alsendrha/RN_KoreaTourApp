@@ -69,12 +69,21 @@ const IInput = ({
   };
   return (
     <View style={styles.inputContainer}>
-      {titleEnable && (
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>{titleText}</Text>
-        </View>
-      )}
-      {lengthView && <Text> {`${textLength}/${maxLength}`}</Text>}
+      <View
+        style={[
+          styles.textContainer,
+          {
+            justifyContent: !titleEnable ? 'flex-end' : 'space-between',
+          },
+        ]}>
+        {titleEnable && (
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>{titleText}</Text>
+          </View>
+        )}
+
+        {lengthView && <Text> {`${textLength}/${maxLength}`}</Text>}
+      </View>
       <TextInput
         style={[
           styles.textInputStyle,
@@ -104,12 +113,16 @@ export default IInput;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    alignItems: 'flex-end',
     marginHorizontal: 15,
   },
 
+  textContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
   titleContainer: {
-    width: '100%',
     marginBottom: 2,
   },
   titleText: {

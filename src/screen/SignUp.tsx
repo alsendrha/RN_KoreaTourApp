@@ -142,7 +142,8 @@ const SignUp = () => {
                   value={userData.email}
                   titleEnable={true}
                   titleText="이메일"
-                  maxLength={20}
+                  maxLength={30}
+                  lengthView={true}
                   height={iHeight * 40}
                   fontSize={16}
                   borderRadius={10}
@@ -213,7 +214,8 @@ const SignUp = () => {
                   value={userData.nickname}
                   titleEnable={true}
                   titleText="닉네임"
-                  maxLength={20}
+                  maxLength={10}
+                  lengthView={true}
                   borderRadius={10}
                   height={iHeight * 40}
                   placeholder="닉네임을 입력해주세요"
@@ -245,6 +247,9 @@ const SignUp = () => {
               <IButton
                 buttonStyle="submit"
                 title="회원가입"
+                border={0}
+                backgroundColor="#E07039"
+                titleColor="white"
                 onPress={userSignUp}
               />
             </View>
