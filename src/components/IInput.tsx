@@ -14,8 +14,11 @@ import IButton from './IButton';
 type IInputProps = {
   value: string;
   deleteValue?: () => void;
+  deleteIcon?: boolean;
+  editable?: boolean;
   lengthView?: boolean;
   height?: number;
+  textColor?: string;
   placeholder?: string;
   errorMsg?: boolean;
   titleEnable?: boolean;
@@ -53,6 +56,9 @@ const IInput = ({
   maxLength = 0,
   height,
   deleteValue,
+  textColor,
+  editable = true,
+  deleteIcon = true,
   multiline = false,
   titleEnable = false,
   titleText,
@@ -100,11 +106,17 @@ const IInput = ({
         <TextInput
           style={[
             styles.textInputStyle,
-            {height: height, borderRadius: borderRadius, fontSize: fontSize},
+            {
+              height: height,
+              borderRadius: borderRadius,
+              fontSize: fontSize,
+              color: !editable ? 'black' : textColor,
+            },
           ]}
           placeholder={placeholder}
           placeholderTextColor={colors.gray}
           value={value}
+          editable={editable}
           secureTextEntry={secureTextEntry}
           onChangeText={handleOnChangeText}
           onSubmitEditing={onSubmitEditing}
@@ -116,7 +128,9 @@ const IInput = ({
         {value && (
           <View style={styles.iconContainer}>
             <IButton buttonStyle="delete" onPress={handleDeleteValue}>
-              <Icon name="close-circle-outline" size={20} color="gray" />
+              {deleteIcon && (
+                <Icon name="close-circle-outline" size={20} color="gray" />
+              )}
             </IButton>
           </View>
         )}
