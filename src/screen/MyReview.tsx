@@ -8,12 +8,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {
-  useDeleteMyReview,
-  useDeleteReview,
-  useGetMyReviews,
-  useGetReviews,
-} from '../api/firebase';
+import {useDeleteReview, useGetMyReviews} from '../api/firebase';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IButton from '../components/IButton';
 import {iHeight} from '../../globalStyle';

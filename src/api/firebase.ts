@@ -190,12 +190,12 @@ export const useCreateReview = () => {
 
   return useMutation({
     mutationFn,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.refetchQueries({
         queryKey: [`ReviewsInfo${reviewsData.itemId}`],
       });
-      queryClient.invalidateQueries({
-        queryKey: [`myReviews${reviewsData.userId}`],
+      await queryClient.refetchQueries({
+        queryKey: [`myReviews${reviewsData.itemId}`],
       });
     },
   });
@@ -212,16 +212,14 @@ export const useGetReviews = (itemId: string) => {
     return data.length > 0 ? data : [];
   };
   return useQuery({
-    queryKey: [`ReviewsInfo${itemId}`],
+    queryKey: [`reviewsInfo${itemId}`],
     queryFn,
   });
 };
 
 export const useGetMyReviews = () => {
-  const [userId, setUserId] = useState('');
   const queryFn = async () => {
     const userId = await AsyncStorage.getItem('userId');
-    setUserId(userId!);
     if (!userId) {
       throw new Error('No userId found');
     }
@@ -234,36 +232,17 @@ export const useGetMyReviews = () => {
     return data.length > 0 ? data : [];
   };
   return useQuery({
-    queryKey: [`myReviews${userId}`],
+    queryKey: [`myReviews`],
     queryFn,
   });
 };
 
-export const useDeleteMyReview = () => {
-  const [userId, setUserId] = useState('');
-  const queryClient = useQueryClient();
-  const mutationFn = async (itemId: string) => {
-    const userId = await AsyncStorage.getItem('userId');
-    setUserId(userId!);
-    if (!userId) {
-      throw new Error('No userId found');
-    }
-  };
-
-  return useMutation({
-    mutationFn,
-    onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: [`myReviews${userId}`]});
-    },
-  });
-};
-
 export const useDeleteReview = () => {
-  const [userId, setUserId] = useState('');
+  const [itemId, setItemId] = useState('');
   const queryClient = useQueryClient();
   const mutationFn = async (itemId: string) => {
     const userId = await AsyncStorage.getItem('userId');
-    setUserId(userId!);
+    setItemId(itemId);
     if (!userId) {
       throw new Error('No userId found');
     }
@@ -284,9 +263,9 @@ export const useDeleteReview = () => {
 
   return useMutation({
     mutationFn,
-    onSuccess: (_, itemId) => {
-      queryClient.invalidateQueries({queryKey: [`myReviews${userId}`]});
-      queryClient.invalidateQueries({queryKey: [`ReviewsInfo${itemId}`]});
+    onSuccess: async () => {
+      await queryClient.refetchQueries({queryKey: [`myReviews`]});
+      await queryClient.refetchQueries({queryKey: [`reviewsInfo${itemId}`]});
     },
   });
 };
