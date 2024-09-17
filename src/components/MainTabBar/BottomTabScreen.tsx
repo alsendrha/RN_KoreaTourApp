@@ -17,7 +17,8 @@ const BottomTabScreen = () => {
       pageInfo !== 'detail' &&
       pageInfo !== 'signIn' &&
       pageInfo !== 'signUp' &&
-      pageInfo !== 'reviewInsert'
+      pageInfo !== 'reviewInsert' &&
+      pageInfo !== 'reviewUpdate'
     );
   };
 

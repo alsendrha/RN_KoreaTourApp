@@ -12,6 +12,7 @@ import AppInfo from '../../screen/AppInfo';
 import Notice from '../../screen/Notice';
 import MyStatus from '../../screen/MySatus';
 import MyReview from '../../screen/MyReview';
+import ReviewUpdate from '../../screen/ReviewUpdate';
 
 const MyPageScreen = () => {
   const Stack = createNativeStackNavigator();
@@ -67,7 +68,6 @@ const MyPageScreen = () => {
           },
         }}
       />
-
       <Stack.Screen
         name="myStatus"
         component={MyStatus}
@@ -134,6 +134,27 @@ const MyPageScreen = () => {
       <Stack.Screen
         name="appInfo"
         component={AppInfo}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+          headerShown: true,
+          headerLeft() {
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="reviewUpdate"
+        component={ReviewUpdate}
         options={{
           headerTransparent: true,
           headerTitle: '',

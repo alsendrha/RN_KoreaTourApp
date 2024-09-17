@@ -7,8 +7,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
-import {useDeleteReview, useGetMyReviews} from '../api/firebase';
+import React, {useState} from 'react';
+import {
+  useDeleteReview,
+  useGetMyReviews,
+  useUpdateReview,
+} from '../api/firebase';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IButton from '../components/IButton';
 import {iHeight} from '../../globalStyle';
@@ -21,6 +25,8 @@ const MyReview = () => {
   const {data, isLoading, refetch} = useGetMyReviews();
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const {mutate} = useDeleteReview();
+
+  const [isChange, setIsChange] = useState(false);
   const handleDelete = (itemId: string) => {
     Alert.alert('리뷰를 삭제하시겠습니까?', '', [
       {
@@ -45,6 +51,10 @@ const MyReview = () => {
         },
       },
     ]);
+  };
+
+  const handleUpdate = (itemId: string) => {
+    navigation.navigate('reviewUpdate', {id: itemId});
   };
 
   return (
@@ -117,6 +127,7 @@ const MyReview = () => {
                         buttonStyle="review"
                         backgroundColor="#e3e3e3"
                         title="수정"
+                        onPress={() => handleUpdate(item.itemId)}
                       />
                     </View>
                     <View>

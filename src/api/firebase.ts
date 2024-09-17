@@ -31,6 +31,11 @@ type ReviewProps = {
   date: Date;
 };
 
+type ReviewUpdateProps = {
+  itemId: string;
+  reviewContent: string;
+};
+
 export const userCollection = fireStore().collection('users');
 export const reviewCollection = fireStore().collection('reviews');
 
@@ -234,6 +239,43 @@ export const useGetMyReviews = () => {
   return useQuery({
     queryKey: [`myReviews`],
     queryFn,
+  });
+};
+
+export const useUpdateReview = () => {
+  const [itemId, setItemId] = useState('');
+  const queryClient = useQueryClient();
+  const mutationFn = async (reviewData: ReviewUpdateProps) => {
+    const userId = await AsyncStorage.getItem('userId');
+    setItemId(reviewData.itemId);
+    if (!userId) {
+      throw new Error('No userId found');
+    }
+
+    const reviewRef = fireStore()
+      .collection('reviews')
+      .doc(reviewData.itemId)
+      .collection('review')
+      .doc(userId);
+
+    const myReviewRef = fireStore()
+      .collection('myReviews')
+      .doc(userId)
+      .collection('review')
+      .doc(reviewData.itemId);
+
+    await Promise.all([
+      reviewRef.update(reviewData),
+      myReviewRef.update(reviewData),
+    ]);
+  };
+
+  return useMutation({
+    mutationFn,
+    onSuccess: async () => {
+      await queryClient.refetchQueries({queryKey: [`myReviews`]});
+      await queryClient.refetchQueries({queryKey: [`reviewsInfo${itemId}`]});
+    },
   });
 };
 
