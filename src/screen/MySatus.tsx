@@ -1,4 +1,12 @@
-import {Image, Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  Keyboard,
+  Pressable,
+  StyleSheet,
+  Systrace,
+  Text,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useGetUSerInfo} from '../api/firebase';
 import {iHeight} from '../../globalStyle';
@@ -69,15 +77,18 @@ const MyStatus = () => {
               <Text>비밀번호 변경</Text>
             </View>
           </IButton>
-          <View style={styles.submitButtonContainer}>
-            <IButton
-              buttonStyle="submit"
-              title="확인"
-              border={0}
-              backgroundColor="#E07039"
-              titleColor="white"
-            />
-          </View>
+        </View>
+        <View style={styles.submitButtonContainer}>
+          <IButton
+            buttonStyle="submit"
+            title="확인"
+            border={0}
+            backgroundColor="#E07039"
+            titleColor="white"
+          />
+        </View>
+        <View style={styles.deleteAccountContainer}>
+          <Text>회원탈퇴</Text>
         </View>
       </View>
     </Pressable>
@@ -107,7 +118,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: iHeight * 110,
     marginHorizontal: 30,
-    height: iHeight * 450,
+    height: iHeight * 500,
     elevation: 5,
   },
   userImgContainer: {
@@ -145,5 +156,11 @@ const styles = StyleSheet.create({
   submitButtonContainer: {
     marginTop: 20,
     alignItems: 'center',
+  },
+
+  deleteAccountContainer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
   },
 });
