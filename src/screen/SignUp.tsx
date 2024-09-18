@@ -76,10 +76,10 @@ const SignUp = () => {
         Alert.alert('이메일 또는 닉네임 중복확인을 해주세요.');
         return;
       }
-      console.log('회원가입 확인', check);
+
       setIsLoading(true);
       const {user} = await signUp(userData);
-      console.log('로그인 확인', user);
+
       await createUser({
         id: user.uid,
         email: userData.email,

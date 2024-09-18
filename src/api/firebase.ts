@@ -62,12 +62,8 @@ export const useSignIn = () => {
     auth().signInWithEmailAndPassword(email, password);
   const mutation = useMutation({
     mutationFn,
-    onSuccess: async () => {
-      queryClient.invalidateQueries({queryKey: ['user']});
-      queryClient.invalidateQueries({queryKey: ['userInfo']});
-      queryClient.invalidateQueries({queryKey: ['reviewsInfo']});
-      queryClient.invalidateQueries({queryKey: ['myReviews']});
-      queryClient.invalidateQueries({queryKey: ['myReview']});
+    onSuccess: () => {
+      queryClient.invalidateQueries();
     },
     onError: error => {
       console.log('로그인 실패', error);
@@ -90,9 +86,10 @@ export const useSignOut = () => {
   const mutationFn = () => auth().signOut();
   const mutation = useMutation({
     mutationFn,
-    onSuccess: () => {
-      queryClient.removeQueries({queryKey: ['userInfo']});
+    onSuccess: async () => {
       console.log('로그아웃 성공');
+      queryClient.invalidateQueries();
+      await AsyncStorage.removeItem('userId');
     },
     onError: error => {
       console.log('로그아웃 실패', error);
@@ -102,11 +99,9 @@ export const useSignOut = () => {
 };
 
 export const useGetUSerInfo = () => {
-  const [userId, setUserId] = useState('');
   const queryFn = async () => {
     const userId = await AsyncStorage.getItem('userId');
-    console.log('유저아이디a', userId);
-    setUserId(userId!);
+    console.log('userId나오나', userId);
     if (!userId) {
       throw new Error('No userId found');
     } else {

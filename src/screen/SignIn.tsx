@@ -66,7 +66,7 @@ const SignIn = () => {
             {
               text: '확인',
               onPress: () => {
-                navigation.navigate('homeTab');
+                navigation.navigate('myPage');
                 setUserData({email: '', password: ''});
               },
             },
@@ -79,7 +79,6 @@ const SignIn = () => {
     }
   };
 
-  console.log('userData', userData.email);
   return (
     <Pressable onPress={() => Keyboard.dismiss()}>
       {isLoading && (

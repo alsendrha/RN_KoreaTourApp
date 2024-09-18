@@ -5,7 +5,6 @@ import {
   Keyboard,
   Pressable,
   StyleSheet,
-  Systrace,
   Text,
   View,
 } from 'react-native';
@@ -61,7 +60,6 @@ const MyStatus = () => {
         const storageRef = storage().ref(`images/${imageData.fileName}`);
         await storageRef.putFile(imageData.uri!, {contentType: imageData.type});
         url = await storageRef.getDownloadURL();
-        console.log(url);
       }
       const data: UserDataType = {
         nickname: userData.nickname,

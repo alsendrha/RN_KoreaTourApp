@@ -10,6 +10,7 @@ import {
   useAreaSelected,
   useBottomSheetRef,
   useContentsSelected,
+  usePageInfo,
 } from '../../store/store';
 import Main from '../../screen/Main';
 import ReviewInsert from '../../screen/ReviewInsert';
@@ -18,7 +19,15 @@ const MainStackScreen = () => {
   const Stack = createNativeStackNavigator();
   const {areaSelected, setAreaSelected} = useAreaSelected();
   const {contentTitle, setContentsSelected} = useContentsSelected();
-
+  const {setPageInfo} = usePageInfo();
+  const navigation = useNavigation();
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('state', e => {
+      const currentRouteName = e.data.state.routeNames[e.data.state.index];
+      setPageInfo(currentRouteName);
+    });
+    return unsubscribe;
+  }, [navigation, setPageInfo]);
   return (
     <Stack.Navigator
       screenOptions={{

@@ -24,6 +24,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   textContainer: {
-    marginTop: iHeight * 5,
+    marginTop: iHeight * 10,
   },
 });

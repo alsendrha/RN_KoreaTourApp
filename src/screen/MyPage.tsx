@@ -11,7 +11,7 @@ import {useGetUSerInfo, useGetUser} from '../api/firebase';
 
 const MyPage = () => {
   const {setPageInfo} = usePageInfo();
-  const {data, isLoading, refetch} = useGetUser();
+  const {data, isLoading} = useGetUser();
   const {data: userData, isLoading: userLoading} = useGetUSerInfo();
 
   const currentRouteName = useNavigationState(state => {
@@ -22,6 +22,13 @@ const MyPage = () => {
   useEffect(() => {
     setPageInfo(currentRouteName);
   }, [currentRouteName]);
+
+  useEffect(() => {
+    if (data) {
+      console.log('data', data);
+    }
+  }, [data]);
+
   console.log('여기는 마이페이지', userData);
   return (
     <View style={styles.myPageContainer}>

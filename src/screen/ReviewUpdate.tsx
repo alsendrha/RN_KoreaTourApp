@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {
   useGetMyReview,
   useGetMyReviews,
-  useGetReviews,
   useUpdateReview,
 } from '../api/firebase';
 import IInput from '../components/IInput';
@@ -56,7 +55,6 @@ const ReviewUpdate = ({route}: any) => {
           multiline={true}
           numberOfLines={5}
           onChangeText={text => {
-            console.log(text);
             setMyReviewText(text);
           }}
         />

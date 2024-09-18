@@ -58,9 +58,7 @@ const PasswordModal = ({isOpen, setIsOpen}: PasswordModalProps) => {
       setIsLoading(false);
     }
   };
-  console.log('isOpen', isOpen);
-  console.log('userEmail', userEmail);
-  console.log('isLoading', isLoading);
+
   return (
     <View>
       <Modal animationType="fade" visible={isOpen} transparent={true}>

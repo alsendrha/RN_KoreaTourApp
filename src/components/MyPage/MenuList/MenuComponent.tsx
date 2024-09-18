@@ -35,7 +35,6 @@ const MenuComponent = ({menu}: MenuComponentProps) => {
 
   const handleSubmit = async () => {
     const userId = await AsyncStorage.getItem('userId');
-    console.log('userId', userId);
     if (menu.title === '나의 정보') {
       if (!userId) {
         Alert.alert('로그인이 필요한 서비스입니다.', '', [
