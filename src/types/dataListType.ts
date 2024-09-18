@@ -20,3 +20,8 @@ export type TourListType = {
   tel: string;
   title: string;
 };
+
+export type UserDataType = {
+  nickname: string;
+  profileUrl?: string;
+};

@@ -24,7 +24,7 @@ const MenuComponent = ({menu}: MenuComponentProps) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigation.navigate('main');
+      navigation.navigate('homeTab');
       refetch();
     }
   }, [isSuccess]);

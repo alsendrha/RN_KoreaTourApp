@@ -1,7 +1,10 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {useQueryClient} from '@tanstack/react-query';
 
 const Notice = () => {
+  const queryClient = useQueryClient();
+
   return (
     <View style={styles.container}>
       <Text>개발중입니다</Text>

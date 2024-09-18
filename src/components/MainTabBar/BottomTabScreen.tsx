@@ -1,16 +1,25 @@
 import {StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MainStackScreen from '../StackScreen/MainStackScreen';
-import {usePageInfo} from '../../store/store';
+import {useImagePicker, usePageInfo} from '../../store/store';
 import MyPageScreen from '../StackScreen/MyPageScreen';
+import {useGetUSerInfo} from '../../api/firebase';
 
 const BottomTabScreen = () => {
   const Tab = createBottomTabNavigator();
+  const {setImageData} = useImagePicker();
   const {pageInfo} = usePageInfo();
-
-  console.log('현재페이지', pageInfo);
+  const [name, setName] = useState('');
+  console.log('현재페이지1', pageInfo);
+  useEffect(() => {
+    setImageData({
+      uri: '',
+      type: '',
+      fileName: '',
+    });
+  }, [name, pageInfo]);
 
   const getTabBarVisibility = () => {
     return (
@@ -25,6 +34,12 @@ const BottomTabScreen = () => {
   return (
     <Tab.Navigator
       sceneContainerStyle={{backgroundColor: 'White'}}
+      screenListeners={{
+        state: e => {
+          const currentRouteName = e.data.state.routeNames[e.data.state.index];
+          setName(currentRouteName);
+        },
+      }}
       screenOptions={({route}) => ({
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,

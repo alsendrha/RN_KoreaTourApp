@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import IButton from '../IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MyPage from '../../screen/MyPage';
-import {usePageInfo} from '../../store/store';
+import {useImagePicker, usePageInfo} from '../../store/store';
 import SignIn from '../../screen/SignIn';
 import SignUp from '../../screen/SignUp';
 import AppInfo from '../../screen/AppInfo';
@@ -77,10 +77,16 @@ const MyPageScreen = () => {
           headerShown: true,
           headerLeft() {
             const navigation = useNavigation();
+            const {setImageData} = useImagePicker();
             return (
               <IButton
                 buttonStyle="back"
                 onPress={() => {
+                  setImageData({
+                    uri: '',
+                    type: '',
+                    fileName: '',
+                  });
                   navigation.goBack();
                 }}>
                 <Icon name="chevron-back-outline" size={24} />

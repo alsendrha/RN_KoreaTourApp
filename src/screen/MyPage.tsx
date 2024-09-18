@@ -1,4 +1,4 @@
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import React, {useEffect} from 'react';
 import {iWidth} from '../../globalStyle';
 import TopComponent from '../components/MyPage/TopComponent';
@@ -11,7 +11,7 @@ import {useGetUSerInfo, useGetUser} from '../api/firebase';
 
 const MyPage = () => {
   const {setPageInfo} = usePageInfo();
-  const {data} = useGetUser();
+  const {data, isLoading, refetch} = useGetUser();
   const {data: userData, isLoading: userLoading} = useGetUSerInfo();
 
   const currentRouteName = useNavigationState(state => {
@@ -22,12 +22,15 @@ const MyPage = () => {
   useEffect(() => {
     setPageInfo(currentRouteName);
   }, [currentRouteName]);
+  console.log('여기는 마이페이지', userData);
   return (
     <View style={styles.myPageContainer}>
       <TopComponent />
       <View style={styles.bottomContainer}></View>
       <View style={styles.menuContainer}>
-        {data ? (
+        {isLoading || userLoading ? (
+          <ActivityIndicator size="large" />
+        ) : data ? (
           <UserInfo userData={userData} userLoading={userLoading} />
         ) : (
           <UserLogin />

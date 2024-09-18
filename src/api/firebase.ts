@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import fireStore from '@react-native-firebase/firestore';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 
 type SignUpProps = {
@@ -36,6 +36,11 @@ type ReviewUpdateProps = {
   reviewContent: string;
 };
 
+type updateUserProps = {
+  nickname: string;
+  profileUrl?: string;
+};
+
 export const userCollection = fireStore().collection('users');
 export const reviewCollection = fireStore().collection('reviews');
 
@@ -57,9 +62,12 @@ export const useSignIn = () => {
     auth().signInWithEmailAndPassword(email, password);
   const mutation = useMutation({
     mutationFn,
-    onSuccess: () => {
+    onSuccess: async () => {
       queryClient.invalidateQueries({queryKey: ['user']});
       queryClient.invalidateQueries({queryKey: ['userInfo']});
+      queryClient.invalidateQueries({queryKey: ['reviewsInfo']});
+      queryClient.invalidateQueries({queryKey: ['myReviews']});
+      queryClient.invalidateQueries({queryKey: ['myReview']});
     },
     onError: error => {
       console.log('로그인 실패', error);
@@ -78,11 +86,13 @@ export const useGetUser = () => {
 };
 
 export const useSignOut = () => {
+  const queryClient = useQueryClient();
   const mutationFn = () => auth().signOut();
   const mutation = useMutation({
     mutationFn,
     onSuccess: () => {
-      AsyncStorage.removeItem('userId');
+      queryClient.removeQueries({queryKey: ['userInfo']});
+      console.log('로그아웃 성공');
     },
     onError: error => {
       console.log('로그아웃 실패', error);
@@ -92,22 +102,40 @@ export const useSignOut = () => {
 };
 
 export const useGetUSerInfo = () => {
+  const [userId, setUserId] = useState('');
   const queryFn = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    console.log('유저아이디a', userId);
+    setUserId(userId!);
+    if (!userId) {
+      throw new Error('No userId found');
+    } else {
+      const res = await fireStore()
+        .collection('users')
+        .where('id', '==', userId)
+        .get();
+      const data = res.docs.map(doc => doc.data());
+      return data[0];
+    }
+  };
+
+  return useQuery({
+    queryKey: ['userInfo'],
+    queryFn,
+  });
+};
+
+export const useUpdateUser = () => {
+  const mutationFn = async (userData: updateUserProps) => {
     const userId = await AsyncStorage.getItem('userId');
     if (!userId) {
       throw new Error('No userId found');
     }
-
-    const res = await fireStore()
-      .collection('users')
-      .where('id', '==', userId)
-      .get();
-    const data = res.docs.map(doc => doc.data());
-    return data[0];
+    fireStore().collection('users').doc(userId).update(userData);
   };
-  return useQuery({
-    queryKey: ['userInfo'],
-    queryFn,
+
+  return useMutation({
+    mutationFn,
   });
 };
 
@@ -130,11 +158,6 @@ export const getUsers = (id: string) => {
 };
 
 export const useCreateReview = () => {
-  const [reviewsData, setReviewsData] = useState({
-    itemId: '',
-    userId: '',
-  });
-  const queryClient = useQueryClient();
   const mutationFn = async (reviewData: ReviewProps) => {
     const {
       itemId,
@@ -149,7 +172,7 @@ export const useCreateReview = () => {
       reviewContent,
       date,
     } = reviewData;
-    setReviewsData({itemId, userId});
+
     const reviewRef = fireStore()
       .collection('reviews')
       .doc(itemId)
@@ -162,7 +185,6 @@ export const useCreateReview = () => {
       .collection('review')
       .doc(itemId);
 
-    // 두 개의 리뷰를 동시에 Firestore에 저장
     await Promise.all([
       reviewRef.set({
         itemId,
@@ -195,14 +217,6 @@ export const useCreateReview = () => {
 
   return useMutation({
     mutationFn,
-    onSuccess: async () => {
-      await queryClient.refetchQueries({
-        queryKey: [`ReviewsInfo${reviewsData.itemId}`],
-      });
-      await queryClient.refetchQueries({
-        queryKey: [`myReviews${reviewsData.itemId}`],
-      });
-    },
   });
 };
 
@@ -217,17 +231,19 @@ export const useGetReviews = (itemId: string) => {
     return data.length > 0 ? data : [];
   };
   return useQuery({
-    queryKey: [`reviewsInfo${itemId}`],
+    queryKey: [`reviewsInfo`],
     queryFn,
   });
 };
 
 export const useGetMyReviews = () => {
+  const [userId, setUserId] = useState('');
   const queryFn = async () => {
     const userId = await AsyncStorage.getItem('userId');
     if (!userId) {
       throw new Error('No userId found');
     }
+    setUserId(userId);
     const res = await fireStore()
       .collection('myReviews')
       .doc(userId)
@@ -272,10 +288,6 @@ export const useUpdateReview = () => {
 
   return useMutation({
     mutationFn,
-    onSuccess: async () => {
-      await queryClient.refetchQueries({queryKey: [`myReviews`]});
-      await queryClient.refetchQueries({queryKey: [`reviewsInfo${itemId}`]});
-    },
   });
 };
 
@@ -305,10 +317,6 @@ export const useDeleteReview = () => {
 
   return useMutation({
     mutationFn,
-    onSuccess: async () => {
-      await queryClient.refetchQueries({queryKey: [`myReviews`]});
-      await queryClient.refetchQueries({queryKey: [`reviewsInfo${itemId}`]});
-    },
   });
 };
 
@@ -330,8 +338,7 @@ export const useGetMyReview = (itemId: string) => {
   };
 
   return useQuery({
-    queryKey: [`myReview${itemId}`],
+    queryKey: [`myReview`],
     queryFn,
-    enabled: !!itemId,
   });
 };

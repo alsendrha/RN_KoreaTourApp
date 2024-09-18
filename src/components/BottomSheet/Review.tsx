@@ -52,16 +52,20 @@ const Review = () => {
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Review</Text>
-        {!myReview?.length && (
-          <IButton
-            buttonStyle="review"
-            backgroundColor="#E7966D"
-            titleColor="white"
-            title="리뷰 작성하기"
-            onPress={() => {
-              navigation.navigate('reviewInsert');
-            }}
-          />
+        {myLoading ? (
+          <ActivityIndicator size="small" />
+        ) : (
+          !myReview?.length && (
+            <IButton
+              buttonStyle="review"
+              backgroundColor="#E7966D"
+              titleColor="white"
+              title="리뷰 작성하기"
+              onPress={() => {
+                navigation.navigate('reviewInsert');
+              }}
+            />
+          )
         )}
       </View>
       {data && <TotalReviewPoint data={data} />}

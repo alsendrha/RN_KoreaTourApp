@@ -43,6 +43,19 @@ type RefetchStore = {
   setRefetchReviews: (refetch: () => void) => void;
 };
 
+type ImagePicker = {
+  imageData: {
+    uri: string | undefined;
+    type: string | undefined;
+    fileName: string | undefined;
+  };
+  setImageData: (data: {
+    uri: string | undefined;
+    type: string | undefined;
+    fileName: string | undefined;
+  }) => void;
+};
+
 export const usePageInfo = create<PageInfo>(set => ({
   pageInfo: '',
   setPageInfo: pageName => set({pageInfo: pageName}),
@@ -82,4 +95,13 @@ export const useItemInfo = create<ItemInfo>(set => ({
 export const useRefetchStore = create<RefetchStore>(set => ({
   refetchReviews: null,
   setRefetchReviews: refetch => set({refetchReviews: refetch}),
+}));
+
+export const useImagePicker = create<ImagePicker>(set => ({
+  imageData: {
+    uri: '',
+    type: '',
+    fileName: '',
+  },
+  setImageData: data => set({imageData: data}),
 }));

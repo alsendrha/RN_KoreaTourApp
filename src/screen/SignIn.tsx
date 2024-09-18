@@ -1,4 +1,12 @@
-import {Alert, Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Keyboard,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useSignIn} from '../api/firebase';
 import {
@@ -16,6 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import PasswordModal from '../components/SignIn/PasswordModal';
 const SignIn = () => {
   const {setPageInfo} = usePageInfo();
+  const [isLoading, setIsLoading] = useState(false);
   const {mutate} = useSignIn();
   const [errorMsg, setErrorMsg] = useState({
     email: '',
@@ -47,15 +56,17 @@ const SignIn = () => {
     if (!check) {
       return;
     }
+    Keyboard.dismiss();
     try {
+      setIsLoading(true);
       mutate(userData, {
         onSuccess: async data => {
+          setIsLoading(false);
           Alert.alert('로그인 성공', '로그인 성공', [
             {
               text: '확인',
               onPress: () => {
-                navigation.navigate('myPage');
-                navigation.navigate('main');
+                navigation.navigate('homeTab');
                 setUserData({email: '', password: ''});
               },
             },
@@ -71,6 +82,11 @@ const SignIn = () => {
   console.log('userData', userData.email);
   return (
     <Pressable onPress={() => Keyboard.dismiss()}>
+      {isLoading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" />
+        </View>
+      )}
       <View style={styles.container}>
         <View style={styles.loginView}>
           <View style={styles.loginTextContainer}>
@@ -145,6 +161,14 @@ const SignIn = () => {
 export default SignIn;
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 999,
+  },
+
   container: {
     height: '100%',
     backgroundColor: '#E07039',

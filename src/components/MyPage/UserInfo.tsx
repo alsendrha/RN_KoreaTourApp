@@ -18,23 +18,17 @@ const UserInfo = ({userData, userLoading}: UserInfoProps) => {
         </View>
       ) : (
         <View style={styles.userInfo}>
-          {userData?.profileUrl ? (
-            <View>
-              <Image
-                source={{uri: userData?.profileUrl}}
-                style={styles.userImg}
-                alt="프로필 이미지"
-              />
-            </View>
-          ) : (
-            <View style={styles.userImgContainer}>
-              <View style={styles.userImg}>
-                <View style={styles.imgIconContainer}>
-                  <Icon name="camera-outline" size={32} color="black" />
-                </View>
-              </View>
-            </View>
-          )}
+          <View style={styles.userImgContainer}>
+            <Image
+              source={
+                userData?.profileUrl
+                  ? {uri: userData?.profileUrl}
+                  : require('../../assets/images/no_image.png')
+              }
+              style={styles.userImg}
+              alt="프로필 이미지"
+            />
+          </View>
           <View style={styles.userTextContainer}>
             <Text style={styles.userNickname} numberOfLines={1}>
               {userData?.nickname}님

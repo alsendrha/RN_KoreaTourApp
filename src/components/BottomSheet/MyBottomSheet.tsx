@@ -9,6 +9,7 @@ import {useBottomSheetRef, usePageInfo} from '../../store/store';
 import Menu from './Menu';
 import Review from './Review';
 import {colors} from '../../../globalStyle';
+import ImageSheet from './ImageSheet';
 
 const MyBottomSheet = () => {
   const {pageInfo} = usePageInfo();
@@ -18,8 +19,10 @@ const MyBottomSheet = () => {
         return ['48%'];
       case 'detail':
         return ['10%', '50%', '100%'];
+      case 'myStatus':
+        return ['31%'];
       default:
-        return ['50%'];
+        break;
     }
   }, [pageInfo]);
   const {setBottomSheetRef} = useBottomSheetRef();
@@ -35,35 +38,64 @@ const MyBottomSheet = () => {
     [],
   );
 
+  const bottomSheetScreens = () => {
+    switch (pageInfo) {
+      case 'list':
+        return <Menu />;
+      case 'detail':
+        return <Review />;
+      case 'myStatus':
+        return <ImageSheet />;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     setBottomSheetRef(bottomRef);
   }, []);
 
   return (
     <>
-      {(pageInfo === 'list' || pageInfo === 'detail') && (
+      {(pageInfo === 'list' ||
+        pageInfo === 'detail' ||
+        pageInfo === 'myStatus') && (
         <BottomSheet
           ref={bottomRef}
           snapPoints={snapPoints}
           handleStyle={{
-            backgroundColor: pageInfo === 'list' ? 'white' : '#ECE0DA',
+            backgroundColor:
+              pageInfo === 'list' || pageInfo === 'myStatus'
+                ? 'white'
+                : '#ECE0DA',
+            display: pageInfo === 'myStatus' ? 'none' : 'flex',
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             elevation: 0,
           }}
-          enablePanDownToClose={pageInfo === 'list' ? true : false}
+          enablePanDownToClose={
+            pageInfo === 'list' || pageInfo === 'myStatus' ? true : false
+          }
           enableContentPanningGesture={pageInfo === 'list' ? false : true}
-          backdropComponent={pageInfo === 'list' ? renderBackdrop : undefined}
+          backdropComponent={
+            pageInfo === 'list' || pageInfo === 'myStatus'
+              ? renderBackdrop
+              : undefined
+          }
           backgroundStyle={{
-            backgroundColor: pageInfo === 'list' ? 'white' : colors.white,
+            backgroundColor: pageInfo === 'myStatus' ? 'transparent ' : 'white',
           }}
-          index={pageInfo === 'list' ? -1 : 0}
-          style={styles.contentContainer}>
+          index={pageInfo === 'list' || pageInfo === 'myStatus' ? -1 : 0}
+          style={[
+            styles.contentContainer,
+            {
+              backgroundColor:
+                pageInfo === 'myStatus' ? 'transparent' : 'white',
+            },
+          ]}>
           <BottomSheetView style={styles.bottomSheetView}>
             <BottomSheetScrollView showsVerticalScrollIndicator={false}>
-              <View style={styles.contentWrapper}>
-                {pageInfo === 'list' ? <Menu /> : <Review />}
-              </View>
+              <View style={styles.contentWrapper}>{bottomSheetScreens()}</View>
             </BottomSheetScrollView>
           </BottomSheetView>
         </BottomSheet>
@@ -75,7 +107,6 @@ const MyBottomSheet = () => {
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
-    backgroundColor: 'white',
     borderRadius: 50,
   },
   bottomSheetView: {
