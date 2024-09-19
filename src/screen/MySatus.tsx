@@ -18,6 +18,7 @@ import {useBottomSheetRef, useImagePicker, usePageInfo} from '../store/store';
 import {useNavigationState} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {UserDataType} from '../types/dataListType';
+import {CheckedNickname} from '../utils/validation';
 const MyStatus = () => {
   const {bottomSheetRef} = useBottomSheetRef();
   const {imageData, setImageData} = useImagePicker();
@@ -29,7 +30,12 @@ const MyStatus = () => {
   });
   const {data, isLoading, refetch} = useGetUSerInfo();
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [nicknameCheck, setNicknameCheck] = useState(true);
   const {setPageInfo} = usePageInfo();
+  const [errorMsg, setErrorMsg] = useState({
+    nickname: '',
+  });
+  const [userNickname, setUserNickname] = useState('');
   const currentRouteName = useNavigationState(state => {
     const route = state.routes[state.index];
     return route.name;
@@ -41,6 +47,7 @@ const MyStatus = () => {
 
   useEffect(() => {
     if (!data) return;
+    setUserNickname(data.nickname);
     setUserData({
       id: data.email,
       nickname: data.nickname,
@@ -51,8 +58,22 @@ const MyStatus = () => {
   const handleBottomSheet = () => {
     bottomSheetRef.current?.expand();
   };
-
+  console.log('기존닉네임', userNickname);
+  console.log('현재닉네임', userData.nickname);
   const handleSubmit = async () => {
+    if (userNickname !== userData.nickname) {
+      const check = await CheckedNickname({
+        setErrorMsg,
+        nickname: userData.nickname,
+      });
+
+      if (!check) {
+        setNicknameCheck(check);
+        return;
+      }
+      if (!nicknameCheck) return;
+    }
+
     setSubmitLoading(true);
     try {
       let url = '';
@@ -80,6 +101,9 @@ const MyStatus = () => {
                   uri: '',
                   type: '',
                   fileName: '',
+                });
+                setErrorMsg({
+                  nickname: '',
                 });
                 refetch();
               },
@@ -150,6 +174,8 @@ const MyStatus = () => {
                   height={50}
                   fontSize={16}
                   titleText="닉네임"
+                  errorMsg={true}
+                  errorText={errorMsg.nickname}
                   value={userData.nickname}
                   onChangeText={text =>
                     setUserData({...userData, nickname: text})
@@ -267,7 +293,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 0.5,
     borderRadius: 10,
-    marginVertical: 20,
+    marginVertical: 10,
     marginHorizontal: 15,
     justifyContent: 'center',
     alignItems: 'center',

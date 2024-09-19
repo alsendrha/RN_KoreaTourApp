@@ -4,6 +4,7 @@ import {
   DuplicationAndNullCheckType,
   EmailAndNicknameCheck,
   LoginDuplicationAndNullCheckType,
+  nameCheck,
 } from '../types/validationType';
 
 export const emailCheck = async ({
@@ -64,9 +65,36 @@ export const nicknameCheck = async ({
     } else {
       setCheckEmailAndNickname({...checkEmailAndNickname, nickname: true});
       Alert.alert('사용 가능한 닉네임입니다.');
+      return true;
     }
   } catch (error) {
     console.log('error', error);
+    return false;
+  }
+};
+
+export const CheckedNickname = async ({setErrorMsg, nickname}: nameCheck) => {
+  if (nickname === '') {
+    setErrorMsg({nickname: '닉네임을 입력해주세요'});
+    return false;
+  }
+  try {
+    const data = await fireStore()
+      .collection('users')
+      .where('nickname', '==', nickname?.trim())
+      .get();
+    console.log('data', data.docs);
+    if (data.docs.length > 0) {
+      setErrorMsg({
+        nickname: '이미 존재하는 닉네임입니다.',
+      });
+      return false;
+    } else {
+      return true;
+    }
+  } catch (error) {
+    console.log('error', error);
+    return false;
   }
 };
 
