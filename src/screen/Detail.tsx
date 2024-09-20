@@ -15,7 +15,8 @@ import MapView, {Marker} from 'react-native-maps';
 import HTMLView from 'react-native-htmlview';
 import {colors, iHeight, iWidth} from '../../globalStyle';
 import Carousel from 'react-native-reanimated-carousel';
-import {useBottomSheetRef, useItemInfo} from '../store/store';
+import {useBottomSheetRef, useItemInfo, usePageInfo} from '../store/store';
+import {useNavigationState} from '@react-navigation/native';
 
 const Detail = ({route}: any) => {
   const {id, contentType} = route.params;
@@ -25,7 +26,16 @@ const Detail = ({route}: any) => {
   const [imagesIndex, setImagesIndex] = useState(0);
   const {width} = useWindowDimensions();
   const {bottomSheetRef} = useBottomSheetRef();
+  const {setPageInfo} = usePageInfo();
   const {setItemId, setItemTitle, setContentTypeId} = useItemInfo();
+  const currentRouteName = useNavigationState(state => {
+    const route = state.routes[state.index];
+    return route.name;
+  });
+
+  useEffect(() => {
+    setPageInfo(currentRouteName);
+  }, [currentRouteName]);
 
   const goBack = () => {
     bottomSheetRef.current?.close();

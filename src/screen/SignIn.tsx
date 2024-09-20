@@ -55,7 +55,7 @@ const SignIn = () => {
             {
               text: '확인',
               onPress: () => {
-                navigation.navigate('myPage');
+                navigation.navigate('main');
                 setUserData({email: '', password: ''});
               },
             },

@@ -1,6 +1,6 @@
 import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import React, {useEffect} from 'react';
-import {iWidth} from '../../globalStyle';
+import {iHeight, iWidth} from '../../globalStyle';
 import TopComponent from '../components/MyPage/TopComponent';
 import UserInfo from '../components/MyPage/UserInfo';
 import MenuList from '../components/MyPage/MenuList/MenuList';
@@ -25,7 +25,9 @@ const MyPage = () => {
       <View style={styles.bottomContainer}></View>
       <View style={styles.menuContainer}>
         {isLoading || userLoading ? (
-          <ActivityIndicator size="large" />
+          <View style={styles.indicatorContainer}>
+            <ActivityIndicator size="large" />
+          </View>
         ) : data ? (
           <UserInfo userData={userData} userLoading={userLoading} />
         ) : (
@@ -68,5 +70,13 @@ const styles = StyleSheet.create({
     transform: [{translateY: -350}],
     elevation: 4,
     backgroundColor: 'white',
+  },
+
+  indicatorContainer: {
+    paddingVertical: iHeight * 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    elevation: 4,
   },
 });
