@@ -19,15 +19,8 @@ const MainStackScreen = () => {
   const Stack = createNativeStackNavigator();
   const {areaSelected, setAreaSelected} = useAreaSelected();
   const {contentTitle, setContentsSelected} = useContentsSelected();
-  const {setPageInfo} = usePageInfo();
+
   const navigation = useNavigation();
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('state', e => {
-      const currentRouteName = e.data.state.routeNames[e.data.state.index];
-      setPageInfo(currentRouteName);
-    });
-    return unsubscribe;
-  }, [navigation, setPageInfo]);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -61,51 +54,6 @@ const MainStackScreen = () => {
             return (
               <IButton buttonStyle="menu">
                 <Icon name="reorder-four-outline" size={28} />
-              </IButton>
-            );
-          },
-        }}
-      />
-      <Stack.Screen
-        name="detail"
-        component={Detail}
-        options={{
-          headerTransparent: true,
-          headerTitle: '',
-          headerShown: true,
-          headerLeft() {
-            const {bottomSheetRef} = useBottomSheetRef();
-            const navigation = useNavigation();
-            return (
-              <IButton
-                buttonStyle="back"
-                onPress={() => {
-                  bottomSheetRef.current?.close();
-                  navigation.goBack();
-                }}>
-                <Icon name="chevron-back-outline" size={24} />
-              </IButton>
-            );
-          },
-        }}
-      />
-      <Stack.Screen
-        name="reviewInsert"
-        component={ReviewInsert}
-        options={{
-          headerTransparent: true,
-          headerTitle: '',
-          headerShown: true,
-          headerLeft() {
-            const {bottomSheetRef} = useBottomSheetRef();
-            const navigation = useNavigation();
-            return (
-              <IButton
-                buttonStyle="back"
-                onPress={() => {
-                  navigation.goBack();
-                }}>
-                <Icon name="chevron-back-outline" size={24} />
               </IButton>
             );
           },

@@ -1,21 +1,11 @@
 import {Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
-import {useNavigationState} from '@react-navigation/native';
-import {useItemInfo, usePageInfo} from '../store/store';
+import React from 'react';
+import {useItemInfo} from '../store/store';
 import PointAndInput from '../components/BottomSheet/Review/PointAndInput';
 import {iHeight} from '../../globalStyle';
 
 const ReviewInsert = () => {
   const {itemId, itemTitle, contentTypeId} = useItemInfo();
-  const {setPageInfo} = usePageInfo();
-  const currentRouteName = useNavigationState(state => {
-    const route = state.routes[state.index];
-    return route.name;
-  });
-
-  useEffect(() => {
-    setPageInfo(currentRouteName);
-  }, [currentRouteName]);
 
   return (
     <Pressable style={styles.container} onPress={() => Keyboard.dismiss()}>

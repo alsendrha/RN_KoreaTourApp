@@ -7,13 +7,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useSignIn} from '../api/firebase';
 import {
   NavigationProp,
   ParamListBase,
   useNavigation,
-  useNavigationState,
 } from '@react-navigation/native';
 import {usePageInfo} from '../store/store';
 import IInput from '../components/IInput';
@@ -23,7 +22,6 @@ import {iHeight} from '../../globalStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PasswordModal from '../components/SignIn/PasswordModal';
 const SignIn = () => {
-  const {setPageInfo} = usePageInfo();
   const [isLoading, setIsLoading] = useState(false);
   const {mutate} = useSignIn();
   const [errorMsg, setErrorMsg] = useState({
@@ -32,15 +30,6 @@ const SignIn = () => {
   });
   const [isOpen, setIsOpen] = useState(false);
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
-  const currentRouteName = useNavigationState(state => {
-    const route = state.routes[state.index];
-    return route.name;
-  });
-
-  useEffect(() => {
-    setPageInfo(currentRouteName);
-  }, [currentRouteName]);
-
   const [userData, setUserData] = useState({
     email: '',
     password: '',

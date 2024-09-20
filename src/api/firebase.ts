@@ -101,7 +101,7 @@ export const useSignOut = () => {
 export const useGetUSerInfo = () => {
   const queryFn = async () => {
     const userId = await AsyncStorage.getItem('userId');
-    console.log('userId나오나', userId);
+
     if (!userId) {
       throw new Error('No userId found');
     } else {

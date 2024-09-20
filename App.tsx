@@ -6,6 +6,7 @@ import ReactQueryProvider from './src/reactQuery/proovider';
 import {colors} from './globalStyle';
 import SplashScreen from 'react-native-splash-screen';
 import BottomTabScreen from './src/components/MainTabBar/BottomTabScreen';
+import AppStackScreen from './src/components/MainStackScreen/AppStackScreen';
 
 function App() {
   useEffect(() => {
@@ -18,7 +19,7 @@ function App() {
     <ReactQueryProvider>
       <GestureHandlerRootView style={{flex: 1, backgroundColor: colors.white}}>
         <NavigationContainer>
-          <BottomTabScreen />
+          <AppStackScreen />
           <MyBottomSheet />
         </NavigationContainer>
       </GestureHandlerRootView>

@@ -2,18 +2,16 @@ import {
   View,
   Alert,
   StyleSheet,
-  ActivityIndicator,
   Pressable,
   Keyboard,
   ScrollView,
   Text,
-  Dimensions,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import IInput from '../components/IInput';
 import IButton from '../components/IButton';
 import {createUser, signUp} from '../api/firebase';
-import {colors, iHeight, iWidth} from '../../globalStyle';
+import {iHeight, iWidth} from '../../globalStyle';
 import {
   duplicationAndNullCheck,
   emailCheck,
@@ -23,11 +21,8 @@ import {
   NavigationProp,
   ParamListBase,
   useNavigation,
-  useNavigationState,
 } from '@react-navigation/native';
 import CustomIndicator from '../components/CustomIndicator';
-import {usePageInfo} from '../store/store';
-
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [checkEmailAndNickname, setCheckEmailAndNickname] = useState({
@@ -46,17 +41,6 @@ const SignUp = () => {
     passwordCheck: '',
     nickname: '',
   });
-
-  const {setPageInfo} = usePageInfo();
-  const currentRouteName = useNavigationState(state => {
-    const route = state.routes[state.index];
-    return route.name;
-  });
-
-  useEffect(() => {
-    setPageInfo(currentRouteName);
-  }, [currentRouteName]);
-
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
   const userSignUp = async () => {

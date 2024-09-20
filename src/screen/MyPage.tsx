@@ -6,22 +6,11 @@ import UserInfo from '../components/MyPage/UserInfo';
 import MenuList from '../components/MyPage/MenuList/MenuList';
 import UserLogin from '../components/MyPage/UserLogin';
 import {usePageInfo} from '../store/store';
-import {useNavigationState} from '@react-navigation/native';
 import {useGetUSerInfo, useGetUser} from '../api/firebase';
 
 const MyPage = () => {
-  const {setPageInfo} = usePageInfo();
   const {data, isLoading} = useGetUser();
   const {data: userData, isLoading: userLoading} = useGetUSerInfo();
-
-  const currentRouteName = useNavigationState(state => {
-    const route = state.routes[state.index];
-    return route.name;
-  });
-
-  useEffect(() => {
-    setPageInfo(currentRouteName);
-  }, [currentRouteName]);
 
   useEffect(() => {
     if (data) {

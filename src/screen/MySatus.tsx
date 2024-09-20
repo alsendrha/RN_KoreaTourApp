@@ -14,8 +14,7 @@ import {iHeight, iWidth} from '../../globalStyle';
 import IInput from '../components/IInput';
 import IButton from '../components/IButton';
 import storage from '@react-native-firebase/storage';
-import {useBottomSheetRef, useImagePicker, usePageInfo} from '../store/store';
-import {useNavigationState} from '@react-navigation/native';
+import {useBottomSheetRef, useImagePicker} from '../store/store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {UserDataType} from '../types/dataListType';
 import {CheckedNickname} from '../utils/validation';
@@ -31,19 +30,10 @@ const MyStatus = () => {
   const {data, isLoading, refetch} = useGetUSerInfo();
   const [submitLoading, setSubmitLoading] = useState(false);
   const [nicknameCheck, setNicknameCheck] = useState(true);
-  const {setPageInfo} = usePageInfo();
   const [errorMsg, setErrorMsg] = useState({
     nickname: '',
   });
   const [userNickname, setUserNickname] = useState('');
-  const currentRouteName = useNavigationState(state => {
-    const route = state.routes[state.index];
-    return route.name;
-  });
-
-  useEffect(() => {
-    setPageInfo(currentRouteName);
-  }, [currentRouteName]);
 
   useEffect(() => {
     if (!data) return;
@@ -55,24 +45,28 @@ const MyStatus = () => {
     });
   }, [data]);
 
+  useEffect(() => {
+    if (userData.nickname !== userNickname) {
+      setNicknameCheck(false);
+    } else if (userData.nickname === userNickname) {
+      setNicknameCheck(true);
+    }
+  }, [userData.nickname]);
+
   const handleBottomSheet = () => {
     bottomSheetRef.current?.expand();
   };
-  console.log('기존닉네임', userNickname);
-  console.log('현재닉네임', userData.nickname);
+
   const handleSubmit = async () => {
     if (userNickname !== userData.nickname) {
       const check = await CheckedNickname({
         setErrorMsg,
         nickname: userData.nickname,
       });
-
-      if (!check) {
-        setNicknameCheck(check);
-        return;
-      }
-      if (!nicknameCheck) return;
+      setNicknameCheck(check);
     }
+
+    if (!nicknameCheck) return;
 
     setSubmitLoading(true);
     try {

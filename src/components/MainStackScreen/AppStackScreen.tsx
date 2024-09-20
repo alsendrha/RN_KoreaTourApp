@@ -1,45 +1,40 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useNavigation} from '@react-navigation/native';
+import BottomTabScreen from '../MainTabBar/BottomTabScreen';
 import IButton from '../IButton';
+import {useBottomSheetRef} from '../../store/store';
+import {useNavigation} from '@react-navigation/native';
+import ReviewInsert from '../../screen/ReviewInsert';
+import Detail from '../../screen/Detail';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MyPage from '../../screen/MyPage';
-import {useImagePicker} from '../../store/store';
-import AppInfo from '../../screen/AppInfo';
-import Notice from '../../screen/Notice';
-import MyStatus from '../../screen/MySatus';
-import MyReview from '../../screen/MyReview';
-
-const MyPageScreen = () => {
+import SignIn from '../../screen/SignIn';
+import SignUp from '../../screen/SignUp';
+import ReviewUpdate from '../../screen/ReviewUpdate';
+const AppStackScreen = () => {
   const Stack = createNativeStackNavigator();
-
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="myPage">
-      <Stack.Screen name="myPage" component={MyPage} />
+      initialRouteName="bottomTabScreen">
+      <Stack.Screen name="bottomTabScreen" component={BottomTabScreen} />
       <Stack.Screen
-        name="myStatus"
-        component={MyStatus}
+        name="detail"
+        component={Detail}
         options={{
           headerTransparent: true,
           headerTitle: '',
           headerShown: true,
           headerLeft() {
+            const {bottomSheetRef} = useBottomSheetRef();
             const navigation = useNavigation();
-            const {setImageData} = useImagePicker();
             return (
               <IButton
                 buttonStyle="back"
                 onPress={() => {
-                  setImageData({
-                    uri: '',
-                    type: '',
-                    fileName: '',
-                  });
+                  bottomSheetRef.current?.close();
                   navigation.goBack();
                 }}>
                 <Icon name="chevron-back-outline" size={24} />
@@ -49,13 +44,14 @@ const MyPageScreen = () => {
         }}
       />
       <Stack.Screen
-        name="notice"
-        component={Notice}
+        name="reviewInsert"
+        component={ReviewInsert}
         options={{
           headerTransparent: true,
           headerTitle: '',
           headerShown: true,
           headerLeft() {
+            const {bottomSheetRef} = useBottomSheetRef();
             const navigation = useNavigation();
             return (
               <IButton
@@ -70,8 +66,31 @@ const MyPageScreen = () => {
         }}
       />
       <Stack.Screen
-        name="myReview"
-        component={MyReview}
+        name="signUp"
+        component={SignUp}
+        options={{
+          headerTransparent: true,
+          headerShadowVisible: false,
+          headerTitle: '',
+          headerTitleAlign: 'center',
+          headerShown: true,
+          headerLeft() {
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="signIn"
+        component={SignIn}
         options={{
           headerTransparent: true,
           headerTitle: '',
@@ -91,8 +110,8 @@ const MyPageScreen = () => {
         }}
       />
       <Stack.Screen
-        name="appInfo"
-        component={AppInfo}
+        name="reviewUpdate"
+        component={ReviewUpdate}
         options={{
           headerTransparent: true,
           headerTitle: '',
@@ -115,6 +134,6 @@ const MyPageScreen = () => {
   );
 };
 
-export default MyPageScreen;
+export default AppStackScreen;
 
 const styles = StyleSheet.create({});

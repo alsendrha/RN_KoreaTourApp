@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {useDeleteReview, useGetMyReviews} from '../api/firebase';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IButton from '../components/IButton';

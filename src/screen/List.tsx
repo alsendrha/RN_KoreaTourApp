@@ -1,24 +1,15 @@
-import {StyleSheet, TextInput, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import React, {useState} from 'react';
 import ItemList from '../components/List/ItemList';
 import {colors, iHeight} from '../../globalStyle';
-import {useAreaSelected, usePageInfo} from '../store/store';
+import {useAreaSelected} from '../store/store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IButton from '../components/IButton';
-import {useNavigationState} from '@react-navigation/native';
 import IInput from '../components/IInput';
 
 const List = () => {
   const {setAreaSelected} = useAreaSelected();
   const [inputText, setInputText] = useState('');
-  const {setPageInfo} = usePageInfo();
-  const currentRouteName = useNavigationState(state => {
-    const route = state.routes[state.index];
-    return route.name;
-  });
-  useEffect(() => {
-    setPageInfo(currentRouteName);
-  }, [currentRouteName]);
 
   return (
     <View style={styles.container}>

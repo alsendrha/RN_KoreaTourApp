@@ -3,43 +3,25 @@ import React, {useEffect, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MainStackScreen from '../StackScreen/MainStackScreen';
-import {useImagePicker, usePageInfo} from '../../store/store';
+import {useImagePicker} from '../../store/store';
 import MyPageScreen from '../StackScreen/MyPageScreen';
-import {useGetUSerInfo} from '../../api/firebase';
 
 const BottomTabScreen = () => {
   const Tab = createBottomTabNavigator();
   const {setImageData} = useImagePicker();
-  const {pageInfo} = usePageInfo();
   const [name, setName] = useState('');
-  console.log('현재페이지1', pageInfo);
+
   useEffect(() => {
     setImageData({
       uri: '',
       type: '',
       fileName: '',
     });
-  }, [name, pageInfo]);
-
-  const getTabBarVisibility = () => {
-    return (
-      pageInfo !== 'detail' &&
-      pageInfo !== 'signIn' &&
-      pageInfo !== 'signUp' &&
-      pageInfo !== 'reviewInsert' &&
-      pageInfo !== 'reviewUpdate'
-    );
-  };
+  }, [name]);
 
   return (
     <Tab.Navigator
       sceneContainerStyle={{backgroundColor: 'White'}}
-      screenListeners={{
-        state: e => {
-          const currentRouteName = e.data.state.routeNames[e.data.state.index];
-          setName(currentRouteName);
-        },
-      }}
       screenOptions={({route}) => ({
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
@@ -48,12 +30,7 @@ const BottomTabScreen = () => {
         headerBackgroundContainerStyle: {
           backgroundColor: 'white',
         },
-        tabBarStyle: [
-          styles.tabBarStyle,
-          {
-            display: getTabBarVisibility() ? 'flex' : 'none',
-          },
-        ],
+        tabBarStyle: [styles.tabBarStyle],
       })}>
       <Tab.Screen
         name="homeTab"

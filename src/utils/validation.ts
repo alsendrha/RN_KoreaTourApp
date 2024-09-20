@@ -83,13 +83,16 @@ export const CheckedNickname = async ({setErrorMsg, nickname}: nameCheck) => {
       .collection('users')
       .where('nickname', '==', nickname?.trim())
       .get();
-    console.log('data', data.docs);
+
     if (data.docs.length > 0) {
       setErrorMsg({
         nickname: '이미 존재하는 닉네임입니다.',
       });
       return false;
     } else {
+      setErrorMsg({
+        nickname: '사용 가능한 닉네임입니다.',
+      });
       return true;
     }
   } catch (error) {
