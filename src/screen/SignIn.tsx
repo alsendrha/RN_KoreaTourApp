@@ -62,9 +62,13 @@ const SignIn = () => {
           ]);
           await AsyncStorage.setItem('userId', data.user?.uid);
         },
+        onError: () => {
+          setIsLoading(false);
+        },
       });
     } catch (error) {
       console.log('회원가입 error', error);
+      setIsLoading(false);
     }
   };
 
@@ -86,6 +90,7 @@ const SignIn = () => {
               borderRadius={10}
               titleEnable={true}
               titleText="email"
+              keyboardType="email-address"
               errorMsg={true}
               errorText={errorMsg.email}
               maxLength={30}

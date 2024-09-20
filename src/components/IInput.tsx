@@ -20,6 +20,19 @@ type IInputProps = {
   height?: number;
   textColor?: string;
   placeholder?: string;
+  keyboardType?:
+    | 'default'
+    | 'number-pad'
+    | 'decimal-pad'
+    | 'numeric'
+    | 'email-address'
+    | 'phone-pad'
+    | 'url'
+    | 'ascii-capable'
+    | 'numbers-and-punctuation'
+    | 'name-phone-pad'
+    | 'twitter'
+    | 'web-search';
   errorMsg?: boolean;
   titleEnable?: boolean;
   fontSize?: number;
@@ -62,6 +75,7 @@ const IInput = ({
   multiline = false,
   titleEnable = false,
   titleText,
+  keyboardType = 'default',
   fontSize = 18,
   errorMsg = false,
   secureTextEntry = false,
@@ -117,6 +131,7 @@ const IInput = ({
           placeholderTextColor={colors.gray}
           value={value}
           editable={editable}
+          keyboardType={keyboardType}
           secureTextEntry={secureTextEntry}
           onChangeText={handleOnChangeText}
           onSubmitEditing={onSubmitEditing}

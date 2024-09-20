@@ -14,10 +14,11 @@ import {iHeight, iWidth} from '../../globalStyle';
 import IInput from '../components/IInput';
 import IButton from '../components/IButton';
 import storage from '@react-native-firebase/storage';
-import {useBottomSheetRef, useImagePicker} from '../store/store';
+import {useBottomSheetRef, useImagePicker, usePageInfo} from '../store/store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {UserDataType} from '../types/dataListType';
 import {CheckedNickname} from '../utils/validation';
+import {useNavigationState} from '@react-navigation/native';
 const MyStatus = () => {
   const {bottomSheetRef} = useBottomSheetRef();
   const {imageData, setImageData} = useImagePicker();
@@ -33,8 +34,15 @@ const MyStatus = () => {
   const [errorMsg, setErrorMsg] = useState({
     nickname: '',
   });
+  const {setPageInfo} = usePageInfo();
   const [userNickname, setUserNickname] = useState('');
-
+  const currentRouteName = useNavigationState(state => {
+    const route = state.routes[state.index];
+    return route.name;
+  });
+  useEffect(() => {
+    setPageInfo(currentRouteName);
+  }, [currentRouteName]);
   useEffect(() => {
     if (!data) return;
     setUserNickname(data.nickname);
