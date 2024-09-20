@@ -1,10 +1,13 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
 import BottomTabScreen from '../MainTabBar/BottomTabScreen';
 import IButton from '../IButton';
-import {useBottomSheetRef} from '../../store/store';
-import {useNavigation} from '@react-navigation/native';
+import {useBottomSheetRef, usePageInfo} from '../../store/store';
+import {ParamListBase, useNavigation} from '@react-navigation/native';
 import ReviewInsert from '../../screen/ReviewInsert';
 import Detail from '../../screen/Detail';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -23,18 +26,26 @@ const AppStackScreen = () => {
       <Stack.Screen
         name="detail"
         component={Detail}
+        initialParams={{id: '1'}}
         options={{
           headerTransparent: true,
           headerTitle: '',
           headerShown: true,
           headerLeft() {
             const {bottomSheetRef} = useBottomSheetRef();
-            const navigation = useNavigation();
+            const {setPageInfo} = usePageInfo();
+            const navigation =
+              useNavigation<NativeStackNavigationProp<ParamListBase>>();
+            const currentState = navigation.getState();
+            const previousRoute = currentState?.routes[currentState.index - 1];
+            const previousPageName = previousRoute ? previousRoute.name : null;
+            console.log('이전 페이지', previousPageName);
             return (
               <IButton
                 buttonStyle="back"
                 onPress={() => {
                   bottomSheetRef.current?.close();
+                  setPageInfo(previousPageName!);
                   navigation.goBack();
                 }}>
                 <Icon name="chevron-back-outline" size={24} />

@@ -1,26 +1,21 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {StyleSheet} from 'react-native';
+import React from 'react';
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
 import List from '../../screen/List';
-import {useNavigation} from '@react-navigation/native';
+import {ParamListBase, useNavigation} from '@react-navigation/native';
 import IButton from '../IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Detail from '../../screen/Detail';
-import {
-  useAreaSelected,
-  useBottomSheetRef,
-  useContentsSelected,
-  usePageInfo,
-} from '../../store/store';
+import {useAreaSelected, useContentsSelected} from '../../store/store';
 import Main from '../../screen/Main';
-import ReviewInsert from '../../screen/ReviewInsert';
+import {NativeStackScreenProps} from 'react-native-screens/lib/typescript/native-stack/types';
 
 const MainStackScreen = () => {
   const Stack = createNativeStackNavigator();
   const {areaSelected, setAreaSelected} = useAreaSelected();
   const {contentTitle, setContentsSelected} = useContentsSelected();
-
-  const navigation = useNavigation();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -37,7 +32,8 @@ const MainStackScreen = () => {
           headerTitleAlign: 'center',
           headerShadowVisible: false,
           headerLeft() {
-            const navigation = useNavigation();
+            const navigation =
+              useNavigation<NativeStackNavigationProp<ParamListBase>>();
             return (
               <IButton
                 buttonStyle="back"

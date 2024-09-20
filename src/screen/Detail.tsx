@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {DetailItemType} from '../types/detailType';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useGetDetailData, useGetDetailImage} from '../api/toreQuery';
@@ -16,7 +16,7 @@ import HTMLView from 'react-native-htmlview';
 import {colors, iHeight, iWidth} from '../../globalStyle';
 import Carousel from 'react-native-reanimated-carousel';
 import {useBottomSheetRef, useItemInfo, usePageInfo} from '../store/store';
-import {useNavigationState} from '@react-navigation/native';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
 
 const Detail = ({route}: any) => {
   const {id, contentType} = route.params;
@@ -28,19 +28,27 @@ const Detail = ({route}: any) => {
   const {bottomSheetRef} = useBottomSheetRef();
   const {setPageInfo} = usePageInfo();
   const {setItemId, setItemTitle, setContentTypeId} = useItemInfo();
+  const previousPageInfo = useRef<string | null>(null);
+
   const currentRouteName = useNavigationState(state => {
     const route = state.routes[state.index];
     return route.name;
   });
-
-  useEffect(() => {
-    setPageInfo(currentRouteName);
-  }, [currentRouteName]);
+  const navigation = useNavigation();
 
   const goBack = () => {
     bottomSheetRef.current?.close();
+    const currentState = navigation.getState(); // 현재 네비게이션 상태
+    const previousRoute = currentState?.routes[currentState.index - 1]; // 이전 페이지 가져오기
+    const previousPageName = previousRoute ? previousRoute.name : null;
+    console.log('이전 페이지', previousPageName);
     return false;
   };
+
+  useEffect(() => {
+    previousPageInfo.current = currentRouteName;
+    setPageInfo(previousPageInfo.current!);
+  }, [currentRouteName]);
 
   useEffect(() => {
     if (isLoading) return;

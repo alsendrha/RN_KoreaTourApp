@@ -8,11 +8,11 @@ import BottomSheet, {
 import {useBottomSheetRef, usePageInfo} from '../../store/store';
 import Menu from './Menu';
 import Review from './Review';
-import {colors} from '../../../globalStyle';
-import ImageSheet from './ImageSheet';
 
+import ImageSheet from './ImageSheet';
 const MyBottomSheet = () => {
   const {pageInfo} = usePageInfo();
+  console.log('현재 페이지', pageInfo);
   const snapPoints = useMemo(() => {
     switch (pageInfo) {
       case 'list':
@@ -53,7 +53,10 @@ const MyBottomSheet = () => {
 
   useEffect(() => {
     setBottomSheetRef(bottomRef);
-  }, []);
+    if (bottomRef.current && pageInfo === 'detail') {
+      bottomRef.current.snapToIndex(0);
+    }
+  }, [pageInfo]);
 
   return (
     <>

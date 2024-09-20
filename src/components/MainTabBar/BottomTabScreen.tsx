@@ -23,6 +23,7 @@ const BottomTabScreen = () => {
     <Tab.Navigator
       sceneContainerStyle={{backgroundColor: 'White'}}
       screenOptions={({route}) => ({
+        unmountOnBlur: true,
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
         headerShown: false,
