@@ -37,6 +37,7 @@ export type nameCheck = {
 };
 
 export type passwordCheck = {
+  password: string;
   userPassword: string;
   passwordCheck: string;
   errorMsg: {

@@ -7,6 +7,7 @@ import {colors} from './globalStyle';
 import SplashScreen from 'react-native-splash-screen';
 import AppStackScreen from './src/components/MainStackScreen/AppStackScreen';
 import Toast from 'react-native-toast-message';
+import ToastMsg from './src/components/ToastMsg';
 
 function App() {
   useEffect(() => {
@@ -26,7 +27,7 @@ function App() {
           </NavigationContainer>
         </GestureHandlerRootView>
       </ReactQueryProvider>
-      <Toast />
+      <ToastMsg />
     </>
   );
 }

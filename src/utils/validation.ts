@@ -176,6 +176,7 @@ export const loginCheck = ({
 };
 
 export const passwordValidation = ({
+  password,
   userPassword,
   passwordCheck,
   errorMsg,
@@ -183,6 +184,9 @@ export const passwordValidation = ({
 }: passwordCheck) => {
   if (userPassword === '') {
     setErrorMsg({...errorMsg, userPassword: '비밀번호를 입력해주세요'});
+    return false;
+  } else if (userPassword === password) {
+    setErrorMsg({...errorMsg, userPassword: '기존 비밀번호와 동일합니다.'});
     return false;
   } else if (userPassword.length < 6) {
     setErrorMsg({...errorMsg, userPassword: '비밀번호는 6자리 이상입니다.'});

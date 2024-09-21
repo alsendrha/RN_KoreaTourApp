@@ -12,6 +12,7 @@ import {useLoading} from '../store/store';
 import Loading from './Loading';
 import auth, {reauthenticateWithCredential} from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
+import {showToast} from '../utils/showToast';
 
 type IModalProps = {
   passwordClicked: boolean;
@@ -51,6 +52,7 @@ const IModal = ({passwordClicked, setPasswordClicked}: IModalProps) => {
 
   const handleUpdatePassword = async (password: string) => {
     const check = passwordValidation({
+      password: userPassword,
       userPassword: passwordInfo.userPassword,
       passwordCheck: passwordInfo.passwordCheck,
       errorMsg: updateErrorMsg,
@@ -70,12 +72,10 @@ const IModal = ({passwordClicked, setPasswordClicked}: IModalProps) => {
         );
 
         await data?.updatePassword(passwordInfo.userPassword);
-        Toast.show({
-          type: 'success',
-          text1: '비밀번호가 변경되었습니다',
-          visibilityTime: 3000,
-          position: 'bottom',
-          text1Style: {fontSize: 16},
+        showToast({
+          text: '비밀번호가 변경되었습니다.',
+          milliseconds: 3000,
+          fontSize: 15,
         });
         setLoading(false);
         setPasswordClicked(false);
