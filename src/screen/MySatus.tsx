@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useGetUSerInfo, useUpdateUser} from '../api/firebase';
+import {useGetUser, useGetUSerInfo, useUpdateUser} from '../api/firebase';
 import {iHeight, iWidth} from '../../globalStyle';
 import IInput from '../components/IInput';
 import IButton from '../components/IButton';
@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {UserDataType} from '../types/dataListType';
 import {CheckedNickname} from '../utils/validation';
 import {useNavigationState} from '@react-navigation/native';
+import IModal from '../components/IModal';
 const MyStatus = () => {
   const {bottomSheetRef} = useBottomSheetRef();
   const {imageData, setImageData} = useImagePicker();
@@ -36,6 +37,7 @@ const MyStatus = () => {
   });
   const {setPageInfo} = usePageInfo();
   const [userNickname, setUserNickname] = useState('');
+  const [passwordClicked, setPasswordClicked] = useState(false);
   const currentRouteName = useNavigationState(state => {
     const route = state.routes[state.index];
     return route.name;
@@ -188,7 +190,9 @@ const MyStatus = () => {
                 />
               </View>
             )}
-            <IButton buttonStyle="more">
+            <IButton
+              buttonStyle="more"
+              onPress={() => setPasswordClicked(true)}>
               <View style={styles.passwordContainer}>
                 <Text>비밀번호 변경</Text>
               </View>
@@ -208,6 +212,12 @@ const MyStatus = () => {
             <Text>회원탈퇴</Text>
           </View>
         </View>
+      )}
+      {passwordClicked && (
+        <IModal
+          passwordClicked={passwordClicked}
+          setPasswordClicked={setPasswordClicked}
+        />
       )}
     </Pressable>
   );

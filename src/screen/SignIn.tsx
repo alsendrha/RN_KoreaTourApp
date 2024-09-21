@@ -54,7 +54,8 @@ const SignIn = () => {
           Alert.alert('로그인 성공', '로그인 성공', [
             {
               text: '확인',
-              onPress: () => {
+              onPress: async () => {
+                await AsyncStorage.setItem('userPassword', userData.password);
                 navigation.navigate('homeTab');
                 setUserData({email: '', password: ''});
               },

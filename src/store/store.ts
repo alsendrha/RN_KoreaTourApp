@@ -56,6 +56,13 @@ type ImagePicker = {
   }) => void;
 };
 
+type LoadingType = {
+  loadingTitle: string;
+  setLoadingTitle: (loadingTitle: string) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+};
+
 export const usePageInfo = create<PageInfo>(set => ({
   pageInfo: '',
   setPageInfo: pageName => set({pageInfo: pageName}),
@@ -104,4 +111,11 @@ export const useImagePicker = create<ImagePicker>(set => ({
     fileName: '',
   },
   setImageData: data => set({imageData: data}),
+}));
+
+export const useLoading = create<LoadingType>(set => ({
+  loadingTitle: '',
+  setLoadingTitle: (loadingTitle: string) => set({loadingTitle}),
+  loading: false,
+  setLoading: (loading: boolean) => set({loading}),
 }));

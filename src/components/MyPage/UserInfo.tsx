@@ -1,7 +1,6 @@
 import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {colors, iHeight, iWidth} from '../../../globalStyle';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 type UserInfoProps = {
   userData: FirebaseFirestoreTypes.DocumentData | undefined;

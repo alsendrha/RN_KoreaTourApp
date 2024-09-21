@@ -7,6 +7,7 @@ import {colors} from './globalStyle';
 import SplashScreen from 'react-native-splash-screen';
 import BottomTabScreen from './src/components/MainTabBar/BottomTabScreen';
 import AppStackScreen from './src/components/MainStackScreen/AppStackScreen';
+import Loading from './src/components/Loading';
 
 function App() {
   useEffect(() => {

@@ -36,6 +36,21 @@ export type nameCheck = {
   nickname?: string;
 };
 
+export type passwordCheck = {
+  userPassword: string;
+  passwordCheck: string;
+  errorMsg: {
+    userPassword: string;
+    passwordCheck: string;
+  };
+  setErrorMsg: React.Dispatch<
+    React.SetStateAction<{
+      userPassword: string;
+      passwordCheck: string;
+    }>
+  >;
+};
+
 export type DuplicationAndNullCheckType = {
   email: string;
   password: string;

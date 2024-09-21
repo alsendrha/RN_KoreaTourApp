@@ -5,6 +5,7 @@ import {
   EmailAndNicknameCheck,
   LoginDuplicationAndNullCheckType,
   nameCheck,
+  passwordCheck,
 } from '../types/validationType';
 
 export const emailCheck = async ({
@@ -171,5 +172,30 @@ export const loginCheck = ({
     setErrorMsg({...errorMsg, password: '비밀번호는 6자리 이상입니다.'});
     return false;
   }
+  return true;
+};
+
+export const passwordValidation = ({
+  userPassword,
+  passwordCheck,
+  errorMsg,
+  setErrorMsg,
+}: passwordCheck) => {
+  if (userPassword === '') {
+    setErrorMsg({...errorMsg, userPassword: '비밀번호를 입력해주세요'});
+    return false;
+  } else if (userPassword.length < 6) {
+    setErrorMsg({...errorMsg, userPassword: '비밀번호는 6자리 이상입니다.'});
+    return false;
+  }
+
+  if (passwordCheck === '') {
+    setErrorMsg({...errorMsg, passwordCheck: '비밀번호 확인을 입력해주세요'});
+    return false;
+  } else if (userPassword !== passwordCheck) {
+    setErrorMsg({...errorMsg, passwordCheck: '비밀번호가 일치하지 않습니다.'});
+    return false;
+  }
+
   return true;
 };

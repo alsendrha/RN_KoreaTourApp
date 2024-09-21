@@ -31,9 +31,14 @@ type IButtonProps = {
     | 'categories'
     | 'bottomCategories'
     | 'more'
+    | 'modal'
     | 'review'
     | 'delete';
   border?: number;
+  borderRightWidth?: number;
+  borderLeftWidth?: number;
+  borderBottomLeftRadius?: number;
+  borderBottomRightRadius?: number;
   backgroundColor?: string;
   onPress?: () => void;
   children?: React.ReactNode;
@@ -45,6 +50,10 @@ const IButton = ({
   titleColor,
   titleWeight,
   buttonStyle,
+  borderRightWidth,
+  borderLeftWidth,
+  borderBottomLeftRadius,
+  borderBottomRightRadius,
   backgroundColor = 'white',
   border = 0.5,
   children,
@@ -83,26 +92,33 @@ const IButton = ({
       styles.submit,
       {backgroundColor: backgroundColor, borderWidth: border},
     ],
+    modal: [
+      styles.modalButton,
+      {
+        borderLeftWidth: borderLeftWidth,
+        borderRightWidth: borderRightWidth,
+        backgroundColor: backgroundColor,
+      },
+    ],
   };
 
   return (
     <TouchableOpacity
       onPress={buttonStyle === 'menu' ? openBottomSheet : onPress}
-      activeOpacity={1}>
-      <View style={buttonStyleList[buttonStyle]}>
-        {children ? (
-          children
-        ) : (
-          <Text
-            style={{
-              fontSize: fontSize,
-              color: titleColor,
-              fontWeight: titleWeight,
-            }}>
-            {title}
-          </Text>
-        )}
-      </View>
+      activeOpacity={1}
+      style={buttonStyleList[buttonStyle]}>
+      {children ? (
+        children
+      ) : (
+        <Text
+          style={{
+            fontSize: fontSize,
+            color: titleColor,
+            fontWeight: titleWeight,
+          }}>
+          {title}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };
@@ -199,5 +215,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
 
     elevation: 2,
+  },
+
+  modalButton: {
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: iHeight * 15,
+    borderWidth: 0.3,
+    borderBottomWidth: 0,
   },
 });

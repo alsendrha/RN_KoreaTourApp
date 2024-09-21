@@ -66,7 +66,7 @@ const IInput = ({
   value,
   lengthView = false,
   placeholder,
-  maxLength = 0,
+  maxLength = 20,
   height,
   deleteValue,
   textColor,
