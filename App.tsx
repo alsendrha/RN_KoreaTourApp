@@ -5,9 +5,8 @@ import MyBottomSheet from './src/components/BottomSheet/MyBottomSheet';
 import ReactQueryProvider from './src/reactQuery/proovider';
 import {colors} from './globalStyle';
 import SplashScreen from 'react-native-splash-screen';
-import BottomTabScreen from './src/components/MainTabBar/BottomTabScreen';
 import AppStackScreen from './src/components/MainStackScreen/AppStackScreen';
-import Loading from './src/components/Loading';
+import Toast from 'react-native-toast-message';
 
 function App() {
   useEffect(() => {
@@ -17,14 +16,18 @@ function App() {
   });
 
   return (
-    <ReactQueryProvider>
-      <GestureHandlerRootView style={{flex: 1, backgroundColor: colors.white}}>
-        <NavigationContainer>
-          <AppStackScreen />
-          <MyBottomSheet />
-        </NavigationContainer>
-      </GestureHandlerRootView>
-    </ReactQueryProvider>
+    <>
+      <ReactQueryProvider>
+        <GestureHandlerRootView
+          style={{flex: 1, backgroundColor: colors.white}}>
+          <NavigationContainer>
+            <AppStackScreen />
+            <MyBottomSheet />
+          </NavigationContainer>
+        </GestureHandlerRootView>
+      </ReactQueryProvider>
+      <Toast />
+    </>
   );
 }
 
