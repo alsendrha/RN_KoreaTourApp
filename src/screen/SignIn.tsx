@@ -95,6 +95,7 @@ const SignIn = () => {
               errorMsg={true}
               errorText={errorMsg.email}
               maxLength={30}
+              deleteValue={() => setUserData({...userData, email: ''})}
               onChangeText={text => {
                 setUserData({...userData, email: text});
                 setErrorMsg({...errorMsg, email: ''});
@@ -109,6 +110,7 @@ const SignIn = () => {
               errorMsg={true}
               errorText={errorMsg.password}
               maxLength={15}
+              deleteValue={() => setUserData({...userData, password: ''})}
               onChangeText={text => {
                 setUserData({...userData, password: text});
                 setErrorMsg({...errorMsg, password: ''});

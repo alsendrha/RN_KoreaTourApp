@@ -97,6 +97,7 @@ const PasswordModal = ({isOpen, setIsOpen}: PasswordModalProps) => {
                     maxLength={30}
                     onChangeText={setUserEmail}
                     placeholder="이메일"
+                    deleteValue={() => setUserEmail('')}
                   />
                 </View>
                 <IButton

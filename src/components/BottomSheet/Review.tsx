@@ -34,7 +34,12 @@ const Review = () => {
 
   useEffect(() => {
     if (!data) return;
-    myRefetch();
+    const userId = AsyncStorage.getItem('userId');
+    if (!userId) {
+      setDataInfo(data);
+      myRefetch();
+      return;
+    }
     const fetchDataAndUserInfo = async () => {
       setLoading(true);
       const tempDataInfo: any[] = [];
