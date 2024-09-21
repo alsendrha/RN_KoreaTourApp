@@ -10,7 +10,7 @@ export const colors = {
   darkGray: '#4F4F4F',
   error: '#FF0000',
   success: '#00FF00',
-  warning: '#FFA500',
+  warning: '#F21616',
   info: '#0000FF',
 };
 

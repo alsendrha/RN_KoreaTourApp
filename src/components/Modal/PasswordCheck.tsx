@@ -50,7 +50,5 @@ const styles = StyleSheet.create({
     marginVertical: iHeight * 15,
   },
 
-  contentText: {
-    // fontSize: 14,
-  },
+  contentText: {},
 });

@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Alert,
   FlatList,
   StyleSheet,
   Text,
@@ -17,6 +18,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import TotalReviewPoint from './Review/TotalReview/TotalReviewPoint';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Review = () => {
   const {itemId, itemTitle} = useItemInfo();
@@ -48,6 +50,22 @@ const Review = () => {
     fetchDataAndUserInfo();
   }, [data]);
 
+  const handleInsertReview = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    if (!userId) {
+      return Alert.alert('로그인이 필요합니다', '로그인이 필요합니다', [
+        {
+          text: '확인',
+          onPress: () => {
+            navigation.navigate('signIn');
+          },
+        },
+      ]);
+    } else {
+      navigation.navigate('reviewInsert');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -61,9 +79,7 @@ const Review = () => {
               backgroundColor="#E7966D"
               titleColor="white"
               title="리뷰 작성하기"
-              onPress={() => {
-                navigation.navigate('reviewInsert');
-              }}
+              onPress={handleInsertReview}
             />
           )
         )}

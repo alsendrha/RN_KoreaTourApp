@@ -52,8 +52,11 @@ const ReviewList = ({dataInfo, loading}: ReviewListProps) => {
             <View key={data.userId} style={styles.container}>
               <View style={styles.pointContainer}>
                 <Text style={styles.nicknameText}>
-                  {data.userData.nickname}
+                  {data.userData && data.userData.nickname
+                    ? data.userData.nickname
+                    : '탈퇴한 사용자'}
                 </Text>
+
                 <View style={styles.starMainContainer}>
                   {points.map(point => (
                     <View key={point.label} style={styles.starContainer}>

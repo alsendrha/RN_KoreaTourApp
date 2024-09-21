@@ -1,29 +1,45 @@
 import {Keyboard, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {iHeight, iWidth} from '../../globalStyle';
+import {colors, iHeight, iWidth} from '../../globalStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import IInput from './IInput';
 import IButton from './IButton';
 import PasswordCheck from './Modal/PasswordCheck';
 import UpdatePassword from './Modal/UpdatePassword';
-import {useGetUser} from '../api/firebase';
+import {useGetUser, useUserDelete} from '../api/firebase';
 import {passwordValidation} from '../utils/validation';
 import {useLoading} from '../store/store';
 import Loading from './Loading';
 import auth, {reauthenticateWithCredential} from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
 import {showToast} from '../utils/showToast';
+import PasswordModal from './Modal/PasswordModal';
+import UserDeleteModal from './Modal/UserDeleteModal';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
 
 type IModalProps = {
   passwordClicked: boolean;
   setPasswordClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  userDelete: boolean;
+  setUserDelete: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const IModal = ({passwordClicked, setPasswordClicked}: IModalProps) => {
+const IModal = ({
+  passwordClicked,
+  setPasswordClicked,
+  userDelete,
+  setUserDelete,
+}: IModalProps) => {
   const [userPassword, setUserPassword] = useState('');
   const [updatePassword, setUpdatePassword] = useState(false);
   const {data} = useGetUser();
+  const {mutate} = useUserDelete();
   const {setLoading} = useLoading();
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const [passwordInfo, setPasswordInfo] = useState({
     userPassword: '',
     passwordCheck: '',
@@ -50,6 +66,12 @@ const IModal = ({passwordClicked, setPasswordClicked}: IModalProps) => {
     }
   };
 
+  const handlePasswordModal = (updatePassword: boolean) => {
+    !updatePassword
+      ? handlePasswordCheck()
+      : handleUpdatePassword(userPassword);
+  };
+
   const handleUpdatePassword = async (password: string) => {
     const check = passwordValidation({
       password: userPassword,
@@ -66,10 +88,7 @@ const IModal = ({passwordClicked, setPasswordClicked}: IModalProps) => {
           data?.email!,
           password,
         );
-        const authCheck = await reauthenticateWithCredential(
-          data!,
-          authCredential,
-        );
+        await reauthenticateWithCredential(data!, authCredential);
 
         await data?.updatePassword(passwordInfo.userPassword);
         showToast({
@@ -91,8 +110,43 @@ const IModal = ({passwordClicked, setPasswordClicked}: IModalProps) => {
     }
   };
 
+  const handleUserDelete = async () => {
+    try {
+      setLoading(true);
+      const userDelete = await data?.delete();
+      console.log('탈퇴', userDelete);
+      if (userDelete === undefined) {
+        mutate(data?.uid!, {
+          onSuccess: async () => {
+            showToast({
+              text: '회원탈퇴가 완료되었습니다.',
+              milliseconds: 3000,
+              fontSize: 15,
+            });
+            setLoading(false);
+            await AsyncStorage.removeItem('userId');
+            await AsyncStorage.removeItem('userPassword');
+            setUserDelete(false);
+            navigation.navigate('homeTab');
+          },
+        });
+      } else {
+        setLoading(false);
+        showToast({
+          text: '회원탈퇴에 실패했습니다.',
+          milliseconds: 3000,
+          fontSize: 15,
+        });
+        setUserDelete(false);
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   const handleCancel = () => {
     setPasswordClicked(false);
+    setUserDelete(false);
     setUpdatePassword(false);
     setUserPassword('');
     setPasswordInfo({userPassword: '', passwordCheck: ''});
@@ -100,29 +154,31 @@ const IModal = ({passwordClicked, setPasswordClicked}: IModalProps) => {
   };
 
   return (
-    <Modal visible={passwordClicked} transparent={true}>
+    <Modal visible={passwordClicked || userDelete} transparent={true}>
       <Loading />
       <Pressable
         onPress={() => Keyboard.dismiss()}
         style={styles.modalBackground}>
         <View style={styles.modalContentView}>
           <View>
-            <Text style={styles.titleText}>비밀번호 변경</Text>
+            <Text style={styles.titleText}>
+              {passwordClicked ? '비밀번호 변경' : '회원탈퇴'}
+            </Text>
           </View>
-          {!updatePassword ? (
-            <PasswordCheck
+          {passwordClicked ? (
+            <PasswordModal
+              updatePassword={updatePassword}
               userPassword={userPassword}
               setUserPassword={setUserPassword}
               errorMsg={errorMsg}
               setErrorMsg={setErrorMsg}
-            />
-          ) : (
-            <UpdatePassword
               passwordInfo={passwordInfo}
               setPasswordInfo={setPasswordInfo}
               updateErrorMsg={updateErrorMsg}
               setUpdateErrorMsg={setUpdateErrorMsg}
             />
+          ) : (
+            <UserDeleteModal />
           )}
           <View style={styles.buttonContainer}>
             <IButton
@@ -137,13 +193,13 @@ const IModal = ({passwordClicked, setPasswordClicked}: IModalProps) => {
               title="확인"
               borderRightWidth={0}
               borderLeftWidth={0}
-              backgroundColor="#4E8DF2"
+              backgroundColor={passwordClicked ? '#4E8DF2' : colors.warning}
               titleColor="white"
               titleWeight="bold"
               onPress={() =>
-                !updatePassword
-                  ? handlePasswordCheck()
-                  : handleUpdatePassword(userPassword)
+                passwordClicked
+                  ? handlePasswordModal(updatePassword)
+                  : handleUserDelete()
               }
             />
           </View>

@@ -98,6 +98,15 @@ export const useSignOut = () => {
   return mutation;
 };
 
+export const useUserDelete = () => {
+  const mutationFn = async (userId: string) => {
+    userCollection.doc(userId).delete();
+  };
+  return useMutation({
+    mutationFn,
+  });
+};
+
 export const useGetUSerInfo = () => {
   const queryFn = async () => {
     const userId = await AsyncStorage.getItem('userId');

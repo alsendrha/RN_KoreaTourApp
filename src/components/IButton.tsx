@@ -222,7 +222,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: iHeight * 15,
-    borderWidth: 0.3,
+    borderWidth: 0.2,
+    borderColor: 'rgba(0, 0, 0, 0.2)',
     borderBottomWidth: 0,
   },
 });
