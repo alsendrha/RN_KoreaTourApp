@@ -10,8 +10,6 @@ import IButton from '../IButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useAreaSelected, useContentsSelected} from '../../store/store';
 import Main from '../../screen/Main';
-import {NativeStackScreenProps} from 'react-native-screens/lib/typescript/native-stack/types';
-
 const MainStackScreen = () => {
   const Stack = createNativeStackNavigator();
   const {areaSelected, setAreaSelected} = useAreaSelected();

@@ -12,7 +12,7 @@ import Review from './Review';
 import ImageSheet from './ImageSheet';
 const MyBottomSheet = () => {
   const {pageInfo} = usePageInfo();
-  console.log('현재 페이지', pageInfo);
+
   const snapPoints = useMemo(() => {
     switch (pageInfo) {
       case 'list':

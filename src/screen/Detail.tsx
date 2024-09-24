@@ -41,7 +41,7 @@ const Detail = ({route}: any) => {
     const currentState = navigation.getState(); // 현재 네비게이션 상태
     const previousRoute = currentState?.routes[currentState.index - 1]; // 이전 페이지 가져오기
     const previousPageName = previousRoute ? previousRoute.name : null;
-    console.log('이전 페이지', previousPageName);
+
     return false;
   };
 

@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 import {
   createNativeStackNavigator,
@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SignIn from '../../screen/SignIn';
 import SignUp from '../../screen/SignUp';
 import ReviewUpdate from '../../screen/ReviewUpdate';
+
 const AppStackScreen = () => {
   const Stack = createNativeStackNavigator();
   return (
@@ -39,7 +40,7 @@ const AppStackScreen = () => {
             const currentState = navigation.getState();
             const previousRoute = currentState?.routes[currentState.index - 1];
             const previousPageName = previousRoute ? previousRoute.name : null;
-            console.log('이전 페이지', previousPageName);
+
             return (
               <IButton
                 buttonStyle="back"

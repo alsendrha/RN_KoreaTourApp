@@ -14,11 +14,9 @@ const MyPage = () => {
 
   useEffect(() => {
     if (data) {
-      console.log('data', data);
     }
   }, [data]);
 
-  console.log('여기는 마이페이지', userData);
   return (
     <View style={styles.myPageContainer}>
       <TopComponent />

@@ -9,15 +9,13 @@ import MyPageScreen from '../StackScreen/MyPageScreen';
 const BottomTabScreen = () => {
   const Tab = createBottomTabNavigator();
   const {setImageData} = useImagePicker();
-  const [name, setName] = useState('');
-
   useEffect(() => {
     setImageData({
       uri: '',
       type: '',
       fileName: '',
     });
-  }, [name]);
+  }, []);
 
   return (
     <Tab.Navigator
