@@ -113,14 +113,14 @@ export const useGetUSerInfo = () => {
 
     if (!userId) {
       throw new Error('No userId found');
-    } else {
-      const res = await fireStore()
-        .collection('users')
-        .where('id', '==', userId)
-        .get();
-      const data = res.docs.map(doc => doc.data());
-      return data[0];
     }
+
+    const res = await fireStore()
+      .collection('users')
+      .where('id', '==', userId)
+      .get();
+    const data = res.docs.map(doc => doc.data());
+    return data[0];
   };
 
   return useQuery({
@@ -235,7 +235,7 @@ export const useGetReviews = (itemId: string) => {
     return data.length > 0 ? data : [];
   };
   return useQuery({
-    queryKey: [`reviewsInfo`],
+    queryKey: [`reviewsInfo`, itemId],
     queryFn,
   });
 };
@@ -296,11 +296,8 @@ export const useUpdateReview = () => {
 };
 
 export const useDeleteReview = () => {
-  const [itemId, setItemId] = useState('');
-  const queryClient = useQueryClient();
   const mutationFn = async (itemId: string) => {
     const userId = await AsyncStorage.getItem('userId');
-    setItemId(itemId);
     if (!userId) {
       throw new Error('No userId found');
     }

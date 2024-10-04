@@ -7,8 +7,8 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
-import {useDeleteReview, useGetMyReviews} from '../api/firebase';
+import React, {useState} from 'react';
+import {useDeleteReview, useGetMyReviews, useGetReviews} from '../api/firebase';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IButton from '../components/IButton';
 import {iHeight} from '../../globalStyle';
@@ -17,12 +17,17 @@ import {
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
+import {useQueryClient} from '@tanstack/react-query';
 const MyReview = () => {
+  const [selectedItemId, setSelectedItemId] = useState('');
   const {data, isLoading, refetch} = useGetMyReviews();
+  const {refetch: reviewsR} = useGetReviews(selectedItemId);
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const {mutate} = useDeleteReview();
+  const queryClient = useQueryClient();
 
   const handleDelete = (itemId: string) => {
+    setSelectedItemId(itemId);
     Alert.alert('리뷰를 삭제하시겠습니까?', '', [
       {
         text: '취소',
@@ -31,14 +36,18 @@ const MyReview = () => {
       {
         text: '확인',
         onPress: () => {
+          console.log(itemId);
           mutate(itemId, {
             onSuccess: () => {
+              refetch();
+              reviewsR();
+              queryClient.invalidateQueries({
+                queryKey: ['reviewsInfo', itemId],
+              });
+              console.log(itemId);
               Alert.alert('리뷰가 삭제되었습니다', '', [
                 {
                   text: '확인',
-                  onPress: () => {
-                    refetch();
-                  },
                 },
               ]);
             },

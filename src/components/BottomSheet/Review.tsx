@@ -21,8 +21,9 @@ import TotalReviewPoint from './Review/TotalReview/TotalReviewPoint';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Review = () => {
-  const {itemId, itemTitle} = useItemInfo();
+  const {itemId} = useItemInfo();
   const {data, refetch} = useGetReviews(itemId);
+
   const {
     data: myReview,
     isLoading: myLoading,
