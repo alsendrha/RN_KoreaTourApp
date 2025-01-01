@@ -5,12 +5,10 @@ import TopComponent from '../components/MyPage/TopComponent';
 import UserInfo from '../components/MyPage/UserInfo';
 import MenuList from '../components/MyPage/MenuList/MenuList';
 import UserLogin from '../components/MyPage/UserLogin';
-import {usePageInfo} from '../store/store';
-import {useGetUSerInfo, useGetUser} from '../api/firebase';
+import {useGetUser} from '../api/firebase';
 
 const MyPage = () => {
   const {data, isLoading} = useGetUser();
-  const {data: userData, isLoading: userLoading} = useGetUSerInfo();
 
   useEffect(() => {
     if (data) {
@@ -22,12 +20,12 @@ const MyPage = () => {
       <TopComponent />
       <View style={styles.bottomContainer}></View>
       <View style={styles.menuContainer}>
-        {isLoading || userLoading ? (
+        {isLoading ? (
           <View style={styles.indicatorContainer}>
             <ActivityIndicator size="large" />
           </View>
         ) : data ? (
-          <UserInfo userData={userData} userLoading={userLoading} />
+          <UserInfo />
         ) : (
           <UserLogin />
         )}

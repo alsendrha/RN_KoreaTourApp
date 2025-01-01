@@ -1,40 +1,39 @@
 import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {colors, iHeight, iWidth} from '../../../globalStyle';
-import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
-type UserInfoProps = {
-  userData: FirebaseFirestoreTypes.DocumentData | undefined;
-  userLoading: boolean;
-};
-const UserInfo = ({userData, userLoading}: UserInfoProps) => {
+import {useGetUSerInfo} from '../../api/firebase';
+
+const UserInfo = () => {
+  const {data, isLoading} = useGetUSerInfo();
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <View style={styles.loadingContainer2}>
+          <ActivityIndicator size="large" />
+        </View>
+      </View>
+    );
+  }
   return (
     <>
-      {userLoading ? (
-        <View style={styles.loadingContainer}>
-          <View style={styles.loadingContainer2}>
-            <ActivityIndicator size="large" />
-          </View>
+      <View style={styles.userInfo}>
+        <View style={styles.userImgContainer}>
+          <Image
+            source={
+              data?.profileUrl
+                ? {uri: data?.profileUrl}
+                : require('../../assets/images/no_image.png')
+            }
+            style={styles.userImg}
+            alt="프로필 이미지"
+          />
         </View>
-      ) : (
-        <View style={styles.userInfo}>
-          <View style={styles.userImgContainer}>
-            <Image
-              source={
-                userData?.profileUrl
-                  ? {uri: userData?.profileUrl}
-                  : require('../../assets/images/no_image.png')
-              }
-              style={styles.userImg}
-              alt="프로필 이미지"
-            />
-          </View>
-          <View style={styles.userTextContainer}>
-            <Text style={styles.userNickname} numberOfLines={1}>
-              {userData?.nickname}님
-            </Text>
-          </View>
+        <View style={styles.userTextContainer}>
+          <Text style={styles.userNickname} numberOfLines={1}>
+            {data?.nickname}님
+          </Text>
         </View>
-      )}
+      </View>
     </>
   );
 };
