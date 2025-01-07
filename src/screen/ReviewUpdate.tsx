@@ -1,4 +1,4 @@
-import {Alert, Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Alert, Keyboard, Pressable, StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   useGetMyReview,

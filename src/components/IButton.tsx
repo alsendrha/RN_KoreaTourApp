@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import React, {useCallback} from 'react';
 import {useAreaSelected, useBottomSheetRef} from '../store/store';
 import {iHeight, iWidth} from '../../globalStyle';
@@ -52,8 +52,6 @@ const IButton = ({
   buttonStyle,
   borderRightWidth,
   borderLeftWidth,
-  borderBottomLeftRadius,
-  borderBottomRightRadius,
   backgroundColor = 'white',
   border = 0.5,
   children,

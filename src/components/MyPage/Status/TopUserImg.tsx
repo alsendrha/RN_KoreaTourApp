@@ -1,4 +1,4 @@
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Image, StyleSheet, View} from 'react-native';
 import React from 'react';
 import IButton from '../../IButton';
 import Icon from 'react-native-vector-icons/Ionicons';

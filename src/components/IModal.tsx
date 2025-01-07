@@ -1,17 +1,13 @@
 import {Keyboard, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {colors, iHeight, iWidth} from '../../globalStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import IInput from './IInput';
 import IButton from './IButton';
-import PasswordCheck from './Modal/PasswordCheck';
-import UpdatePassword from './Modal/UpdatePassword';
 import {useGetUser, useUserDelete} from '../api/firebase';
 import {passwordValidation} from '../utils/validation';
 import {useLoading} from '../store/store';
 import Loading from './Loading';
 import auth, {reauthenticateWithCredential} from '@react-native-firebase/auth';
-import Toast from 'react-native-toast-message';
 import {showToast} from '../utils/showToast';
 import PasswordModal from './Modal/PasswordModal';
 import UserDeleteModal from './Modal/UserDeleteModal';

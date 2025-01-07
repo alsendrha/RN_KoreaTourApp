@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {colors, iHeight} from '../../globalStyle';
+import {colors} from '../../globalStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IButton from './IButton';
 

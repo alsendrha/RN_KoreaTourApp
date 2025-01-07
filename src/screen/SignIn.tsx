@@ -14,7 +14,6 @@ import {
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
-import {usePageInfo} from '../store/store';
 import IInput from '../components/IInput';
 import IButton from '../components/IButton';
 import {loginCheck} from '../utils/validation';

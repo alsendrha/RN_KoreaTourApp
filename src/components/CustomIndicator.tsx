@@ -1,10 +1,4 @@
-import {
-  ActivityIndicator,
-  Dimensions,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {ActivityIndicator, Dimensions, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {colors, iHeight} from '../../globalStyle';
 

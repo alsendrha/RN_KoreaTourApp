@@ -1,4 +1,4 @@
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import ItemList from '../components/List/ItemList';
 import {colors, iHeight} from '../../globalStyle';

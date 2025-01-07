@@ -1,6 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
-import {useGetUser} from '../../api/firebase';
+import React from 'react';
 import IInput from '../IInput';
 import {UpdatePasswordProps} from '../../types/types';
 

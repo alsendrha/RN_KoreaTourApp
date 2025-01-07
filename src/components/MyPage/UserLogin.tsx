@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {iHeight, iWidth} from '../../../globalStyle';
+import {iHeight} from '../../../globalStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IButton from '../IButton';
 import {

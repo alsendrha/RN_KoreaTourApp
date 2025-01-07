@@ -1,4 +1,3 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import PasswordCheck from './PasswordCheck';
 import UpdatePassword from './UpdatePassword';

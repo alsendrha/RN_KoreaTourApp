@@ -1,13 +1,6 @@
-import {
-  ActivityIndicator,
-  Alert,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {ActivityIndicator, Alert, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useItemInfo, useRefetchStore} from '../../store/store';
+import {useItemInfo} from '../../store/store';
 import {getUsers, useGetMyReview, useGetReviews} from '../../api/firebase';
 import {iHeight} from '../../../globalStyle';
 import ReviewList from './Review/ReviewList';
