@@ -17,7 +17,7 @@ import {colors, iHeight, iWidth} from '../../globalStyle';
 import Carousel from 'react-native-reanimated-carousel';
 import {useBottomSheetRef, useItemInfo, usePageInfo} from '../store/store';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
-
+import FastImage from '@d11/react-native-fast-image';
 const Detail = ({route}: any) => {
   const {id, contentType} = route.params;
   const {data, isLoading} = useGetDetailData(id, contentType);
@@ -82,7 +82,7 @@ const Detail = ({route}: any) => {
               onSnapToItem={index => setImagesIndex(index)}
               loop={true}
               renderItem={({item}: any) => (
-                <Image
+                <FastImage
                   style={styles.img}
                   source={
                     item.originimgurl
@@ -91,7 +91,7 @@ const Detail = ({route}: any) => {
                       ? {uri: item}
                       : require('../assets/images/no_image.png')
                   }
-                  alt="이미지"
+                  resizeMode={FastImage.resizeMode.cover}
                 />
               )}
             />
