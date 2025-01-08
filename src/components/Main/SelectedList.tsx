@@ -14,7 +14,7 @@ import IButton from '../IButton';
 import {useNavigation} from '@react-navigation/native';
 import {colors, iHeight, iWidth} from '../../../globalStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import FastImage from '@d11/react-native-fast-image';
 const SelectedList = () => {
   const {areaSelected} = useAreaSelected();
   const {contentsSelected, contentTitle} = useContentsSelected();
@@ -73,14 +73,14 @@ const SelectedList = () => {
                     })
                   }>
                   <View style={styles.itemCard}>
-                    <Image
+                    <FastImage
                       source={
                         item.firstimage
                           ? {uri: item.firstimage}
                           : require('../../assets/images/no_image.png')
                       }
                       style={styles.itemImg}
-                      alt="아이템 이미지"
+                      resizeMode={FastImage.resizeMode.cover}
                     />
                     <View style={styles.cardTextContainer}>
                       <Text numberOfLines={1} style={{fontWeight: 'bold'}}>

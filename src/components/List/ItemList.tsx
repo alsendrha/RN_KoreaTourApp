@@ -21,7 +21,7 @@ import {
 import {TourListType} from '../../types/dataListType';
 import {useNavigation} from '@react-navigation/native';
 import CustomIndicator from '../CustomIndicator';
-
+import FastImage from '@d11/react-native-fast-image';
 const ItemList = () => {
   const scrollViewRef = useRef<ScrollView>(null);
   const {areaSelected} = useAreaSelected();
@@ -59,14 +59,14 @@ const ItemList = () => {
         key={item.contentid}
         activeOpacity={0.8}>
         <View style={styles.itemCard}>
-          <Image
+          <FastImage
             style={styles.imageSize}
             source={
               item.firstimage
                 ? {uri: item.firstimage}
                 : require('../../assets/images/no_image.png')
             }
-            alt="이미지"
+            resizeMode={FastImage.resizeMode.cover}
           />
           <View style={styles.textContainer}>
             <Text numberOfLines={1} style={styles.textStyle}>
