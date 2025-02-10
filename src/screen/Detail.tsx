@@ -1,23 +1,22 @@
+import FastImage from '@d11/react-native-fast-image';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   ActivityIndicator,
   BackHandler,
-  Image,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import {DetailItemType} from '../types/detailType';
 import {ScrollView} from 'react-native-gesture-handler';
-import {useGetDetailData, useGetDetailImage} from '../api/toreQuery';
-import MapView, {Marker} from 'react-native-maps';
-import HTMLView from 'react-native-htmlview';
-import {colors, iHeight, iWidth} from '../../globalStyle';
 import Carousel from 'react-native-reanimated-carousel';
+import {colors, iHeight} from '../../globalStyle';
+import {useGetDetailData, useGetDetailImage} from '../api/toreQuery';
+import DetailMap from '../components/Detail/DetailMap';
+import DetailTextContent from '../components/Detail/DetailTextContent';
+import ImageDot from '../components/Detail/ImageDot';
 import {useBottomSheetRef, useItemInfo, usePageInfo} from '../store/store';
-import {useNavigation, useNavigationState} from '@react-navigation/native';
-import FastImage from '@d11/react-native-fast-image';
+import {DetailItemType} from '../types/detailType';
 const Detail = ({route}: any) => {
   const {id, contentType} = route.params;
   const {data, isLoading} = useGetDetailData(id, contentType);
@@ -41,7 +40,6 @@ const Detail = ({route}: any) => {
     const currentState = navigation.getState(); // 현재 네비게이션 상태
     const previousRoute = currentState?.routes[currentState.index - 1]; // 이전 페이지 가져오기
     const previousPageName = previousRoute ? previousRoute.name : null;
-
     return false;
   };
 
@@ -95,61 +93,20 @@ const Detail = ({route}: any) => {
                 />
               )}
             />
-
-            <View style={styles.dotContainer}>
-              {detailImages.map((img: string[], index: number) => (
-                <View
-                  key={index}
-                  style={{
-                    width: index === imagesIndex ? 12 : 10,
-                    height: index === imagesIndex ? 12 : 10,
-                    borderRadius: 50,
-                    borderColor: colors.white,
-                    backgroundColor:
-                      index === imagesIndex ? colors.white : colors.gray,
-                    bottom: 10,
-                    marginHorizontal: 2,
-                  }}></View>
-              ))}
-            </View>
+            <ImageDot detailImages={detailImages} imagesIndex={imagesIndex} />
           </View>
-          <View style={styles.textContainer}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.titleText}>{item.title}</Text>
-              <Text>주소 : {item.addr1}</Text>
-              <Text>연락처 : {item.tel ? item.tel : '-'}</Text>
-              <HTMLView value={item.homepage} style={{marginVertical: 5}} />
-            </View>
-            <Text style={{marginTop: 10}}>
-              {item.overview.replace(/<br\s*\/?>/gi, '\n')}
-            </Text>
-          </View>
-          <View style={styles.mapContainer}>
-            <MapView
-              style={styles.mapSize}
-              zoomEnabled={true}
-              zoomControlEnabled={true}
-              initialRegion={{
-                latitude: Number(item.mapy),
-                longitude: Number(item.mapx),
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}>
-              <Marker
-                title={item.title}
-                coordinate={{
-                  latitude: Number(item.mapy),
-                  longitude: Number(item.mapx),
-                }}>
-                <View>
-                  <Image
-                    source={require('../assets/images/markerIcon.png')}
-                    style={{width: 50, height: 50}}
-                  />
-                </View>
-              </Marker>
-            </MapView>
-          </View>
+          <DetailTextContent
+            title={item.title}
+            address={item.addr1}
+            tel={item.tel}
+            page={item.homepage}
+            overview={item.overview}
+          />
+          <DetailMap
+            latitude={item.mapy}
+            longitude={item.mapx}
+            markerTitle={item.title}
+          />
         </View>
       ))}
     </ScrollView>
@@ -179,38 +136,5 @@ const styles = StyleSheet.create({
     objectFit: 'cover',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-  },
-
-  dotContainer: {
-    position: 'absolute',
-    bottom: 10,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  textContainer: {
-    marginTop: 10,
-    marginHorizontal: iWidth * 10,
-  },
-
-  titleContainer: {
-    paddingVertical: iHeight * 15,
-    borderBottomWidth: 0.5,
-  },
-
-  titleText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-
-  mapContainer: {
-    marginTop: iHeight * 10,
-    marginBottom: 88,
-  },
-
-  mapSize: {
-    height: iHeight * 350,
   },
 });

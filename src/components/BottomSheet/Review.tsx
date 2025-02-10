@@ -1,17 +1,17 @@
-import {ActivityIndicator, Alert, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {useItemInfo} from '../../store/store';
-import {getUsers, useGetMyReview, useGetReviews} from '../../api/firebase';
-import {iHeight} from '../../../globalStyle';
-import ReviewList from './Review/ReviewList';
-import IButton from '../IButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   NavigationProp,
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {Alert, StyleSheet, Text, View} from 'react-native';
+import {iHeight} from '../../../globalStyle';
+import {getUsers, useGetMyReview, useGetReviews} from '../../api/firebase';
+import {useItemInfo} from '../../store/store';
+import IButton from '../IButton';
+import ReviewList from './Review/ReviewList';
 import TotalReviewPoint from './Review/TotalReview/TotalReviewPoint';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Review = () => {
   const {itemId} = useItemInfo();
@@ -69,18 +69,14 @@ const Review = () => {
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Review</Text>
-        {myLoading ? (
-          <ActivityIndicator size="small" />
-        ) : (
-          !myReview?.length && (
-            <IButton
-              buttonStyle="review"
-              backgroundColor="#E7966D"
-              titleColor="white"
-              title="리뷰 작성하기"
-              onPress={handleInsertReview}
-            />
-          )
+        {!myReview?.length && (
+          <IButton
+            buttonStyle="review"
+            backgroundColor="#E7966D"
+            titleColor="white"
+            title="리뷰 작성하기"
+            onPress={handleInsertReview}
+          />
         )}
       </View>
       {data && <TotalReviewPoint data={data} />}

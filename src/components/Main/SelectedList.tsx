@@ -1,20 +1,19 @@
+import FastImage from '@d11/react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
   Dimensions,
   FlatList,
-  Image,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
-import {useAreaSelected, useContentsSelected} from '../../store/store';
-import {useGetToreList} from '../../api/toreQuery';
-import IButton from '../IButton';
-import {useNavigation} from '@react-navigation/native';
-import {colors, iHeight, iWidth} from '../../../globalStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
-import FastImage from '@d11/react-native-fast-image';
+import {colors, iHeight, iWidth} from '../../../globalStyle';
+import {useGetToreList} from '../../api/toreQuery';
+import {useAreaSelected, useContentsSelected} from '../../store/store';
+import IButton from '../IButton';
 const SelectedList = () => {
   const {areaSelected} = useAreaSelected();
   const {contentsSelected, contentTitle} = useContentsSelected();
