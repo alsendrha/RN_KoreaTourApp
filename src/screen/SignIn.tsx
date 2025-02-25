@@ -1,3 +1,10 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -7,19 +14,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {useSignIn} from '../api/firebase';
-import {
-  NavigationProp,
-  ParamListBase,
-  useNavigation,
-} from '@react-navigation/native';
-import IInput from '../components/IInput';
-import IButton from '../components/IButton';
-import {loginCheck} from '../utils/validation';
 import {iHeight} from '../../globalStyle';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSignIn} from '../api/firebase';
+import IButton from '../components/IButton';
+import IInput from '../components/IInput';
 import PasswordModal from '../components/SignIn/PasswordModal';
+import {loginCheck} from '../utils/validation';
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {mutate} = useSignIn();
@@ -127,7 +127,7 @@ const SignIn = () => {
               />
             </View>
             <View style={styles.signUpButtonContainer}>
-              <Text>비밀번호가 생각이 안난다면 </Text>
+              <Text style={{color: 'black'}}>비밀번호가 생각이 안난다면 </Text>
               <IButton
                 buttonStyle="more"
                 title="비밀번호 찾기"
@@ -137,7 +137,7 @@ const SignIn = () => {
             </View>
             <View
               style={[styles.signUpButtonContainer, {marginTop: iHeight * 8}]}>
-              <Text>아직 회원이 아니시라면 </Text>
+              <Text style={{color: 'black'}}>아직 회원이 아니시라면 </Text>
               <IButton
                 buttonStyle="more"
                 title="회원가입"
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
   loginText: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: 'black',
   },
 
   inputContainer: {

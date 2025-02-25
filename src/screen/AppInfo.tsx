@@ -1,5 +1,5 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {iHeight} from '../../globalStyle';
 
 const AppInfo = () => {
@@ -7,7 +7,7 @@ const AppInfo = () => {
     <View style={styles.container}>
       <Image source={require('../assets/images/app_info_logo.png')} />
       <View style={styles.textContainer}>
-        <Text>현재 버전 1.0.0</Text>
+        <Text style={styles.textStyle}>현재 버전 1.0.3</Text>
       </View>
     </View>
   );
@@ -25,5 +25,8 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginTop: iHeight * 10,
+  },
+  textStyle: {
+    color: 'black',
   },
 });

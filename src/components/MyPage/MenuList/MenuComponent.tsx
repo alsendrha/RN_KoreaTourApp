@@ -1,14 +1,14 @@
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect} from 'react';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import {useGetUser, useSignOut} from '../../../api/firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   NavigationProp,
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useGetUser, useSignOut} from '../../../api/firebase';
 
 type MenuComponentProps = {
   menu: {
@@ -96,5 +96,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 18,
     fontWeight: 'bold',
+    color: 'black',
   },
 });

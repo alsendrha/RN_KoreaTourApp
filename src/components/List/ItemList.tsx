@@ -1,27 +1,26 @@
+import FastImage from '@d11/react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
+import {useQueryClient} from '@tanstack/react-query';
+import React, {useEffect, useRef} from 'react';
 import {
   ActivityIndicator,
   Dimensions,
   FlatList,
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef} from 'react';
 import {colors, iHeight, iWidth} from '../../../globalStyle';
 import {useGetToreList1} from '../../api/toreQuery';
-import {useQueryClient} from '@tanstack/react-query';
 import {
   useAreaSelected,
   useContentsSelected,
   useScrollRef,
 } from '../../store/store';
 import {TourListType} from '../../types/dataListType';
-import {useNavigation} from '@react-navigation/native';
 import CustomIndicator from '../CustomIndicator';
-import FastImage from '@d11/react-native-fast-image';
 const ItemList = () => {
   const scrollViewRef = useRef<ScrollView>(null);
   const {areaSelected} = useAreaSelected();
@@ -72,7 +71,7 @@ const ItemList = () => {
             <Text numberOfLines={1} style={styles.textStyle}>
               {item.title}
             </Text>
-            <Text>
+            <Text style={styles.contentText}>
               {item.addr1}
               {item.addr2}
             </Text>
@@ -110,7 +109,7 @@ const ItemList = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-              <Text>검색 결과가 없습니다</Text>
+              <Text style={styles.contentText}>검색 결과가 없습니다</Text>
             </View>
           ) : null
         }
@@ -147,5 +146,10 @@ const styles = StyleSheet.create({
 
   textStyle: {
     fontWeight: 'bold',
+    color: 'black',
+  },
+
+  contentText: {
+    color: 'black',
   },
 });

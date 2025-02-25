@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import {
   NativeSyntheticEvent,
   StyleSheet,
@@ -6,9 +7,8 @@ import {
   TextInputSubmitEditingEventData,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {colors} from '../../globalStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {colors} from '../../globalStyle';
 import IButton from './IButton';
 
 type IInputProps = {
@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontWeight: 'bold',
+    color: 'black',
     fontSize: 18,
   },
 

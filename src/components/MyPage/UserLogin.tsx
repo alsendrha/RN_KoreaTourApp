@@ -1,13 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {iHeight} from '../../../globalStyle';
-import Icon from 'react-native-vector-icons/Ionicons';
-import IButton from '../IButton';
 import {
   NavigationProp,
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {iHeight} from '../../../globalStyle';
+import IButton from '../IButton';
 
 const UserLogin = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   loginTextTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'black',
   },
 
   signUpContainer: {

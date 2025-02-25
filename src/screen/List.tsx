@@ -1,12 +1,12 @@
-import {StyleSheet, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import ItemList from '../components/List/ItemList';
-import {colors, iHeight} from '../../globalStyle';
-import {useAreaSelected, usePageInfo} from '../store/store';
-import Icon from 'react-native-vector-icons/Ionicons';
-import IButton from '../components/IButton';
 import {useNavigationState} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {colors, iHeight} from '../../globalStyle';
+import IButton from '../components/IButton';
 import IInput from '../components/IInput';
+import ItemList from '../components/List/ItemList';
+import {useAreaSelected, usePageInfo} from '../store/store';
 
 const List = () => {
   const {setAreaSelected} = useAreaSelected();

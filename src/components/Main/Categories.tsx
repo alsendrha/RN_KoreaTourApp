@@ -1,9 +1,9 @@
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {iHeight, iWidth} from '../../../globalStyle';
 import {useContentsSelected} from '../../store/store';
 import {contentList} from '../../utils/listData';
 import IButton from '../IButton';
-import {iHeight, iWidth} from '../../../globalStyle';
 
 type CategoriesProps = {
   modal?: string;
@@ -15,7 +15,7 @@ const Categories = ({modal}: CategoriesProps) => {
     <View>
       {!modal && (
         <View style={styles.titleContainer}>
-          <Text style={{fontWeight: 'bold'}}>Categories</Text>
+          <Text style={{fontWeight: 'bold', color: 'black'}}>Categories</Text>
         </View>
       )}
       <View style={styles.contentListContainer}>

@@ -22,11 +22,11 @@ const DetailTextContent = ({
     <View style={styles.textContainer}>
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>{title}</Text>
-        <Text>주소 : {address}</Text>
-        <Text>연락처 : {tel ? tel : '-'}</Text>
+        <Text style={styles.contentText}>주소 : {address}</Text>
+        <Text style={styles.contentText}>연락처 : {tel ? tel : '-'}</Text>
         <HTMLView value={page} style={{marginVertical: 5}} />
       </View>
-      <Text style={{marginTop: 10}}>
+      <Text style={{marginTop: 10, color: 'black'}}>
         {overview.replace(/<br\s*\/?>/gi, '\n')}
       </Text>
     </View>
@@ -48,6 +48,10 @@ const styles = StyleSheet.create({
 
   titleText: {
     fontSize: 20,
+    color: 'black',
     fontWeight: 'bold',
+  },
+  contentText: {
+    color: 'black',
   },
 });

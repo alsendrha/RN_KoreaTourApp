@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {colors, iHeight, iWidth} from '../../../globalStyle';
 import AreaList from './AreaList';
 import Categories from './Categories';
@@ -9,7 +9,7 @@ const TopMenu = () => {
     <View style={styles.menuContainer}>
       <View style={{alignItems: 'center'}}>
         <View style={styles.titleContainer}>
-          <Text style={{fontWeight: 'bold', fontSize: 32}}>
+          <Text style={{fontWeight: 'bold', color: 'black', fontSize: 32}}>
             어디로 가볼까요?
           </Text>
         </View>

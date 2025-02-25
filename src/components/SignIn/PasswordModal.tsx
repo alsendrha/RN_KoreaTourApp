@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -8,11 +9,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
 import {iHeight, iWidth} from '../../../globalStyle';
-import IInput from '../IInput';
-import IButton from '../IButton';
 import {userPasswordReset} from '../../api/firebase';
+import IButton from '../IButton';
+import IInput from '../IInput';
 
 type PasswordModalProps = {
   isOpen: boolean;
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: 'black',
   },
 
   inputContainer: {

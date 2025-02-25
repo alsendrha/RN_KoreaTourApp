@@ -82,7 +82,9 @@ const SelectedList = () => {
                       resizeMode={FastImage.resizeMode.cover}
                     />
                     <View style={styles.cardTextContainer}>
-                      <Text numberOfLines={1} style={{fontWeight: 'bold'}}>
+                      <Text
+                        numberOfLines={1}
+                        style={{fontWeight: 'bold', color: 'black'}}>
                         {item.title}
                       </Text>
                     </View>
@@ -97,7 +99,7 @@ const SelectedList = () => {
                   onPress={() => navigation.navigate('list')}>
                   <View style={styles.lastCard}>
                     <Icon name="arrow-forward-circle-outline" size={32} />
-                    <Text>more</Text>
+                    <Text style={{color: 'black'}}>more</Text>
                   </View>
                 </IButton>
               ) : null
@@ -111,7 +113,7 @@ const SelectedList = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Text>검색 결과가 없습니다</Text>
+                  <Text style={{color: 'black'}}>검색 결과가 없습니다</Text>
                 </View>
               ) : null
             }
@@ -138,6 +140,7 @@ const styles = StyleSheet.create({
   mainTitleText: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'black',
   },
   listItemContainer: {
     marginTop: 20,

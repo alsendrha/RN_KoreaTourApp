@@ -1,8 +1,8 @@
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import IInput from '../../IInput';
-import IButton from '../../IButton';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {iHeight} from '../../../../globalStyle';
+import IButton from '../../IButton';
+import IInput from '../../IInput';
 
 type InputAndPasswordProps = {
   isLoading: boolean;
@@ -63,7 +63,7 @@ const InputAndPassword = ({
       )}
       <IButton buttonStyle="more" onPress={() => setPasswordClicked(true)}>
         <View style={styles.passwordContainer}>
-          <Text>비밀번호 변경</Text>
+          <Text style={{color: 'black'}}>비밀번호 변경</Text>
         </View>
       </IButton>
     </View>

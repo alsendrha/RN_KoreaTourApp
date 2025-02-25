@@ -1,5 +1,5 @@
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
 import {colors, iHeight, iWidth} from '../../../globalStyle';
 import {useGetUSerInfo} from '../../api/firebase';
 
@@ -87,5 +87,6 @@ const styles = StyleSheet.create({
 
   userNickname: {
     fontSize: 25,
+    color: 'black',
   },
 });

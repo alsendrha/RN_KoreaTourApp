@@ -1,10 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
 const Notice = () => {
   return (
     <View style={styles.container}>
-      <Text>개발중입니다</Text>
+      <Text style={{color: 'black'}}>개발중입니다</Text>
     </View>
   );
 };

@@ -1,4 +1,11 @@
 import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import {useQueryClient} from '@tanstack/react-query';
+import React, {useState} from 'react';
+import {
   ActivityIndicator,
   Alert,
   Dimensions,
@@ -7,17 +14,10 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {useDeleteReview, useGetMyReviews, useGetReviews} from '../api/firebase';
 import Icon from 'react-native-vector-icons/Ionicons';
-import IButton from '../components/IButton';
 import {iHeight} from '../../globalStyle';
-import {
-  NavigationProp,
-  ParamListBase,
-  useNavigation,
-} from '@react-navigation/native';
-import {useQueryClient} from '@tanstack/react-query';
+import {useDeleteReview, useGetMyReviews, useGetReviews} from '../api/firebase';
+import IButton from '../components/IButton';
 const MyReview = () => {
   const [selectedItemId, setSelectedItemId] = useState('');
   const {data, isLoading, refetch} = useGetMyReviews();
@@ -36,7 +36,6 @@ const MyReview = () => {
       {
         text: '확인',
         onPress: () => {
-          console.log(itemId);
           mutate(itemId, {
             onSuccess: () => {
               refetch();
@@ -44,7 +43,6 @@ const MyReview = () => {
               queryClient.invalidateQueries({
                 queryKey: ['reviewsInfo', itemId],
               });
-              console.log(itemId);
               Alert.alert('리뷰가 삭제되었습니다', '', [
                 {
                   text: '확인',
@@ -99,9 +97,7 @@ const MyReview = () => {
                     })
                   }>
                   <View style={styles.reviewTitleContainer}>
-                    <Text style={styles.reviewTitleText}>
-                      {item.itemTitle}{' '}
-                    </Text>
+                    <Text style={styles.reviewTitleText}>{item.itemTitle}</Text>
                     <Icon name={'chevron-forward-outline'} size={16} />
                   </View>
                 </IButton>
@@ -145,7 +141,7 @@ const MyReview = () => {
                   </View>
                 </View>
                 <View style={styles.contentContainer}>
-                  <Text>{item.reviewContent}</Text>
+                  <Text style={{color: 'black'}}>{item.reviewContent}</Text>
                 </View>
               </View>
             );
@@ -159,7 +155,7 @@ const MyReview = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-              <Text>작성한 리뷰가 없습니다</Text>
+              <Text style={{color: 'black'}}>작성한 리뷰가 없습니다</Text>
             </View>
           }
         />
@@ -190,11 +186,13 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: 'black',
   },
 
   reviewTitleText: {
     fontSize: 14,
     fontWeight: 'bold',
+    color: 'black',
   },
 
   listContainer: {

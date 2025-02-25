@@ -1,8 +1,8 @@
-import {Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {useItemInfo} from '../store/store';
-import PointAndInput from '../components/BottomSheet/Review/PointAndInput';
+import {Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
 import {iHeight} from '../../globalStyle';
+import PointAndInput from '../components/BottomSheet/Review/PointAndInput';
+import {useItemInfo} from '../store/store';
 
 const ReviewInsert = () => {
   const {itemId, itemTitle, contentTypeId} = useItemInfo();
@@ -38,5 +38,6 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'black',
   },
 });
