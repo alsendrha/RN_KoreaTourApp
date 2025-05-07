@@ -1,8 +1,9 @@
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import * as Progress from 'react-native-progress';
 import {colors, iWidth} from '../../../../../globalStyle';
+import IText from '../../../IText';
 import TotalScore from './TotalScore';
 
 type TotalReviewPointProps = {
@@ -29,7 +30,7 @@ const TotalReviewPoint = ({data}: TotalReviewPointProps) => {
   const reviewCounts: ReviewCounts = getReviewCounts();
   const reviewCount = data.length;
   return (
-    <View style={styles.totalReviewContainer}>
+    <View style={styles.container}>
       <TotalScore data={data} />
       <View>
         {Array(5)
@@ -45,18 +46,21 @@ const TotalReviewPoint = ({data}: TotalReviewPointProps) => {
 
             return (
               <View key={index} style={styles.pointProgressContainer}>
-                <Text style={styles.pointTitle}>{rating}점</Text>
-                <View style={styles.progress}>
-                  <Progress.Bar
-                    progress={progress}
-                    width={iWidth * 110}
-                    height={iWidth * 8}
-                    borderWidth={0}
-                    unfilledColor="#e9e9e9"
-                    color={colors.yellow}
-                  />
-                </View>
-                <Text style={styles.pointCount}>{count}</Text>
+                <IText fontStyle="fB" fontSize={14} text={`${rating}점`} />
+                <Progress.Bar
+                  progress={progress}
+                  width={iWidth * 110}
+                  height={iWidth * 8}
+                  borderWidth={0}
+                  unfilledColor="#e9e9e9"
+                  color={colors.yellow}
+                />
+                <IText
+                  fontStyle="fR"
+                  fontSize={14}
+                  textColor={'#C1C1C1'}
+                  text={count}
+                />
               </View>
             );
           })}
@@ -68,28 +72,16 @@ const TotalReviewPoint = ({data}: TotalReviewPointProps) => {
 export default TotalReviewPoint;
 
 const styles = StyleSheet.create({
-  totalReviewContainer: {
-    paddingHorizontal: iWidth * 15,
-    marginTop: iWidth * 15,
+  container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'center',
+    gap: iWidth * 25,
   },
 
   pointProgressContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-
-  pointTitle: {
-    fontWeight: 'bold',
-  },
-
-  progress: {
-    marginHorizontal: iWidth * 8,
-  },
-
-  pointCount: {
-    color: '#C1C1C1',
+    gap: iWidth * 8,
   },
 });

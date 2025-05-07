@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {StyleSheet, TouchableHighlight, View} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {iWidth, normalizeFont} from '../../../globalStyle';
+import {iWidth} from '../../../globalStyle';
 import {useBottomSheetRef, useImagePicker} from '../../store/store';
+import IText from '../IText';
 
 const ImageSheet = () => {
   const {bottomSheetRef} = useBottomSheetRef();
@@ -71,13 +72,18 @@ const ImageSheet = () => {
     <View style={styles.container}>
       <View>
         <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>프로필 사진 설정</Text>
+          <IText fontStyle="fR" fontSize={14} text={'프로필 사진 설정'} />
         </View>
         <TouchableHighlight
           style={styles.menuContainer}
           underlayColor="#d1d1d1"
           onPress={() => handleImagePicker('imageLibrary')}>
-          <Text style={styles.menuText}>앨범에서 사진</Text>
+          <IText
+            fontStyle="fSB"
+            textColor={'#4e8df2'}
+            fontSize={18}
+            text={'앨범에서 사진'}
+          />
         </TouchableHighlight>
         <TouchableHighlight
           underlayColor="#d1d1d1"
@@ -90,7 +96,12 @@ const ImageSheet = () => {
               borderBottomWidth: 0,
             },
           ]}>
-          <Text style={styles.menuText}>카메라 촬영</Text>
+          <IText
+            fontStyle="fSB"
+            textColor={'#4e8df2'}
+            fontSize={18}
+            text={'카메라 촬영'}
+          />
         </TouchableHighlight>
       </View>
       <TouchableHighlight
@@ -103,7 +114,12 @@ const ImageSheet = () => {
           },
         ]}
         onPress={() => bottomSheetRef.current?.close()}>
-        <Text style={styles.menuText}>종료</Text>
+        <IText
+          fontStyle="fSB"
+          textColor={'#4e8df2'}
+          fontSize={18}
+          text={'종료'}
+        />
       </TouchableHighlight>
     </View>
   );
@@ -123,15 +139,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.9)',
     borderTopLeftRadius: iWidth * 20,
     borderTopRightRadius: iWidth * 20,
-  },
-  titleText: {
-    fontSize: normalizeFont(14),
-  },
-
-  menuText: {
-    fontSize: normalizeFont(18),
-    fontWeight: '600',
-    color: '#4e8df2',
   },
 
   menuContainer: {

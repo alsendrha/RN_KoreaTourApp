@@ -12,7 +12,7 @@ type DetailMapProps = {
 
 const DetailMap = ({latitude, longitude, markerTitle}: DetailMapProps) => {
   return (
-    <View style={styles.mapContainer}>
+    <View style={styles.container}>
       <MapView
         style={styles.mapSize}
         zoomEnabled={true}
@@ -44,9 +44,9 @@ const DetailMap = ({latitude, longitude, markerTitle}: DetailMapProps) => {
 export default DetailMap;
 
 const styles = StyleSheet.create({
-  mapContainer: {
+  container: {
     marginTop: iWidth * 10,
-    marginBottom: iWidth * 88,
+    marginBottom: iWidth * 40,
   },
 
   mapSize: {

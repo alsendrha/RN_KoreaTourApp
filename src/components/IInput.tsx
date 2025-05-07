@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {
   NativeSyntheticEvent,
   StyleSheet,
-  Text,
   TextInput,
   TextInputSubmitEditingEventData,
   View,
@@ -10,6 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import {colors, iWidth, normalizeFont} from '../../globalStyle';
 import IButton from './IButton';
+import IText from './IText';
 
 type IInputProps = {
   value: string;
@@ -35,6 +35,7 @@ type IInputProps = {
     | 'web-search';
   errorMsg?: boolean;
   titleEnable?: boolean;
+  textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
   fontSize?: number;
   secureTextEntry?: boolean;
   titleText?: string;
@@ -74,9 +75,10 @@ const IInput = ({
   deleteIcon = true,
   multiline = false,
   titleEnable = false,
+  textAlignVertical = 'center',
   titleText,
   keyboardType = 'default',
-  fontSize = normalizeFont(18),
+  fontSize = 16,
   errorMsg = false,
   secureTextEntry = false,
   errorText,
@@ -100,7 +102,7 @@ const IInput = ({
   };
 
   return (
-    <View style={styles.inputContainer}>
+    <View style={styles.container}>
       <View
         style={[
           styles.textContainer,
@@ -108,13 +110,15 @@ const IInput = ({
             justifyContent: !titleEnable ? 'flex-end' : 'space-between',
           },
         ]}>
-        {titleEnable && (
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>{titleText}</Text>
-          </View>
-        )}
+        {titleEnable && <IText fontStyle="fB" fontSize={16} text={titleText} />}
 
-        {lengthView && <Text> {`${textLength}/${maxLength}`}</Text>}
+        {lengthView && (
+          <IText
+            fontStyle="fR"
+            fontSize={14}
+            text={`${textLength}/${maxLength}`}
+          />
+        )}
       </View>
       <View style={styles.inputAndIconContainer}>
         <TextInput
@@ -123,13 +127,14 @@ const IInput = ({
             {
               height: height,
               borderRadius: borderRadius,
-              fontSize: fontSize,
-              color: !editable ? 'black' : textColor,
+              fontSize: normalizeFont(fontSize),
+              color: !editable ? colors.black : textColor,
             },
           ]}
           placeholder={placeholder}
           placeholderTextColor={colors.gray}
           value={value}
+          textAlignVertical={textAlignVertical}
           editable={editable}
           keyboardType={keyboardType}
           secureTextEntry={secureTextEntry}
@@ -156,7 +161,12 @@ const IInput = ({
       </View>
       {errorMsg && (
         <View style={styles.errorTextContainer}>
-          <Text style={styles.errorText}>{errorText}</Text>
+          <IText
+            fontStyle="fR"
+            fontSize={14}
+            textColor={colors.error}
+            text={errorText}
+          />
         </View>
       )}
     </View>
@@ -166,23 +176,15 @@ const IInput = ({
 export default IInput;
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    marginHorizontal: iWidth * 15,
+  container: {
+    marginHorizontal: iWidth * 16,
+    gap: iWidth * 4,
   },
 
   textContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-
-  titleContainer: {
-    marginBottom: iWidth * 2,
-  },
-  titleText: {
-    fontWeight: 'bold',
-    color: 'black',
-    fontSize: normalizeFont(18),
   },
 
   inputAndIconContainer: {
@@ -203,10 +205,9 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     paddingLeft: iWidth * 18,
     paddingRight: iWidth * 30,
-    textAlignVertical: 'top',
+    fontFamily: 'Pretendard-Regular',
   },
   errorTextContainer: {
-    marginVertical: iWidth * 1,
     width: '100%',
     justifyContent: 'flex-start',
   },

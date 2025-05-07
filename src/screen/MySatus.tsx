@@ -128,27 +128,29 @@ const MyStatus = () => {
         </View>
       ) : (
         <View style={styles.contentContainer}>
-          <TopUserImg
-            isLoading={isLoading}
-            imageData={imageData}
-            userData={userData}
-          />
-          <InputAndPassword
-            isLoading={isLoading}
-            userData={userData}
-            errorMsg={errorMsg}
-            setUserData={setUserData}
-            setPasswordClicked={setPasswordClicked}
-          />
-          <View style={styles.submitButtonContainer}>
-            <IButton
-              buttonStyle="submit"
-              title="확인"
-              border={0}
-              backgroundColor={colors.primary}
-              titleColor="white"
-              onPress={() => handleSubmit()}
+          <View>
+            <TopUserImg
+              isLoading={isLoading}
+              imageData={imageData}
+              userData={userData}
             />
+            <InputAndPassword
+              isLoading={isLoading}
+              userData={userData}
+              errorMsg={errorMsg}
+              setUserData={setUserData}
+              setPasswordClicked={setPasswordClicked}
+            />
+            <View style={styles.submitButtonContainer}>
+              <IButton
+                buttonStyle="submit"
+                title="확인"
+                border={0}
+                backgroundColor={colors.primary}
+                titleColor="white"
+                onPress={() => handleSubmit()}
+              />
+            </View>
           </View>
           <UserDelete setUserDelete={setUserDelete} />
         </View>
@@ -182,6 +184,7 @@ const styles = StyleSheet.create({
 
   contentContainer: {
     flex: 1,
+    justifyContent: 'space-between',
     backgroundColor: colors.white,
     borderRadius: iWidth * 20,
     position: 'absolute',

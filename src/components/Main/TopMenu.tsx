@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {colors, iWidth, normalizeFont} from '../../../globalStyle';
+import {StyleSheet, View} from 'react-native';
+import {colors, iWidth} from '../../../globalStyle';
+import IText from '../IText';
 import AreaList from './AreaList';
 import Categories from './Categories';
 
@@ -9,14 +10,7 @@ const TopMenu = () => {
     <View style={styles.menuContainer}>
       <View style={{alignItems: 'center'}}>
         <View style={styles.titleContainer}>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              color: 'black',
-              fontSize: normalizeFont(32),
-            }}>
-            어디로 가볼까요?
-          </Text>
+          <IText fontStyle="fB" fontSize={32} text="어디로 가볼까요?" />
         </View>
         <AreaList />
       </View>

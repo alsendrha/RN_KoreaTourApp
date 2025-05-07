@@ -40,79 +40,79 @@ const SignUp = () => {
       onPress={() => Keyboard.dismiss()}>
       <View style={styles.contentContainer}>
         {isLoading && <CustomIndicator marginTop={iWidth * -30} />}
-        <View style={styles.inputAllContainer}>
-          <ScrollView>
-            <SignTitle />
-            <SignEmail
-              value={userData.email}
-              deleteValue={() => setUserData({...userData, email: ''})}
-              errorText={errorMsg.email}
-              onChangeText={text => {
-                setUserData({...userData, email: text.trim()});
-                setErrorMsg({...errorMsg, email: ''});
-              }}
-              onPress={() =>
-                emailCheck({
-                  errorMsg,
-                  setErrorMsg,
-                  checkEmailAndNickname,
-                  setCheckEmailAndNickname,
-                  email: userData.email,
-                })
-              }
-            />
-            <SignPassword
-              value={userData.password}
-              deleteValue={() => setUserData({...userData, password: ''})}
-              errorText={errorMsg.password}
-              onChangeText={text => {
-                setUserData({...userData, password: text.trim()});
-                setErrorMsg({...errorMsg, password: ''});
-              }}
-            />
-            <SignPasswordCheck
-              value={userData.passwordCheck}
-              deleteValue={() => setUserData({...userData, passwordCheck: ''})}
-              errorText={errorMsg.passwordCheck}
-              onChangeText={text => {
-                setUserData({...userData, passwordCheck: text.trim()});
-                setErrorMsg({...errorMsg, passwordCheck: ''});
-              }}
-            />
-            <SignNickname
-              value={userData.nickname}
-              deleteValue={() => setUserData({...userData, nickname: ''})}
-              errorText={errorMsg.nickname}
-              onChangeText={text => {
-                setUserData({...userData, nickname: text});
-                setErrorMsg({...errorMsg, nickname: ''});
-              }}
-              onPress={() =>
-                nicknameCheck({
-                  errorMsg,
-                  setErrorMsg,
-                  checkEmailAndNickname,
-                  setCheckEmailAndNickname,
-                  nickname: userData.nickname,
-                })
-              }
-            />
-            <SignSubmitButton
-              onPress={() =>
-                userSignUp({
-                  userData,
-                  errorMsg,
-                  setErrorMsg,
-                  checkEmailAndNickname,
-                  setIsLoading,
-                  setUserData,
-                  setCheckEmailAndNickname,
-                  navigation,
-                })
-              }
-            />
-          </ScrollView>
-        </View>
+        <ScrollView
+          overScrollMode="never"
+          contentContainerStyle={{gap: iWidth * 4}}>
+          <SignTitle />
+          <SignEmail
+            value={userData.email}
+            deleteValue={() => setUserData({...userData, email: ''})}
+            errorText={errorMsg.email}
+            onChangeText={text => {
+              setUserData({...userData, email: text.trim()});
+              setErrorMsg({...errorMsg, email: ''});
+            }}
+            onPress={() =>
+              emailCheck({
+                errorMsg,
+                setErrorMsg,
+                checkEmailAndNickname,
+                setCheckEmailAndNickname,
+                email: userData.email,
+              })
+            }
+          />
+          <SignPassword
+            value={userData.password}
+            deleteValue={() => setUserData({...userData, password: ''})}
+            errorText={errorMsg.password}
+            onChangeText={text => {
+              setUserData({...userData, password: text.trim()});
+              setErrorMsg({...errorMsg, password: ''});
+            }}
+          />
+          <SignPasswordCheck
+            value={userData.passwordCheck}
+            deleteValue={() => setUserData({...userData, passwordCheck: ''})}
+            errorText={errorMsg.passwordCheck}
+            onChangeText={text => {
+              setUserData({...userData, passwordCheck: text.trim()});
+              setErrorMsg({...errorMsg, passwordCheck: ''});
+            }}
+          />
+          <SignNickname
+            value={userData.nickname}
+            deleteValue={() => setUserData({...userData, nickname: ''})}
+            errorText={errorMsg.nickname}
+            onChangeText={text => {
+              setUserData({...userData, nickname: text});
+              setErrorMsg({...errorMsg, nickname: ''});
+            }}
+            onPress={() =>
+              nicknameCheck({
+                errorMsg,
+                setErrorMsg,
+                checkEmailAndNickname,
+                setCheckEmailAndNickname,
+                nickname: userData.nickname,
+              })
+            }
+          />
+          <SignSubmitButton
+            onPress={() =>
+              userSignUp({
+                userData,
+                errorMsg,
+                setErrorMsg,
+                checkEmailAndNickname,
+                setIsLoading,
+                setUserData,
+                setCheckEmailAndNickname,
+                navigation,
+              })
+            }
+          />
+        </ScrollView>
       </View>
     </Pressable>
   );
@@ -124,19 +124,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.primary,
-    height: '100%',
+    paddingHorizontal: iWidth * 12,
+    justifyContent: 'center',
   },
 
   contentContainer: {
     backgroundColor: colors.white,
     borderRadius: iWidth * 50,
-    marginTop: iWidth * 80,
-    marginHorizontal: iWidth * 10,
-    paddingVertical: iWidth * 50,
-  },
-
-  inputAllContainer: {
-    // marginTop: iHeight * 50,
-    paddingHorizontal: iWidth * 10,
+    paddingVertical: iWidth * 40,
   },
 });

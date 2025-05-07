@@ -1,9 +1,7 @@
 import {useNavigationState} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {Keyboard, Pressable, StyleSheet, View} from 'react-native';
 import {colors, iWidth} from '../../globalStyle';
-import IButton from '../components/IButton';
 import IInput from '../components/IInput';
 import ItemList from '../components/List/ItemList';
 import {useAreaSelected, usePageInfo} from '../store/store';
@@ -21,7 +19,7 @@ const List = () => {
   }, [currentRouteName]);
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={Keyboard.dismiss}>
       <View style={styles.inputContainer}>
         <IInput
           value={inputText}
@@ -31,24 +29,11 @@ const List = () => {
           onChangeText={value => setInputText(value)}
           onSubmitEditing={value => setAreaSelected(value.nativeEvent.text)}
           maxLength={20}
+          deleteValue={() => setInputText('')}
         />
-
-        {inputText ? (
-          <View style={styles.iconStyle}>
-            <IButton buttonStyle="delete" onPress={() => setInputText('')}>
-              <Icon name="close-circle-outline" size={iWidth * 26} />
-            </IButton>
-          </View>
-        ) : (
-          <View style={styles.iconStyle}>
-            <IButton buttonStyle="delete">
-              <Icon name="search-outline" size={iWidth * 26} />
-            </IButton>
-          </View>
-        )}
       </View>
       <ItemList />
-    </View>
+    </Pressable>
   );
 };
 
@@ -62,13 +47,6 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     position: 'relative',
-    marginVertical: iWidth * 10,
-  },
-
-  iconStyle: {
-    position: 'absolute',
-    top: '50%',
-    transform: [{translateY: iWidth * -14}],
-    right: iWidth * 25,
+    paddingVertical: iWidth * 12,
   },
 });

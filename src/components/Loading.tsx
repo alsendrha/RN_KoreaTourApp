@@ -1,24 +1,19 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  Dimensions,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {ActivityIndicator, Dimensions, StyleSheet, View} from 'react-native';
 
 import {colors, iWidth} from '../../globalStyle';
 import {useLoading} from '../store/store';
+import IText from './IText';
 
 const Loading = () => {
   const {loading, loadingTitle} = useLoading();
   return (
     <>
       {loading && (
-        <View style={styles.background}>
+        <View style={styles.container}>
           <View style={styles.indicatorContainer}>
             <ActivityIndicator size="large" color={colors.white} />
-            <Text style={styles.textStyle}>{loadingTitle}</Text>
+            <IText fontStyle="fR" text={loadingTitle} />
           </View>
         </View>
       )}
@@ -29,10 +24,10 @@ const Loading = () => {
 export default Loading;
 
 const styles = StyleSheet.create({
-  background: {
+  container: {
     width: '100%',
     height: Dimensions.get('screen').height,
-    backgroundColor: 'black',
+    backgroundColor: colors.black,
     opacity: 0.7,
     position: 'absolute',
     zIndex: 999,
@@ -42,10 +37,6 @@ const styles = StyleSheet.create({
     height: '80%',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  textStyle: {
-    color: 'black',
-    marginLeft: iWidth * 8,
+    gap: iWidth * 8,
   },
 });

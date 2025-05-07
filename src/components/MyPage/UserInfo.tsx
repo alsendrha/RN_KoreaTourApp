@@ -1,14 +1,16 @@
 import FastImage from '@d11/react-native-fast-image';
-import React from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import {colors, iWidth, normalizeFont} from '../../../globalStyle';
+import React, {useState} from 'react';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {colors, iWidth} from '../../../globalStyle';
 import {useGetUSerInfo} from '../../api/firebase';
+import IText from '../IText';
 
 const UserInfo = () => {
+  const [contentSize, setContentSize] = useState(0);
   const {data, isLoading} = useGetUSerInfo();
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
+      <View style={[styles.loadingContainer, {height: contentSize}]}>
         <View style={styles.loadingContainer2}>
           <ActivityIndicator size="large" />
         </View>
@@ -16,25 +18,23 @@ const UserInfo = () => {
     );
   }
   return (
-    <>
-      <View style={styles.userInfo}>
-        <View style={styles.userImgContainer}>
-          <FastImage
-            source={
-              data?.profileUrl
-                ? {uri: data?.profileUrl}
-                : require('../../assets/images/no_image.png')
-            }
-            style={styles.userImg}
-          />
-        </View>
-        <View style={styles.userTextContainer}>
-          <Text style={styles.userNickname} numberOfLines={1}>
-            {data?.nickname}님
-          </Text>
-        </View>
+    <View
+      style={styles.container}
+      onLayout={e => {
+        setContentSize(e.nativeEvent.layout.height);
+      }}>
+      <View style={styles.userImgContainer}>
+        <FastImage
+          source={
+            data?.profileUrl
+              ? {uri: data?.profileUrl}
+              : require('../../assets/images/no_image.png')
+          }
+          style={styles.userImg}
+        />
       </View>
-    </>
+      <IText fontStyle="fM" fontSize={25} text={`${data?.nickname}님`} />
+    </View>
   );
 };
 
@@ -50,22 +50,22 @@ const styles = StyleSheet.create({
   },
 
   loadingContainer2: {
-    height: iWidth * 55,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
-  userInfo: {
-    paddingVertical: iWidth * 30,
+  container: {
+    paddingVertical: iWidth * 26,
+    paddingHorizontal: iWidth * 20,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
     elevation: 4,
+    gap: iWidth * 16,
   },
 
   userImgContainer: {
     position: 'relative',
-    marginLeft: iWidth * 20,
   },
 
   userImg: {
@@ -75,18 +75,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGray,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  imgIconContainer: {
-    opacity: 0.5,
-  },
-
-  userTextContainer: {
-    marginLeft: iWidth * 15,
-  },
-
-  userNickname: {
-    fontSize: normalizeFont(25),
-    color: colors.black,
   },
 });

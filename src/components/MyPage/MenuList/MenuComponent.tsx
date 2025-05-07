@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Pressable, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,8 +8,9 @@ import {
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
-import {iWidth, normalizeFont} from '../../../../globalStyle';
+import {iWidth} from '../../../../globalStyle';
 import {useGetUser, useSignOut} from '../../../api/firebase';
+import IText from '../../IText';
 
 type MenuComponentProps = {
   menu: {
@@ -71,32 +72,23 @@ const MenuComponent = ({menu}: MenuComponentProps) => {
   };
 
   return (
-    <TouchableOpacity activeOpacity={1} onPress={handleSubmit}>
-      <View style={styles.menuContainer}>
-        <Icon name={menu.icon} size={iWidth * 24} color="#7A2900" />
-        <Text style={styles.menuTitleText}>{menu.title}</Text>
-      </View>
-    </TouchableOpacity>
+    <Pressable style={styles.container} onPress={handleSubmit}>
+      <Icon name={menu.icon} size={iWidth * 24} color="#7A2900" />
+      <IText fontStyle="fB" fontSize={18} text={menu.title} />
+    </Pressable>
   );
 };
 
 export default MenuComponent;
 
 const styles = StyleSheet.create({
-  menuContainer: {
-    marginVertical: iWidth * 10,
+  container: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: iWidth * 15,
     backgroundColor: 'white',
     borderRadius: iWidth * 20,
-    elevation: 4,
-  },
-
-  menuTitleText: {
-    marginLeft: iWidth * 10,
-    fontSize: normalizeFont(18),
-    fontWeight: 'bold',
-    color: 'black',
+    elevation: 2,
+    gap: iWidth * 10,
   },
 });

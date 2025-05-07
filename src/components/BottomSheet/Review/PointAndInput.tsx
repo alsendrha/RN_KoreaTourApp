@@ -8,12 +8,12 @@ import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Pressable,
   StyleSheet,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {iWidth, normalizeFont} from '../../../../globalStyle';
+import {colors, iWidth} from '../../../../globalStyle';
 import {
   useCreateReview,
   useGetMyReviews,
@@ -143,40 +143,41 @@ const PointAndInput = ({
         <View>
           <View style={styles.pointContainer}>
             {reViewPoint.map((item: ReviewType) => (
-              <TouchableOpacity
+              <Pressable
                 key={item.id}
-                activeOpacity={1}
-                style={{marginHorizontal: iWidth * 10}}
+                hitSlop={10}
                 onPress={() => handlePress(item.id)}>
                 <Icon
                   name={item.clicked ? 'star' : 'star-outline'}
                   size={iWidth * 32}
-                  style={{color: '#ffca42'}}
+                  style={{color: colors.yellow}}
                 />
-              </TouchableOpacity>
+              </Pressable>
             ))}
           </View>
           <View style={styles.inputContainer}>
             <IInput
               lengthView={true}
               maxLength={200}
+              textAlignVertical="top"
               numberOfLines={5}
-              borderRadius={iWidth * 10}
+              borderRadius={iWidth * 12}
               multiline={true}
               value={reviewData.reviewContent}
               onChangeText={value => {
                 setReviewData({...reviewData, reviewContent: value});
               }}
               returnKeyType="done"
+              deleteValue={() =>
+                setReviewData({...reviewData, reviewContent: ''})
+              }
             />
-            <View style={styles.buttonContainer}>
-              <IButton
-                title="입력"
-                fontSize={normalizeFont(16)}
-                buttonStyle="submit"
-                onPress={() => handleSubmit()}
-              />
-            </View>
+            <IButton
+              title="입력"
+              fontSize={16}
+              buttonStyle="submit"
+              onPress={() => handleSubmit()}
+            />
           </View>
         </View>
       )}
@@ -190,15 +191,11 @@ const styles = StyleSheet.create({
   pointContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    gap: iWidth * 8,
   },
 
   inputContainer: {
-    // marginTop: 10,
-  },
-
-  buttonContainer: {
-    marginTop: iWidth * 20,
-    width: '100%',
+    gap: iWidth * 24,
     alignItems: 'center',
   },
 });

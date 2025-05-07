@@ -9,7 +9,7 @@ type UserDeleteProps = {
 
 const UserDelete = ({setUserDelete}: UserDeleteProps) => {
   return (
-    <View style={styles.deleteAccountContainer}>
+    <View style={styles.container}>
       <IButton
         buttonStyle="more"
         title="회원탈퇴"
@@ -24,9 +24,7 @@ const UserDelete = ({setUserDelete}: UserDeleteProps) => {
 export default UserDelete;
 
 const styles = StyleSheet.create({
-  deleteAccountContainer: {
-    position: 'absolute',
-    bottom: iWidth * 20,
-    left: iWidth * 20,
+  container: {
+    padding: iWidth * 16,
   },
 });

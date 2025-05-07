@@ -1,24 +1,14 @@
 import React, {useCallback} from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {ColorValue, Pressable, StyleSheet} from 'react-native';
 import {colors, iWidth} from '../../globalStyle';
 import {useAreaSelected, useBottomSheetRef} from '../store/store';
+import IText from './IText';
 
 type IButtonProps = {
   title?: string;
-  titleColor?: string;
+  titleColor?: ColorValue;
   fontSize?: number;
-  titleWeight?:
-    | 'bold'
-    | 'normal'
-    | '100'
-    | '200'
-    | '300'
-    | '400'
-    | '500'
-    | '600'
-    | '700'
-    | '800'
-    | '900';
+  fontStyle?: 'fR' | 'fB' | 'fM' | 'fSB';
   buttonStyle:
     | 'menu'
     | 'item'
@@ -46,9 +36,9 @@ type IButtonProps = {
 
 const IButton = ({
   title,
-  fontSize,
+  fontSize = 16,
   titleColor,
-  titleWeight,
+  fontStyle = 'fR',
   buttonStyle,
   borderRightWidth,
   borderLeftWidth,
@@ -101,23 +91,20 @@ const IButton = ({
   };
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={buttonStyle === 'menu' ? openBottomSheet : onPress}
-      activeOpacity={1}
       style={buttonStyleList[buttonStyle]}>
       {children ? (
         children
       ) : (
-        <Text
-          style={{
-            fontSize: fontSize,
-            color: titleColor,
-            fontWeight: titleWeight,
-          }}>
-          {title}
-        </Text>
+        <IText
+          fontStyle={fontStyle}
+          textColor={titleColor}
+          fontSize={fontSize}
+          text={title}
+        />
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -131,14 +118,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: iWidth * 50,
-    marginHorizontal: iWidth * 5,
   },
 
   categoriesMenu: {
     width: iWidth * 60,
     height: iWidth * 60,
     // borderWidth: 0.5,
-    borderRadius: iWidth * 10,
+    borderRadius: iWidth * 12,
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -147,7 +133,7 @@ const styles = StyleSheet.create({
     width: iWidth * 75,
     height: iWidth * 75,
     // borderWidth: 0.5,
-    borderRadius: iWidth * 10,
+    borderRadius: iWidth * 12,
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -160,7 +146,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
   },
 
   check: {
@@ -203,15 +189,15 @@ const styles = StyleSheet.create({
   submit: {
     width: iWidth * 120,
     height: iWidth * 40,
-    borderRadius: iWidth * 10,
+    borderRadius: iWidth * 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   reviewButton: {
-    padding: iWidth * 5,
-    borderRadius: iWidth * 10,
-
+    paddingVertical: iWidth * 5,
+    paddingHorizontal: iWidth * 10,
+    borderRadius: iWidth * 12,
     elevation: 2,
   },
 
@@ -219,7 +205,7 @@ const styles = StyleSheet.create({
     width: '50%',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: iWidth * 15,
+    paddingVertical: iWidth * 16,
     borderWidth: 0.2,
     borderColor: 'rgba(0, 0, 0, 0.2)',
     borderBottomWidth: 0,

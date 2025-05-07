@@ -1,33 +1,28 @@
-import {
-  NavigationProp,
-  ParamListBase,
-  useNavigation,
-} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {iWidth, normalizeFont} from '../../../globalStyle';
+import {colors, iWidth} from '../../../globalStyle';
+import customNavigation from '../../hooks/customNavigation';
 import IButton from '../IButton';
+import IText from '../IText';
 
 const UserLogin = () => {
-  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+  const navigation = customNavigation();
 
   return (
-    <View style={styles.userLogin}>
+    <View style={styles.container}>
       <IButton buttonStyle="more" onPress={() => navigation.navigate('signIn')}>
         <View style={styles.loginContainer}>
-          <Text style={styles.loginTextTitle}>로그인을 해주세요</Text>
+          <IText fontStyle="fB" fontSize={20} text={'로그인을 해주세요'} />
           <Icon name="arrow-forward-outline" size={iWidth * 18} />
         </View>
       </IButton>
-      <View style={styles.signUpContainer}>
-        <IButton
-          buttonStyle="more"
-          title="회원가입"
-          titleColor="#4e8df2"
-          onPress={() => navigation.navigate('signUp')}
-        />
-      </View>
+      <IButton
+        buttonStyle="more"
+        title="회원가입"
+        titleColor="#4e8df2"
+        onPress={() => navigation.navigate('signUp')}
+      />
     </View>
   );
 };
@@ -35,28 +30,17 @@ const UserLogin = () => {
 export default UserLogin;
 
 const styles = StyleSheet.create({
-  userLogin: {
-    paddingTop: iWidth * 30,
-    flexDirection: 'column',
+  container: {
+    paddingVertical: iWidth * 20,
     alignItems: 'center',
-    backgroundColor: 'white',
-    elevation: 4,
+    backgroundColor: colors.white,
+    elevation: 2,
+    gap: iWidth * 12,
   },
 
   loginContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-
-  loginTextTitle: {
-    fontSize: normalizeFont(20),
-    fontWeight: 'bold',
-    color: 'black',
-  },
-
-  signUpContainer: {
-    paddingBottom: iWidth * 10,
-    height: iWidth * 57,
-    justifyContent: 'flex-end',
+    gap: iWidth * 4,
   },
 });

@@ -1,22 +1,23 @@
 import FastImage from '@d11/react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Dimensions,
   FlatList,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {colors, iWidth, normalizeFont} from '../../../globalStyle';
+import {colors, iWidth} from '../../../globalStyle';
 import {useGetToreList} from '../../api/toreQuery';
 import {useAreaSelected, useContentsSelected} from '../../store/store';
 import IButton from '../IButton';
+import IText from '../IText';
 const SelectedList = () => {
   const {areaSelected} = useAreaSelected();
   const {contentsSelected, contentTitle} = useContentsSelected();
+  const [cardSize, setCardSize] = useState(0);
   const navigation = useNavigation<any>();
   const {data, isLoading, refetch} = useGetToreList(
     areaSelected,
@@ -32,12 +33,15 @@ const SelectedList = () => {
   return (
     <View style={styles.container}>
       <View style={styles.mainTextContainer}>
-        <Text style={styles.mainTitleText}>
-          {areaSelected}의&nbsp;
-          {contentTitle}
-        </Text>
+        <IText
+          fontStyle="fB"
+          fontSize={20}
+          text={`${areaSelected}의 ${contentTitle}`}
+        />
         <IButton
           title="View All"
+          fontSize={14}
+          fontStyle="fM"
           buttonStyle="more"
           titleColor="#4e8df2"
           onPress={() => navigation.navigate('list')}
@@ -47,7 +51,6 @@ const SelectedList = () => {
         {isLoading ? (
           <View
             style={{
-              height: iWidth * 245,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
@@ -56,7 +59,7 @@ const SelectedList = () => {
         ) : (
           <FlatList
             data={getData || []}
-            contentContainerStyle={{height: iWidth * 245}}
+            contentContainerStyle={{paddingVertical: iWidth * 4}}
             keyExtractor={item => item.contentid}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -71,7 +74,11 @@ const SelectedList = () => {
                       contentType: item.contenttypeid,
                     })
                   }>
-                  <View style={styles.itemCard}>
+                  <View
+                    style={styles.itemCard}
+                    onLayout={e => {
+                      setCardSize(e.nativeEvent.layout.height);
+                    }}>
                     <FastImage
                       source={
                         item.firstimage
@@ -82,11 +89,7 @@ const SelectedList = () => {
                       resizeMode={FastImage.resizeMode.cover}
                     />
                     <View style={styles.cardTextContainer}>
-                      <Text
-                        numberOfLines={1}
-                        style={{fontWeight: 'bold', color: colors.black}}>
-                        {item.title}
-                      </Text>
+                      <IText fontStyle="fB" fontSize={14} text={item.title} />
                     </View>
                   </View>
                 </IButton>
@@ -97,12 +100,13 @@ const SelectedList = () => {
                 <IButton
                   buttonStyle="more"
                   onPress={() => navigation.navigate('list')}>
-                  <View style={styles.lastCard}>
+                  <View style={[styles.lastCard, {height: cardSize}]}>
                     <Icon
                       name="arrow-forward-circle-outline"
+                      color={colors.black}
                       size={iWidth * 32}
                     />
-                    <Text style={{color: 'black'}}>more</Text>
+                    <IText fontStyle="fB" text={'more'} />
                   </View>
                 </IButton>
               ) : null
@@ -116,7 +120,7 @@ const SelectedList = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Text style={{color: 'black'}}>검색 결과가 없습니다</Text>
+                  <IText fontStyle="fR" text={'검색 결과가 없습니다'} />
                 </View>
               ) : null
             }
@@ -131,7 +135,7 @@ export default SelectedList;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: iWidth * 30,
+    paddingTop: iWidth * 30,
     paddingHorizontal: iWidth * 20,
   },
 
@@ -140,17 +144,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  mainTitleText: {
-    fontSize: normalizeFont(20),
-    fontWeight: 'bold',
-    color: 'black',
-  },
+
   listItemContainer: {
-    marginTop: iWidth * 20,
+    paddingTop: iWidth * 20,
   },
+
   itemCard: {
     width: iWidth * 200,
-    height: iWidth * 240,
     marginRight: iWidth * 20,
     borderRadius: iWidth * 12,
     overflow: 'hidden',
@@ -161,11 +161,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: iWidth * 12,
   },
+
   lastCard: {
     justifyContent: 'center',
     alignItems: 'center',
     width: iWidth * 70,
-    height: iWidth * 240,
     backgroundColor: '#ededed',
     borderRadius: iWidth * 12,
     elevation: 2,
@@ -174,8 +174,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: iWidth * 12,
   },
-  itemImg: {width: '100%', height: iWidth * 200},
+
+  itemImg: {width: '100%', height: iWidth * 180},
+
   cardTextContainer: {
-    padding: iWidth * 5,
+    padding: iWidth * 8,
   },
 });

@@ -9,19 +9,20 @@ type ImageDotProps = {
 
 const ImageDot = ({detailImages, imagesIndex}: ImageDotProps) => {
   return (
-    <View style={styles.dotContainer}>
+    <View style={styles.container}>
       {detailImages.map((_: any, index: number) => (
         <View
           key={index}
           style={{
-            width: index === imagesIndex ? 12 : 10,
-            height: index === imagesIndex ? 12 : 10,
+            width: index === imagesIndex ? iWidth * 12 : iWidth * 10,
+            height: index === imagesIndex ? iWidth * 12 : iWidth * 10,
             borderRadius: iWidth * 50,
             borderColor: colors.white,
             backgroundColor: index === imagesIndex ? colors.white : colors.gray,
             bottom: iWidth * 10,
             marginHorizontal: iWidth * 2,
-          }}></View>
+          }}
+        />
       ))}
     </View>
   );
@@ -30,7 +31,7 @@ const ImageDot = ({detailImages, imagesIndex}: ImageDotProps) => {
 export default ImageDot;
 
 const styles = StyleSheet.create({
-  dotContainer: {
+  container: {
     position: 'absolute',
     bottom: iWidth * 10,
     width: '100%',

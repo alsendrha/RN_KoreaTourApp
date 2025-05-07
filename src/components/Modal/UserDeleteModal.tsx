@@ -1,13 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {iWidth} from '../../../globalStyle';
+import IText from '../IText';
 
 const UserDeleteModal = () => {
   return (
-    <View>
-      <View style={styles.contentTextContainer}>
-        <Text style={styles.contentText}>정말로 탈퇴하시겠습니까?</Text>
-      </View>
+    <View style={styles.container}>
+      <IText fontStyle="fR" text={'정말로 탈퇴하시겠습니까?'} />
     </View>
   );
 };
@@ -15,8 +14,7 @@ const UserDeleteModal = () => {
 export default UserDeleteModal;
 
 const styles = StyleSheet.create({
-  contentTextContainer: {
+  container: {
     marginVertical: iWidth * 15,
   },
-  contentText: {},
 });

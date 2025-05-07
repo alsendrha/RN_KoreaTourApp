@@ -1,8 +1,9 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {iWidth, normalizeFont} from '../../../../globalStyle';
 import IButton from '../../IButton';
 import IInput from '../../IInput';
+import IText from '../../IText';
 
 type InputAndPasswordProps = {
   isLoading: boolean;
@@ -28,42 +29,38 @@ const InputAndPassword = ({
   setPasswordClicked,
 }: InputAndPasswordProps) => {
   return (
-    <View style={styles.inputContainer}>
-      <View style={styles.inputMainContainer}>
-        <IInput
-          titleEnable={true}
-          height={iWidth * 50}
-          fontSize={normalizeFont(16)}
-          titleText="이메일"
-          value={userData.id}
-          borderRadius={iWidth * 10}
-          maxLength={30}
-          deleteIcon={false}
-          editable={false}
-        />
-      </View>
+    <View style={styles.container}>
+      <IInput
+        titleEnable={true}
+        height={iWidth * 45}
+        fontSize={normalizeFont(16)}
+        titleText="이메일"
+        value={userData.id}
+        borderRadius={iWidth * 12}
+        maxLength={30}
+        deleteIcon={false}
+        editable={false}
+      />
       {isLoading ? (
         <ActivityIndicator size="large" />
       ) : (
-        <View style={styles.inputMainContainer}>
-          <IInput
-            titleEnable={true}
-            height={iWidth * 50}
-            fontSize={normalizeFont(16)}
-            titleText="닉네임"
-            errorMsg={true}
-            errorText={errorMsg.nickname}
-            value={userData.nickname}
-            onChangeText={text => setUserData({...userData, nickname: text})}
-            borderRadius={iWidth * 10}
-            maxLength={30}
-            deleteIcon={false}
-          />
-        </View>
+        <IInput
+          titleEnable={true}
+          height={iWidth * 45}
+          fontSize={normalizeFont(16)}
+          titleText="닉네임"
+          errorMsg={true}
+          errorText={errorMsg.nickname}
+          value={userData.nickname}
+          onChangeText={text => setUserData({...userData, nickname: text})}
+          borderRadius={iWidth * 12}
+          maxLength={30}
+          deleteIcon={false}
+        />
       )}
       <IButton buttonStyle="more" onPress={() => setPasswordClicked(true)}>
         <View style={styles.passwordContainer}>
-          <Text style={{color: 'black'}}>비밀번호 변경</Text>
+          <IText fontStyle="fR" text={'비밀번호 변경'} />
         </View>
       </IButton>
     </View>
@@ -73,21 +70,16 @@ const InputAndPassword = ({
 export default InputAndPassword;
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    marginTop: iWidth * 75,
-    paddingHorizontal: iWidth * 15,
-  },
-
-  inputMainContainer: {
-    marginTop: iWidth * 10,
+  container: {
+    paddingTop: iWidth * 75,
+    gap: iWidth * 12,
   },
 
   passwordContainer: {
-    height: iWidth * 50,
+    height: iWidth * 45,
     borderWidth: 0.5,
-    borderRadius: iWidth * 10,
-    marginVertical: iWidth * 10,
-    marginHorizontal: iWidth * 15,
+    borderRadius: iWidth * 12,
+    marginHorizontal: iWidth * 16,
     justifyContent: 'center',
     alignItems: 'center',
   },

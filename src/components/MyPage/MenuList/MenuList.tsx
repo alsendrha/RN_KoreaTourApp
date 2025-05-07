@@ -18,7 +18,8 @@ export default MenuList;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: iWidth * 20,
+    paddingTop: iWidth * 20,
     paddingHorizontal: iWidth * 20,
+    gap: iWidth * 24,
   },
 });

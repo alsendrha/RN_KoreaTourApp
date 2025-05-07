@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {iWidth} from '../../../globalStyle';
 import IInput from '../IInput';
+import IText from '../IText';
 
 type PasswordCheckProps = {
   userPassword: string;
@@ -18,23 +19,19 @@ const PasswordCheck = ({
 }: PasswordCheckProps) => {
   return (
     <View style={styles.container}>
-      <View style={styles.contentTextContainer}>
-        <Text style={styles.contentText}>기존 비밀번호를 입력해주세요</Text>
-      </View>
-      <View>
-        <IInput
-          value={userPassword}
-          borderRadius={iWidth * 20}
-          secureTextEntry={true}
-          deleteValue={() => setUserPassword('')}
-          onChangeText={text => {
-            setUserPassword(text);
-            setErrorMsg('');
-          }}
-          errorMsg={true}
-          errorText={errorMsg}
-        />
-      </View>
+      <IText fontStyle="fR" text={'기존 비밀번호를 입력해주세요'} />
+      <IInput
+        value={userPassword}
+        borderRadius={iWidth * 20}
+        secureTextEntry={true}
+        deleteValue={() => setUserPassword('')}
+        onChangeText={text => {
+          setUserPassword(text);
+          setErrorMsg('');
+        }}
+        errorMsg={true}
+        errorText={errorMsg}
+      />
     </View>
   );
 };
@@ -44,11 +41,6 @@ export default PasswordCheck;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    gap: iWidth * 12,
   },
-
-  contentTextContainer: {
-    marginVertical: iWidth * 15,
-  },
-
-  contentText: {},
 });

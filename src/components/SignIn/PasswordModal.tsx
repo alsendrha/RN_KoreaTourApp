@@ -4,15 +4,15 @@ import {
   Alert,
   Keyboard,
   Modal,
+  Pressable,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import {colors, iWidth, normalizeFont} from '../../../globalStyle';
+import {colors, iWidth} from '../../../globalStyle';
 import {userPasswordReset} from '../../api/firebase';
 import IButton from '../IButton';
 import IInput from '../IInput';
+import IText from '../IText';
 
 type PasswordModalProps = {
   isOpen: boolean;
@@ -60,60 +60,55 @@ const PasswordModal = ({isOpen, setIsOpen}: PasswordModalProps) => {
   };
 
   return (
-    <View>
-      <Modal animationType="fade" visible={isOpen} transparent={true}>
-        <TouchableOpacity
-          style={styles.centeredView}
-          activeOpacity={1}
-          onPress={() => {
-            setIsOpen(false);
-            setUserEmail('');
+    <Modal animationType="fade" visible={isOpen} transparent={true}>
+      <Pressable
+        style={styles.centeredView}
+        onPress={() => {
+          setIsOpen(false);
+          setUserEmail('');
+        }}>
+        <Pressable
+          onPress={e => {
+            e.stopPropagation();
+            Keyboard.dismiss();
           }}>
-          <TouchableOpacity
-            onPress={e => {
-              e.stopPropagation();
-              Keyboard.dismiss();
-            }}
-            activeOpacity={1}>
-            {isLoading ? (
-              <View
-                style={[
-                  styles.modalView,
-                  {
-                    height: iWidth * 199,
-                    paddingVertical: 0,
-                    justifyContent: 'center',
-                  },
-                ]}>
-                <ActivityIndicator size="large" color="#0000ff" />
-              </View>
-            ) : (
-              <View style={styles.modalView}>
-                <Text style={styles.titleText}>비밀번호 재설정</Text>
-                <View style={styles.inputContainer}>
-                  <IInput
-                    value={userEmail}
-                    borderRadius={iWidth * 10}
-                    maxLength={30}
-                    onChangeText={setUserEmail}
-                    placeholder="이메일"
-                    deleteValue={() => setUserEmail('')}
-                  />
-                </View>
-                <IButton
-                  title="전송"
-                  buttonStyle="submit"
-                  backgroundColor={colors.primary}
-                  border={0}
-                  titleColor="white"
-                  onPress={() => passwordReset()}
-                />
-              </View>
-            )}
-          </TouchableOpacity>
-        </TouchableOpacity>
-      </Modal>
-    </View>
+          {isLoading ? (
+            <View
+              style={[
+                styles.modalView,
+                {
+                  height: iWidth * 199,
+                  paddingVertical: 0,
+                  justifyContent: 'center',
+                },
+              ]}>
+              <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+          ) : (
+            <View style={styles.modalView}>
+              <IText fontStyle="fB" fontSize={18} text={'비밀번호 재설정'} />
+              <IInput
+                value={userEmail}
+                borderRadius={iWidth * 12}
+                height={iWidth * 40}
+                maxLength={30}
+                onChangeText={setUserEmail}
+                placeholder="이메일"
+                deleteValue={() => setUserEmail('')}
+              />
+              <IButton
+                title="전송"
+                buttonStyle="submit"
+                backgroundColor={colors.primary}
+                border={0}
+                titleColor={colors.white}
+                onPress={() => passwordReset()}
+              />
+            </View>
+          )}
+        </Pressable>
+      </Pressable>
+    </Modal>
   );
 };
 
@@ -128,23 +123,12 @@ const styles = StyleSheet.create({
   },
 
   modalView: {
-    margin: iWidth * 25,
-    backgroundColor: 'white',
+    marginHorizontal: iWidth * 25,
+    backgroundColor: colors.white,
     borderRadius: iWidth * 20,
     alignItems: 'center',
     paddingVertical: iWidth * 30,
-    elevation: 5,
-  },
-
-  titleText: {
-    fontSize: normalizeFont(18),
-    fontWeight: 'bold',
-    color: 'black',
-  },
-
-  inputContainer: {
-    paddingHorizontal: iWidth * 20,
-    width: '100%',
-    marginVertical: iWidth * 20,
+    elevation: 1,
+    gap: iWidth * 20,
   },
 });

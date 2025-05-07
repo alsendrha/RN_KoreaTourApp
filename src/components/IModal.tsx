@@ -6,13 +6,14 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import React, {useState} from 'react';
-import {Keyboard, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Keyboard, Modal, Pressable, StyleSheet, View} from 'react-native';
 import {colors, iWidth, normalizeFont} from '../../globalStyle';
 import {useGetUser, useUserDelete} from '../api/firebase';
 import {useLoading} from '../store/store';
 import {showToast} from '../utils/showToast';
 import {passwordValidation} from '../utils/validation';
 import IButton from './IButton';
+import IText from './IText';
 import Loading from './Loading';
 import PasswordModal from './Modal/PasswordModal';
 import UserDeleteModal from './Modal/UserDeleteModal';
@@ -156,11 +157,11 @@ const IModal = ({
         onPress={() => Keyboard.dismiss()}
         style={styles.modalBackground}>
         <View style={styles.modalContentView}>
-          <View>
-            <Text style={styles.titleText}>
-              {passwordClicked ? '비밀번호 변경' : '회원탈퇴'}
-            </Text>
-          </View>
+          <IText
+            fontStyle="fB"
+            fontSize={18}
+            text={passwordClicked ? '비밀번호 변경' : '회원탈퇴'}
+          />
           {passwordClicked ? (
             <PasswordModal
               updatePassword={updatePassword}
@@ -190,8 +191,8 @@ const IModal = ({
               borderRightWidth={0}
               borderLeftWidth={0}
               backgroundColor={passwordClicked ? '#4E8DF2' : colors.warning}
-              titleColor="white"
-              titleWeight="bold"
+              titleColor={colors.white}
+              fontStyle="fB"
               onPress={() =>
                 passwordClicked
                   ? handlePasswordModal(updatePassword)
@@ -217,20 +218,15 @@ const styles = StyleSheet.create({
 
   modalContentView: {
     marginHorizontal: iWidth * 30,
-    paddingTop: iWidth * 15,
+    paddingTop: iWidth * 16,
     alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: iWidth * 20,
     overflow: 'hidden',
-  },
-
-  titleText: {
-    fontSize: normalizeFont(18),
-    fontWeight: 'bold',
+    gap: iWidth * 14,
   },
 
   buttonContainer: {
-    marginTop: iWidth * 10,
     flexDirection: 'row',
     width: '100%',
   },

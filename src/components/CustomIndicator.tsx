@@ -1,5 +1,5 @@
-import {ActivityIndicator, Dimensions, StyleSheet, View} from 'react-native';
 import React from 'react';
+import {ActivityIndicator, Dimensions, StyleSheet, View} from 'react-native';
 import {colors, iHeight} from '../../globalStyle';
 
 type CustomIndicatorProps = {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   background: {
     width: '100%',
     height: Dimensions.get('screen').height,
-    backgroundColor: 'black',
+    backgroundColor: colors.black,
     opacity: 0.6,
     position: 'absolute',
     zIndex: 10,

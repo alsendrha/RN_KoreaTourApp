@@ -1,7 +1,8 @@
 import React from 'react';
-import {Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
-import {colors, iWidth, normalizeFont} from '../../globalStyle';
+import {Keyboard, Pressable, StyleSheet, View} from 'react-native';
+import {colors, iWidth} from '../../globalStyle';
 import PointAndInput from '../components/BottomSheet/Review/PointAndInput';
+import IText from '../components/IText';
 import {useItemInfo} from '../store/store';
 
 const ReviewInsert = () => {
@@ -10,7 +11,7 @@ const ReviewInsert = () => {
   return (
     <Pressable style={styles.container} onPress={() => Keyboard.dismiss()}>
       <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>{itemTitle}</Text>
+        <IText fontStyle="fB" fontSize={20} text={itemTitle} />
       </View>
       <PointAndInput
         itemId={itemId}
@@ -33,11 +34,5 @@ const styles = StyleSheet.create({
   titleContainer: {
     alignItems: 'center',
     marginVertical: iWidth * 10,
-  },
-
-  titleText: {
-    fontSize: normalizeFont(20),
-    fontWeight: 'bold',
-    color: colors.black,
   },
 });

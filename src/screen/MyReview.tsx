@@ -11,13 +11,15 @@ import {
   Dimensions,
   FlatList,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import {iHeight, iWidth, normalizeFont} from '../../globalStyle';
+import {iWidth} from '../../globalStyle';
 import {useDeleteReview, useGetMyReviews, useGetReviews} from '../api/firebase';
-import IButton from '../components/IButton';
+import IText from '../components/IText';
+import MyReviewItemButtons from '../components/MyPage/MyReview/MyReviewItemButtons';
+import MyReviewItemStar from '../components/MyPage/MyReview/MyReviewItemStar';
+import MyReviewItemTitle from '../components/MyPage/MyReview/MyReviewItemTitle';
+
 const MyReview = () => {
   const [selectedItemId, setSelectedItemId] = useState('');
   const {data, isLoading, refetch} = useGetMyReviews();
@@ -62,86 +64,42 @@ const MyReview = () => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>내가 쓴 총 리뷰 </Text>
+        <IText fontStyle="fB" fontSize={18} text={'내가 쓴 총 리뷰'} />
         {isLoading ? (
           <ActivityIndicator size="small" color="black" />
         ) : (
-          <Text style={styles.titleText}>{data?.length}개</Text>
+          <IText fontStyle="fB" fontSize={18} text={` ${data?.length}개`} />
         )}
       </View>
       {isLoading ? (
-        <View>
-          <ActivityIndicator size="large" color="black" />
-        </View>
+        <ActivityIndicator size="large" color="black" />
       ) : (
         <FlatList
-          style={{marginBottom: iHeight * 100, paddingBottom: iHeight * 10}}
+          style={{paddingTop: iWidth * 12}}
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={{gap: iWidth * 16}}
           data={data}
           renderItem={({item}) => {
-            const points = [
-              {label: 'point01', value: item.point01},
-              {label: 'point02', value: item.point02},
-              {label: 'point03', value: item.point03},
-              {label: 'point04', value: item.point04},
-              {label: 'point05', value: item.point05},
-            ].filter(point => point.value !== 0);
             return (
-              <View style={styles.listContainer}>
-                <IButton
-                  buttonStyle="more"
+              <View style={{gap: iWidth * 4}}>
+                <MyReviewItemTitle
+                  title={item.itemTitle}
                   onPress={() =>
                     navigation.navigate('detail', {
                       id: item.itemId,
                       contentType: item.contentTypeId,
                     })
-                  }>
-                  <View style={styles.reviewTitleContainer}>
-                    <Text style={styles.reviewTitleText}>{item.itemTitle}</Text>
-                    <Icon name={'chevron-forward-outline'} size={16} />
-                  </View>
-                </IButton>
+                  }
+                />
                 <View style={styles.starButtonContainer}>
-                  {points.map(point => (
-                    <View key={point.label} style={styles.starContainer}>
-                      {Array(5)
-                        .fill(null)
-                        .map((_, index) => (
-                          <Icon
-                            key={index}
-                            name={'star'}
-                            size={18}
-                            style={{
-                              color:
-                                index < point.value ? '#ffca42' : '#e3e3e3',
-                              marginRight: 2,
-                            }}
-                          />
-                        ))}
-                    </View>
-                  ))}
-
-                  <View style={styles.menuButtonContainer}>
-                    <View style={{marginRight: 5}}>
-                      <IButton
-                        buttonStyle="review"
-                        backgroundColor="#e3e3e3"
-                        title="수정"
-                        onPress={() => handleUpdate(item.itemId)}
-                      />
-                    </View>
-                    <View>
-                      <IButton
-                        buttonStyle="review"
-                        backgroundColor="#e3e3e3"
-                        title="삭제"
-                        onPress={() => handleDelete(item.itemId)}
-                      />
-                    </View>
-                  </View>
+                  <MyReviewItemStar item={item} />
+                  <MyReviewItemButtons
+                    updateOnPress={() => handleUpdate(item.itemId)}
+                    deleteOnPress={() => handleDelete(item.itemId)}
+                  />
                 </View>
                 <View style={styles.contentContainer}>
-                  <Text style={{color: 'black'}}>{item.reviewContent}</Text>
+                  <IText fontStyle="fR" text={item.reviewContent} />
                 </View>
               </View>
             );
@@ -155,7 +113,7 @@ const MyReview = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-              <Text style={{color: 'black'}}>작성한 리뷰가 없습니다</Text>
+              <IText fontStyle="fR" text={'작성한 리뷰가 없습니다'} />
             </View>
           }
         />
@@ -170,38 +128,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    paddingTop: iWidth * 60,
     paddingHorizontal: iWidth * 20,
   },
 
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: iWidth * 20,
-    borderBottomWidth: 0.5,
-    borderColor: '#b3b3b3',
     paddingBottom: iWidth * 12,
-  },
-
-  titleText: {
-    fontSize: normalizeFont(18),
-    fontWeight: 'bold',
-    color: 'black',
-  },
-
-  reviewTitleText: {
-    fontSize: normalizeFont(14),
-    fontWeight: 'bold',
-    color: 'black',
-  },
-
-  listContainer: {
-    marginBottom: iWidth * 20,
-  },
-
-  reviewTitleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 
   starButtonContainer: {
@@ -210,21 +143,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
-  starContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  menuButtonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
   contentContainer: {
-    marginTop: iWidth * 10,
+    marginTop: iWidth * 8,
     minHeight: iWidth * 120,
     borderWidth: 0.5,
-    borderRadius: iWidth * 10,
+    borderRadius: iWidth * 12,
     padding: iWidth * 10,
     borderColor: '#e3e3e3',
   },

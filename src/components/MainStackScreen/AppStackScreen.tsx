@@ -6,25 +6,71 @@ import {
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {iWidth} from '../../../globalStyle';
+import {colors, iWidth} from '../../../globalStyle';
+import customNavigation from '../../hooks/customNavigation';
+import AppInfo from '../../screen/AppInfo';
 import Detail from '../../screen/Detail';
+import List from '../../screen/List';
+import Notice from '../../screen/Notice';
 import ReviewInsert from '../../screen/ReviewInsert';
 import ReviewUpdate from '../../screen/ReviewUpdate';
 import SignIn from '../../screen/SignIn';
 import SignUp from '../../screen/SignUp';
-import {useBottomSheetRef, usePageInfo} from '../../store/store';
+import {
+  useAreaSelected,
+  useBottomSheetRef,
+  useContentsSelected,
+  usePageInfo,
+} from '../../store/store';
 import IButton from '../IButton';
 import BottomTabScreen from '../MainTabBar/BottomTabScreen';
 
 const AppStackScreen = () => {
   const Stack = createNativeStackNavigator();
+  const {areaSelected, setAreaSelected} = useAreaSelected();
+  const {contentTitle, setContentsSelected} = useContentsSelected();
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        headerShadowVisible: false,
+        contentStyle: {
+          backgroundColor: colors.white,
+        },
       }}
       initialRouteName="bottomTabScreen">
       <Stack.Screen name="bottomTabScreen" component={BottomTabScreen} />
+      <Stack.Screen
+        name="list"
+        component={List}
+        options={{
+          headerShown: true,
+          title: `${areaSelected} (${contentTitle})`,
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerLeft() {
+            const navigation = customNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  setAreaSelected('서울');
+                  setContentsSelected(12, '관광지');
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
+              </IButton>
+            );
+          },
+          headerRight() {
+            return (
+              <IButton buttonStyle="menu">
+                <Icon name="reorder-four-outline" size={iWidth * 28} />
+              </IButton>
+            );
+          },
+        }}
+      />
       <Stack.Screen
         name="detail"
         component={Detail}
@@ -125,6 +171,48 @@ const AppStackScreen = () => {
       <Stack.Screen
         name="reviewUpdate"
         component={ReviewUpdate}
+        options={{
+          headerTitle: '',
+          headerShadowVisible: false,
+          headerShown: true,
+          headerLeft() {
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="appInfo"
+        component={AppInfo}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+          headerShown: true,
+          headerLeft() {
+            const navigation = useNavigation();
+            return (
+              <IButton
+                buttonStyle="back"
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
+              </IButton>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="notice"
+        component={Notice}
         options={{
           headerTransparent: true,
           headerTitle: '',

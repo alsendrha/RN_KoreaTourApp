@@ -1,8 +1,9 @@
 import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import React from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {iWidth, normalizeFont} from '../../../../globalStyle';
+import {colors, iWidth} from '../../../../globalStyle';
+import IText from '../../IText';
 
 type ReviewListProps = {
   dataInfo: any;
@@ -14,7 +15,11 @@ const ReviewList = ({dataInfo, loading}: ReviewListProps) => {
     <BottomSheetScrollView
       showsVerticalScrollIndicator={false}
       style={styles.scrollContainer}
-      contentContainerStyle={{paddingVertical: 30, paddingHorizontal: 10}}>
+      overScrollMode={'never'}
+      contentContainerStyle={{
+        paddingVertical: iWidth * 30,
+        paddingHorizontal: iWidth * 10,
+      }}>
       {loading ? (
         <View
           style={{
@@ -22,7 +27,7 @@ const ReviewList = ({dataInfo, loading}: ReviewListProps) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <ActivityIndicator size="large" color="#ffca42" />
+          <ActivityIndicator size="large" color={colors.yellow} />
         </View>
       ) : dataInfo.length === 0 ? (
         <View
@@ -31,7 +36,7 @@ const ReviewList = ({dataInfo, loading}: ReviewListProps) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text>리뷰가 없습니다</Text>
+          <IText fontStyle="fR" text={'리뷰가 없습니다'} />
         </View>
       ) : (
         dataInfo.map((data: any) => {
@@ -45,12 +50,15 @@ const ReviewList = ({dataInfo, loading}: ReviewListProps) => {
           return (
             <View key={data.userId} style={styles.container}>
               <View style={styles.pointContainer}>
-                <Text style={styles.nicknameText}>
-                  {data.userData && data.userData.nickname
-                    ? data.userData.nickname
-                    : '탈퇴한 사용자'}
-                </Text>
-
+                <IText
+                  fontStyle="fM"
+                  fontSize={14}
+                  text={
+                    data.userData && data.userData.nickname
+                      ? data.userData.nickname
+                      : '탈퇴한 사용자'
+                  }
+                />
                 <View style={styles.starMainContainer}>
                   {points.map(point => (
                     <View key={point.label} style={styles.starContainer}>
@@ -63,7 +71,7 @@ const ReviewList = ({dataInfo, loading}: ReviewListProps) => {
                             size={iWidth * 18}
                             style={{
                               color:
-                                index < point.value ? '#ffca42' : '#d3d3d3',
+                                index < point.value ? colors.yellow : '#d3d3d3',
                               marginRight: iWidth * 2,
                             }}
                           />
@@ -73,7 +81,7 @@ const ReviewList = ({dataInfo, loading}: ReviewListProps) => {
                 </View>
               </View>
               <View style={styles.contentContainer}>
-                <Text>{data.reviewContent}</Text>
+                <IText fontStyle="fR" text={data.reviewContent} />
               </View>
             </View>
           );
@@ -100,11 +108,6 @@ const styles = StyleSheet.create({
 
   pointContainer: {
     flexDirection: 'row',
-  },
-
-  nicknameText: {
-    fontSize: normalizeFont(14),
-    fontWeight: '500',
   },
 
   starMainContainer: {

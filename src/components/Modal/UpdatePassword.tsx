@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {iWidth} from '../../../globalStyle';
 import {UpdatePasswordProps} from '../../types/types';
 import IInput from '../IInput';
+import IText from '../IText';
 
 const UpdatePassword = ({
   passwordInfo,
@@ -11,9 +12,9 @@ const UpdatePassword = ({
   setUpdateErrorMsg,
 }: UpdatePasswordProps) => {
   return (
-    <View>
-      <View style={styles.contentTextContainer}>
-        <Text>새로운 비밀번호를 입력해주세요</Text>
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <IText fontStyle="fR" text={'새로운 비밀번호를 입력해주세요'} />
       </View>
       <IInput
         value={passwordInfo.userPassword}
@@ -50,12 +51,11 @@ const UpdatePassword = ({
 export default UpdatePassword;
 
 const styles = StyleSheet.create({
-  contentTextContainer: {
-    marginVertical: iWidth * 15,
+  container: {
     alignItems: 'center',
   },
 
-  contentText: {
-    // fontSize: 14,
+  textContainer: {
+    paddingBottom: iWidth * 12,
   },
 });

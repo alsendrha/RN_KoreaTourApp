@@ -1,8 +1,9 @@
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {iWidth, normalizeFont} from '../../../../../globalStyle';
+import {colors, iWidth} from '../../../../../globalStyle';
+import IText from '../../../IText';
 
 type TotalScoreProps = {
   data: FirebaseFirestoreTypes.DocumentData[];
@@ -38,8 +39,7 @@ const TotalScore = ({data}: TotalScoreProps) => {
               key={index}
               name="star"
               size={iWidth * 18}
-              style={styles.starIcon}
-              color={index < averagePoint ? '#ffca42' : '#d3d3d3'}
+              color={index < averagePoint ? colors.yellow : '#d3d3d3'}
             />
           );
         } else if (index === integerPart && decimalPart >= 0.3) {
@@ -48,8 +48,7 @@ const TotalScore = ({data}: TotalScoreProps) => {
               key={index}
               name="star-half-outline"
               size={iWidth * 18}
-              style={styles.starIcon}
-              color={index < averagePoint ? '#ffca42' : '#d3d3d3'}
+              color={index < averagePoint ? colors.yellow : '#d3d3d3'}
             />
           );
         } else {
@@ -57,7 +56,6 @@ const TotalScore = ({data}: TotalScoreProps) => {
             <Icon
               key={index}
               name="star"
-              style={[styles.starIcon]}
               size={iWidth * 18}
               color={'#d3d3d3'}
             />
@@ -67,8 +65,10 @@ const TotalScore = ({data}: TotalScoreProps) => {
   };
 
   return (
-    <View style={styles.pointContainer}>
-      {data && <Text style={styles.pointText}>{averagePoint.toFixed(1)}</Text>}
+    <View style={styles.container}>
+      {data && (
+        <IText fontStyle="fB" fontSize={28} text={averagePoint.toFixed(1)} />
+      )}
       <View style={styles.starContainer}>{renderStars()}</View>
     </View>
   );
@@ -77,20 +77,14 @@ const TotalScore = ({data}: TotalScoreProps) => {
 export default TotalScore;
 
 const styles = StyleSheet.create({
-  pointContainer: {
+  container: {
     alignItems: 'center',
-  },
-
-  pointText: {
-    fontSize: normalizeFont(32),
-    fontWeight: 'bold',
+    gap: iWidth * 8,
   },
 
   starContainer: {
     flexDirection: 'row',
-    marginTop: iWidth * 10,
-  },
-  starIcon: {
-    marginHorizontal: iWidth * 1,
+    alignItems: 'center',
+    gap: iWidth * 2,
   },
 });

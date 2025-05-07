@@ -11,6 +11,8 @@ export default TopComponent;
 
 const styles = StyleSheet.create({
   userInfoContainer: {
+    position: 'absolute',
+    top: 0,
     width: '100%',
     height: iWidth * 170,
     backgroundColor: colors.primary,

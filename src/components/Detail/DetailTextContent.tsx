@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import HTMLView from 'react-native-htmlview';
-import {iWidth, normalizeFont} from '../../../globalStyle';
+import {colors, iWidth, normalizeFont} from '../../../globalStyle';
+import IText from '../IText';
 
 type DetailTextContentProps = {
   address: string;
@@ -19,16 +20,28 @@ const DetailTextContent = ({
   overview,
 }: DetailTextContentProps) => {
   return (
-    <View style={styles.textContainer}>
+    <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>{title}</Text>
-        <Text style={styles.contentText}>주소 : {address}</Text>
-        <Text style={styles.contentText}>연락처 : {tel ? tel : '-'}</Text>
-        <HTMLView value={page} style={{marginVertical: 5}} />
+        <IText fontStyle="fB" fontSize={20} text={title} />
+        <IText fontStyle="fR" text={`주소 : ${address}`} />
+        <IText fontStyle="fR" text={`연락처 : ${tel ? tel : '-'}`} />
+        <HTMLView
+          value={page}
+          textComponentProps={{
+            style: {
+              fontFamily: 'Pretendard-Regular',
+              fontSize: normalizeFont(16),
+              color: colors.black,
+            },
+          }}
+          style={{marginVertical: 5}}
+        />
       </View>
-      <Text style={{marginTop: 10, color: 'black'}}>
-        {overview.replace(/<br\s*\/?>/gi, '\n')}
-      </Text>
+      <IText
+        fontStyle="fR"
+        fontSize={14}
+        text={overview.replace(/<br\s*\/?>/gi, '\n')}
+      />
     </View>
   );
 };
@@ -36,22 +49,12 @@ const DetailTextContent = ({
 export default DetailTextContent;
 
 const styles = StyleSheet.create({
-  textContainer: {
+  container: {
     marginTop: iWidth * 10,
-    marginHorizontal: iWidth * 10,
+    marginHorizontal: iWidth * 16,
   },
 
   titleContainer: {
-    paddingVertical: iWidth * 15,
-    borderBottomWidth: 0.5,
-  },
-
-  titleText: {
-    fontSize: normalizeFont(20),
-    color: 'black',
-    fontWeight: 'bold',
-  },
-  contentText: {
-    color: 'black',
+    paddingVertical: iWidth * 12,
   },
 });

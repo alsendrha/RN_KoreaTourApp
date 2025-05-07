@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     left: iWidth * 16,
     right: iWidth * 16,
     bottom: iWidth * 10,
-    height: iWidth * 60,
+    height: iWidth * 56,
     borderRadius: iWidth * 20,
     backgroundColor: colors.primary,
     elevation: 2,

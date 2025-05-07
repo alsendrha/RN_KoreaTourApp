@@ -1,27 +1,21 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {iWidth, normalizeFont} from '../../../globalStyle';
+import {StyleSheet, View} from 'react-native';
+import {iWidth} from '../../../globalStyle';
+import IText from '../IText';
 
 const SignTitle = () => {
   return (
-    <View
-      style={{
-        width: '100%',
-        alignItems: 'center',
-        marginBottom: iWidth * 40,
-      }}>
-      <Text
-        style={{
-          fontWeight: 'bold',
-          fontSize: normalizeFont(24),
-          color: 'black',
-        }}>
-        회원가입
-      </Text>
+    <View style={styles.container}>
+      <IText fontStyle="fB" fontSize={24} text={'회원가입'} />
     </View>
   );
 };
 
 export default SignTitle;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    paddingBottom: iWidth * 26,
+  },
+});

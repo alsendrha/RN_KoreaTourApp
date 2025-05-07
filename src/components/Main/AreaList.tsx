@@ -11,7 +11,7 @@ const AreaList = () => {
   return (
     <View style={styles.areaListContainer}>
       <FlatList
-        contentContainerStyle={{alignItems: 'center'}}
+        contentContainerStyle={{alignItems: 'center', gap: iWidth * 4}}
         showsHorizontalScrollIndicator={false}
         data={areaList.map(item => item.name)}
         renderItem={({item}) => (
@@ -19,7 +19,7 @@ const AreaList = () => {
             title={item}
             buttonStyle="areaList"
             titleColor={item === areaSelected ? 'black' : colors.white}
-            titleWeight={item === areaSelected ? 'bold' : 'normal'}
+            fontStyle={item === areaSelected ? 'fB' : 'fR'}
             onPress={() => setAreaSelected(item)}
           />
         )}
@@ -36,12 +36,11 @@ const styles = StyleSheet.create({
   areaListContainer: {
     marginTop: iWidth * 10,
     width: '100%',
-    height: iWidth * 45,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.primary,
     borderRadius: iWidth * 50,
-    paddingHorizontal: iWidth * 3,
+    padding: iWidth * 6,
     overflow: 'hidden',
   },
 });

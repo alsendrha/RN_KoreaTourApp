@@ -6,10 +6,9 @@ import {
   ActivityIndicator,
   Dimensions,
   FlatList,
+  Pressable,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import {colors, iWidth} from '../../../globalStyle';
@@ -21,6 +20,7 @@ import {
 } from '../../store/store';
 import {TourListType} from '../../types/dataListType';
 import CustomIndicator from '../CustomIndicator';
+import IText from '../IText';
 const ItemList = () => {
   const scrollViewRef = useRef<ScrollView>(null);
   const {areaSelected} = useAreaSelected();
@@ -48,15 +48,14 @@ const ItemList = () => {
   const renderItem = ({item}: {item: TourListType}) => {
     if (!item) return null;
     return (
-      <TouchableOpacity
+      <Pressable
         onPress={() =>
           navigation.navigate('detail', {
             id: item.contentid,
             contentType: item.contenttypeid,
           })
         }
-        key={item.contentid}
-        activeOpacity={0.8}>
+        key={item.contentid}>
         <View style={styles.itemCard}>
           <FastImage
             style={styles.imageSize}
@@ -68,16 +67,11 @@ const ItemList = () => {
             resizeMode={FastImage.resizeMode.cover}
           />
           <View style={styles.textContainer}>
-            <Text numberOfLines={1} style={styles.textStyle}>
-              {item.title}
-            </Text>
-            <Text style={styles.contentText}>
-              {item.addr1}
-              {item.addr2}
-            </Text>
+            <IText fontStyle="fB" text={item.title} />
+            <IText fontStyle="fR" text={`${item.addr1} ${item.addr2}`} />
           </View>
         </View>
-      </TouchableOpacity>
+      </Pressable>
     );
   };
 
@@ -91,8 +85,9 @@ const ItemList = () => {
       {isLoading && <CustomIndicator marginTop={iWidth * -100} />}
       <FlatList
         data={items}
+        contentContainerStyle={{gap: iWidth * 12}}
         renderItem={renderItem}
-        keyExtractor={item => item?.contentid || 'default-key'}
+        keyExtractor={item => item?.contentid.toString()}
         onEndReached={handleFetchNextPage}
         onEndReachedThreshold={0.5}
         ListFooterComponent={
@@ -104,12 +99,12 @@ const ItemList = () => {
           items.length === 0 ? (
             <View
               style={{
-                width: Dimensions.get('screen').width,
+                width: '100%',
                 height: Dimensions.get('screen').height - iWidth * 300,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-              <Text style={styles.contentText}>검색 결과가 없습니다</Text>
+              <IText fontStyle="fR" text={'검색 결과가 없습니다'} />
             </View>
           ) : null
         }
@@ -124,7 +119,6 @@ const styles = StyleSheet.create({
   itemCard: {
     overflow: 'hidden',
     marginHorizontal: iWidth * 15,
-    marginVertical: iWidth * 10,
     backgroundColor: colors.white,
     borderRadius: iWidth * 8,
     shadowOffset: {width: 0, height: 4},
@@ -135,21 +129,12 @@ const styles = StyleSheet.create({
 
   imageSize: {
     width: '100%',
-    height: iWidth * 250,
+    height: iWidth * 220,
     borderTopEndRadius: iWidth * 8,
-    objectFit: 'cover',
   },
 
   textContainer: {
-    margin: iWidth * 10,
-  },
-
-  textStyle: {
-    fontWeight: 'bold',
-    color: 'black',
-  },
-
-  contentText: {
-    color: 'black',
+    padding: iWidth * 10,
+    gap: iWidth * 4,
   },
 });

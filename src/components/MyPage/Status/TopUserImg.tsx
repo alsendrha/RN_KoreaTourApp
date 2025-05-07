@@ -28,7 +28,7 @@ const TopUserImg = ({isLoading, imageData, userData}: TopUserImgProps) => {
   };
 
   return (
-    <View style={styles.userImgContainer}>
+    <View style={styles.container}>
       <View style={styles.imgContainer}>
         <View style={styles.img}>
           {isLoading ? (
@@ -59,15 +59,14 @@ const TopUserImg = ({isLoading, imageData, userData}: TopUserImgProps) => {
 export default TopUserImg;
 
 const styles = StyleSheet.create({
-  userImgContainer: {
+  container: {
     position: 'relative',
+    alignItems: 'center',
   },
 
   imgContainer: {
     position: 'absolute',
     top: iWidth * -45,
-    left: '50%',
-    transform: [{translateX: -50}],
   },
 
   img: {

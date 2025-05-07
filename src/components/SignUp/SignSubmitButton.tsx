@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {colors, iWidth} from '../../../globalStyle';
+import {colors} from '../../../globalStyle';
 import IButton from '../IButton';
 
 type SignSubmitButtonProps = {
@@ -26,7 +26,6 @@ export default SignSubmitButton;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: iWidth * 20,
     width: '100%',
     alignItems: 'center',
   },

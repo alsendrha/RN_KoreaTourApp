@@ -16,14 +16,10 @@ const MyBottomSheet = () => {
 
   const snapPoints = useMemo(() => {
     switch (pageInfo) {
-      case 'list':
-        return ['48%'];
       case 'detail':
-        return ['10%', '50%', '100%'];
+        return ['8%', '50%', '100%'];
       case 'myStatus':
         return ['31%'];
-      default:
-        break;
     }
   }, [pageInfo]);
   const {setBottomSheetRef} = useBottomSheetRef();
@@ -73,10 +69,11 @@ const MyBottomSheet = () => {
                 ? colors.white
                 : '#B3E4F7',
             display: pageInfo === 'myStatus' ? 'none' : 'flex',
-            borderTopLeftRadius: iWidth * 20,
-            borderTopRightRadius: iWidth * 20,
+            borderTopLeftRadius: iWidth * 10,
+            borderTopRightRadius: iWidth * 10,
             elevation: 0,
           }}
+          enableDynamicSizing={pageInfo === 'list' ? true : false}
           enablePanDownToClose={
             pageInfo === 'list' || pageInfo === 'myStatus' ? true : false
           }
@@ -112,21 +109,13 @@ const MyBottomSheet = () => {
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
-    borderRadius: iWidth * 50,
+    borderRadius: iWidth * 60,
   },
   bottomSheetView: {
     flex: 1,
     width: '100%',
     height: '100%',
     justifyContent: 'center',
-  },
-  innerContainer: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-  },
-
-  bottomSheetClose: {
-    borderWidth: 1,
   },
 
   contentWrapper: {

@@ -11,13 +11,13 @@ import {
   Keyboard,
   Pressable,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
-import {colors, iWidth, normalizeFont} from '../../globalStyle';
+import {colors, iWidth} from '../../globalStyle';
 import {useSignIn} from '../api/firebase';
 import IButton from '../components/IButton';
 import IInput from '../components/IInput';
+import IText from '../components/IText';
 import PasswordModal from '../components/SignIn/PasswordModal';
 import {loginCheck} from '../utils/validation';
 const SignIn = () => {
@@ -81,15 +81,14 @@ const SignIn = () => {
       )}
       <View style={styles.container}>
         <View style={styles.loginView}>
-          <View style={styles.loginTextContainer}>
-            <Text style={styles.loginText}>Login</Text>
-          </View>
+          <IText fontStyle="fB" fontSize={30} text={'Login'} />
           <View style={styles.inputContainer}>
             <IInput
               value={userData.email}
               borderRadius={iWidth * 10}
               titleEnable={true}
               titleText="email"
+              height={iWidth * 40}
               keyboardType="email-address"
               errorMsg={true}
               errorText={errorMsg.email}
@@ -105,6 +104,7 @@ const SignIn = () => {
               borderRadius={iWidth * 10}
               titleEnable={true}
               titleText="password"
+              height={iWidth * 40}
               secureTextEntry={true}
               errorMsg={true}
               errorText={errorMsg.password}
@@ -122,28 +122,40 @@ const SignIn = () => {
                 backgroundColor={colors.primary}
                 title="로그인"
                 titleColor="white"
-                titleWeight="bold"
+                fontStyle="fB"
                 onPress={userSignIn}
               />
             </View>
-            <View style={styles.signUpButtonContainer}>
-              <Text style={{color: 'black'}}>비밀번호가 생각이 안난다면 </Text>
-              <IButton
-                buttonStyle="more"
-                title="비밀번호 찾기"
-                titleColor="#4E8DF2"
-                onPress={() => setIsOpen(true)}
-              />
-            </View>
-            <View
-              style={[styles.signUpButtonContainer, {marginTop: iWidth * 8}]}>
-              <Text style={{color: 'black'}}>아직 회원이 아니시라면 </Text>
-              <IButton
-                buttonStyle="more"
-                title="회원가입"
-                titleColor="#4E8DF2"
-                onPress={() => navigation.navigate('signUp')}
-              />
+            <View style={{paddingTop: iWidth * 12, gap: iWidth * 4}}>
+              <View style={styles.buttonContainer}>
+                <IText
+                  fontStyle="fR"
+                  fontSize={14}
+                  text={'비밀번호가 생각이 안난다면'}
+                />
+                <IButton
+                  buttonStyle="more"
+                  title="비밀번호 찾기"
+                  fontSize={14}
+                  titleColor="#4E8DF2"
+                  onPress={() => setIsOpen(true)}
+                />
+              </View>
+              <View style={styles.buttonContainer}>
+                <IText
+                  fontStyle="fR"
+                  fontSize={14}
+                  text={'아직 회원이 아니시라면'}
+                />
+
+                <IButton
+                  buttonStyle="more"
+                  title="회원가입"
+                  fontSize={14}
+                  titleColor="#4E8DF2"
+                  onPress={() => navigation.navigate('signUp')}
+                />
+              </View>
             </View>
           </View>
         </View>
@@ -167,39 +179,30 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     backgroundColor: colors.primary,
-    position: 'relative',
+    justifyContent: 'flex-end',
   },
+
   loginView: {
-    position: 'absolute',
     width: '100%',
     height: '85%',
     bottom: 0,
     backgroundColor: colors.white,
     borderTopLeftRadius: iWidth * 100,
     paddingHorizontal: iWidth * 20,
-  },
-
-  loginTextContainer: {
+    paddingTop: iWidth * 70,
     alignItems: 'center',
-    marginTop: iWidth * 70,
-  },
-
-  loginText: {
-    fontSize: normalizeFont(30),
-    fontWeight: 'bold',
-    color: colors.black,
+    gap: iWidth * 30,
   },
 
   inputContainer: {
     width: '100%',
     justifyContent: 'center',
-    marginTop: iWidth * 30,
   },
 
-  signUpButtonContainer: {
-    marginTop: iWidth * 15,
+  buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: iWidth * 4,
   },
 });

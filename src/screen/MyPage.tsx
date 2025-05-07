@@ -16,20 +16,26 @@ const MyPage = () => {
   }, [data]);
 
   return (
-    <View style={styles.myPageContainer}>
+    <View style={styles.container}>
       <TopComponent />
-      <View style={styles.bottomContainer}></View>
-      <View style={styles.menuContainer}>
-        {isLoading ? (
-          <View style={styles.indicatorContainer}>
-            <ActivityIndicator size="large" />
-          </View>
-        ) : data ? (
-          <UserInfo />
-        ) : (
-          <UserLogin />
-        )}
-        <MenuList />
+      <View
+        style={{
+          position: 'absolute',
+          width: '100%',
+          paddingHorizontal: iWidth * 24,
+        }}>
+        <View style={styles.menuContainer}>
+          {isLoading ? (
+            <View style={styles.indicatorContainer}>
+              <ActivityIndicator size="large" />
+            </View>
+          ) : data ? (
+            <UserInfo />
+          ) : (
+            <UserLogin />
+          )}
+          <MenuList />
+        </View>
       </View>
     </View>
   );
@@ -38,34 +44,20 @@ const MyPage = () => {
 export default MyPage;
 
 const styles = StyleSheet.create({
-  myPageContainer: {
-    position: 'relative',
+  container: {
+    flex: 1,
     backgroundColor: 'white',
-    width: '100%',
-    height: '100%',
-  },
-
-  bottomContainer: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'white',
-    shadowOffset: {width: iWidth * 0, height: iWidth * -2},
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    shadowRadius: iWidth * 3.5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   menuContainer: {
-    position: 'absolute',
+    width: '100%',
     overflow: 'hidden',
-    height: '77%',
-    left: iWidth * 30,
-    right: iWidth * 30,
     borderRadius: iWidth * 20,
-    top: '50%',
-    transform: [{translateY: iWidth * -350}],
-    elevation: 4,
+    elevation: 2,
     backgroundColor: 'white',
+    paddingBottom: iWidth * 70,
   },
 
   indicatorContainer: {
@@ -73,6 +65,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    elevation: 4,
+    elevation: 2,
   },
 });

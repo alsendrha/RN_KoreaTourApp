@@ -1,10 +1,10 @@
-import FastImage from '@d11/react-native-fast-image';
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {iWidth, normalizeFont} from '../../../globalStyle';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import {iWidth} from '../../../globalStyle';
 import {useContentsSelected} from '../../store/store';
 import {contentList} from '../../utils/listData';
 import IButton from '../IButton';
+import IText from '../IText';
 
 type CategoriesProps = {
   modal?: string;
@@ -16,7 +16,7 @@ const Categories = ({modal}: CategoriesProps) => {
     <View>
       {!modal && (
         <View style={styles.titleContainer}>
-          <Text style={{fontWeight: 'bold', color: 'black'}}>Categories</Text>
+          <IText fontStyle="fB" text={'Categories'} />
         </View>
       )}
       <View style={styles.contentListContainer}>
@@ -26,25 +26,17 @@ const Categories = ({modal}: CategoriesProps) => {
               <IButton
                 buttonStyle={!modal ? 'categories' : 'bottomCategories'}
                 onPress={() => setContentsSelected(item.number, item.name)}>
-                <FastImage
-                  source={item.img}
-                  style={{
-                    width: !modal ? iWidth * 40 : iWidth * 50,
-                    height: !modal ? iWidth * 40 : iWidth * 50,
-                  }}
-                />
-                <Text
-                  style={[
-                    styles.itemTitle,
-                    {
-                      color:
-                        item.number === contentsSelected ? '#4a7bed' : '#777',
-                      fontWeight:
-                        item.number === contentsSelected ? 'bold' : 'normal',
-                    },
-                  ]}>
-                  {item.name}
-                </Text>
+                {item.img}
+                <View style={styles.itemTitle}>
+                  <IText
+                    fontStyle={item.number === contentsSelected ? 'fB' : 'fR'}
+                    fontSize={12}
+                    textColor={
+                      item.number === contentsSelected ? '#4a7bed' : '#777'
+                    }
+                    text={item.name}
+                  />
+                </View>
               </IButton>
             </View>
           </ScrollView>
@@ -69,11 +61,10 @@ const styles = StyleSheet.create({
 
   itemCard: {
     alignItems: 'center',
-    marginVertical: iWidth * 5,
+    paddingVertical: iWidth * 5,
   },
 
   itemTitle: {
-    fontSize: normalizeFont(12),
-    marginTop: iWidth * 5,
+    paddingTop: iWidth * 5,
   },
 });

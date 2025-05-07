@@ -1,33 +1,28 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {colors, iWidth, normalizeFont} from '../../../globalStyle';
+import {colors, iWidth} from '../../../globalStyle';
 import {useBottomSheetRef} from '../../store/store';
+import IText from '../IText';
 import AreaList from '../Main/AreaList';
 import Categories from '../Main/Categories';
 
 const Menu = () => {
   const {bottomSheetRef} = useBottomSheetRef();
   return (
-    <View style={{paddingHorizontal: 10}}>
+    <View style={styles.container}>
       <View style={styles.topPosition}>
-        <Text style={styles.titleText}>Menu</Text>
-        <View style={styles.closeButtonContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              bottomSheetRef.current?.close();
-            }}>
-            <Icon name="close-outline" size={iWidth * 24} />
-          </TouchableOpacity>
-        </View>
+        <Pressable
+          onPress={() => {
+            bottomSheetRef.current?.close();
+          }}>
+          <Icon name="close-outline" size={iWidth * 24} />
+        </Pressable>
       </View>
       <View style={styles.mainContent}>
-        <View style={styles.contentTitleContainer}>
-          <Text style={styles.areaTitle}>지역 선택</Text>
-        </View>
         <AreaList />
         <View style={styles.contentTitleContainer}>
-          <Text style={styles.areaTitle}>카테고리 선택</Text>
+          <IText fontStyle="fB" text={'카테고리 선택'} />
         </View>
         <View>
           <Categories modal={'modal'} />
@@ -40,46 +35,22 @@ const Menu = () => {
 export default Menu;
 
 const styles = StyleSheet.create({
-  topPosition: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  container: {
+    flex: 1,
+    paddingHorizontal: iWidth * 16,
   },
 
-  titleText: {
-    fontSize: normalizeFont(18),
-    fontWeight: 'bold',
+  topPosition: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 
   mainContent: {
     height: '100%',
-    marginTop: iWidth * 5,
-    borderTopWidth: 0.5,
     borderColor: colors.darkGray,
   },
 
   contentTitleContainer: {
-    marginTop: iWidth * 10,
-  },
-
-  areaTitle: {
-    fontSize: normalizeFont(16),
-    fontWeight: 'bold',
-  },
-
-  closeButtonContainer: {
-    width: iWidth * 25,
-    height: iWidth * 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  menuContainer: {
-    display: 'flex',
-    width: iWidth * 90,
-    height: iWidth * 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: iWidth * 8,
+    paddingVertical: iWidth * 20,
   },
 });

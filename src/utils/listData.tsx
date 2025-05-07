@@ -1,3 +1,12 @@
+import Category01 from './svg/Category01';
+import Category02 from './svg/Category02';
+import Category03 from './svg/Category03';
+import Category04 from './svg/Category04';
+import Category05 from './svg/Category05';
+import Category06 from './svg/Category06';
+import Category07 from './svg/Category07';
+import Category08 from './svg/Category08';
+
 export const areaList = [
   {id: 1, name: '서울'},
   {id: 2, name: '경기'},
@@ -23,56 +32,56 @@ export const contentList = [
     number: 12,
     name: '관광지',
     icon: 'rocket-outline',
-    img: require('../assets/categories/category01.png'),
+    img: <Category01 />,
   },
   {
     id: 2,
     number: 14,
     name: '문화시설',
     icon: 'body-outline',
-    img: require('../assets/categories/category02.png'),
+    img: <Category02 />,
   },
   {
     id: 3,
     number: 15,
     name: '행사/공연등',
     icon: 'game-controller-outline',
-    img: require('../assets/categories/category03.png'),
+    img: <Category03 />,
   },
   {
     id: 4,
     number: 25,
     name: '여행코스',
     icon: 'footsteps-outline',
-    img: require('../assets/categories/category04.png'),
+    img: <Category04 />,
   },
   {
     id: 5,
     number: 28,
     name: '레포츠',
     icon: 'football-outline',
-    img: require('../assets/categories/category05.png'),
+    img: <Category05 />,
   },
   {
     id: 6,
     number: 32,
     name: '숙박',
     icon: 'storefront-outline',
-    img: require('../assets/categories/category06.png'),
+    img: <Category06 />,
   },
   {
     id: 7,
     number: 38,
     name: '쇼핑',
     icon: 'cart-outline',
-    img: require('../assets/categories/category07.png'),
+    img: <Category07 />,
   },
   {
     id: 8,
     number: 39,
     name: '음식점',
     icon: 'fast-food-outline',
-    img: require('../assets/categories/category08.png'),
+    img: <Category08 />,
   },
 ];
 

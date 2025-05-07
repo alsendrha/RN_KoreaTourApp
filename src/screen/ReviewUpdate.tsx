@@ -4,7 +4,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {Alert, Keyboard, Pressable, StyleSheet, View} from 'react-native';
+import {Alert, Keyboard, Pressable, StyleSheet} from 'react-native';
 import {colors, iWidth, normalizeFont} from '../../globalStyle';
 import {
   useGetMyReview,
@@ -14,15 +14,24 @@ import {
 import IButton from '../components/IButton';
 import IInput from '../components/IInput';
 
-const ReviewUpdate = ({route}: any) => {
+type ReviewUpdateProps = {
+  route?: {
+    params: {
+      id: string;
+    };
+  };
+};
+
+const ReviewUpdate = ({route}: ReviewUpdateProps) => {
   const [myReviewText, setMyReviewText] = useState('');
-  const {data} = useGetMyReview(route.params.id);
+  const reviewId = route!.params.id;
+  const {data} = useGetMyReview(reviewId);
   const {refetch} = useGetMyReviews();
   const {mutate} = useUpdateReview();
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const handleUpdateData = () => {
     mutate(
-      {itemId: route.params.id, reviewContent: myReviewText},
+      {itemId: reviewId, reviewContent: myReviewText},
       {
         onSuccess: () => {
           Alert.alert('리뷰가 수정되었습니다', '', [
@@ -44,31 +53,28 @@ const ReviewUpdate = ({route}: any) => {
   }, [data]);
 
   return (
-    <Pressable style={styles.container} onPress={() => Keyboard.dismiss()}>
-      <View style={styles.inputContainer}>
-        <IInput
-          value={myReviewText}
-          deleteValue={() => setMyReviewText('')}
-          borderRadius={10}
-          fontSize={normalizeFont(16)}
-          maxLength={1000}
-          multiline={true}
-          numberOfLines={5}
-          onChangeText={text => {
-            setMyReviewText(text);
-          }}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <IButton
-          buttonStyle="submit"
-          title="수정하기"
-          backgroundColor={colors.primary}
-          border={0}
-          titleColor={colors.white}
-          onPress={handleUpdateData}
-        />
-      </View>
+    <Pressable style={styles.container} onPress={Keyboard.dismiss}>
+      <IInput
+        value={myReviewText}
+        deleteValue={() => setMyReviewText('')}
+        borderRadius={10}
+        textAlignVertical="top"
+        fontSize={normalizeFont(16)}
+        maxLength={1000}
+        multiline={true}
+        numberOfLines={5}
+        onChangeText={text => {
+          setMyReviewText(text);
+        }}
+      />
+      <IButton
+        buttonStyle="submit"
+        title="수정하기"
+        backgroundColor={colors.primary}
+        border={0}
+        titleColor={colors.white}
+        onPress={handleUpdateData}
+      />
     </Pressable>
   );
 };
@@ -78,15 +84,8 @@ export default ReviewUpdate;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
-  },
-
-  inputContainer: {
-    marginTop: iWidth * 50,
-  },
-
-  buttonContainer: {
+    paddingTop: iWidth * 24,
+    gap: iWidth * 16,
     alignItems: 'center',
-    marginTop: iWidth * 20,
   },
 });

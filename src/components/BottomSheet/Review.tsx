@@ -5,11 +5,12 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
-import {colors, iWidth, normalizeFont} from '../../../globalStyle';
+import {Alert, StyleSheet, View} from 'react-native';
+import {colors, iWidth} from '../../../globalStyle';
 import {getUsers, useGetMyReview, useGetReviews} from '../../api/firebase';
 import {useItemInfo} from '../../store/store';
 import IButton from '../IButton';
+import IText from '../IText';
 import ReviewList from './Review/ReviewList';
 import TotalReviewPoint from './Review/TotalReview/TotalReviewPoint';
 
@@ -68,12 +69,13 @@ const Review = () => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>Review</Text>
+        <IText fontStyle="fB" fontSize={18} text={'Review'} />
         {!myReview?.length && (
           <IButton
             buttonStyle="review"
             backgroundColor={colors.primary}
             titleColor={colors.white}
+            fontSize={14}
             title="리뷰 작성하기"
             onPress={handleInsertReview}
           />
@@ -96,19 +98,13 @@ const styles = StyleSheet.create({
 
   titleContainer: {
     width: '100%',
-    paddingVertical: iWidth * 20,
+    paddingVertical: iWidth * 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
 
-  titleText: {
-    fontSize: normalizeFont(18),
-    color: colors.black,
-    fontWeight: 'bold',
-  },
-
   reviewListContainer: {
-    marginTop: iWidth * 15,
+    paddingTop: iWidth * 12,
   },
 });
