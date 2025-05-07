@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {iHeight, iWidth} from '../../../globalStyle';
+import {iWidth, normalizeFont} from '../../../globalStyle';
 import {useContentsSelected} from '../../store/store';
 import {contentList} from '../../utils/listData';
 import IButton from '../IButton';
@@ -29,7 +29,7 @@ const Categories = ({modal}: CategoriesProps) => {
                   source={item.img}
                   style={{
                     width: !modal ? iWidth * 40 : iWidth * 50,
-                    height: !modal ? iHeight * 40 : iHeight * 50,
+                    height: !modal ? iWidth * 40 : iWidth * 50,
                   }}
                   alt="카테고리"
                 />
@@ -58,7 +58,7 @@ export default Categories;
 
 const styles = StyleSheet.create({
   titleContainer: {
-    marginVertical: 10,
+    marginVertical: iWidth * 10,
   },
 
   contentListContainer: {
@@ -69,11 +69,11 @@ const styles = StyleSheet.create({
 
   itemCard: {
     alignItems: 'center',
-    marginVertical: 5,
+    marginVertical: iWidth * 5,
   },
 
   itemTitle: {
-    fontSize: 12,
-    marginTop: 5,
+    fontSize: normalizeFont(12),
+    marginTop: iWidth * 5,
   },
 });

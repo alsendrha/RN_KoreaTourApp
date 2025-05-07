@@ -1,8 +1,8 @@
-import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import IInput from '../IInput';
+import {StyleSheet, View} from 'react-native';
+import {iWidth, normalizeFont} from '../../../globalStyle';
 import IButton from '../IButton';
-import {iHeight, iWidth} from '../../../globalStyle';
+import IInput from '../IInput';
 
 type SignNicknameProps = {
   value: string;
@@ -32,17 +32,17 @@ const SignNickname = ({
           titleEnable={true}
           titleText="닉네임"
           maxLength={10}
-          fontSize={16}
+          fontSize={normalizeFont(16)}
           lengthView={true}
-          borderRadius={10}
-          height={iHeight * 40}
+          borderRadius={iWidth * 10}
+          height={iWidth * 40}
           placeholder="닉네임을 입력해주세요"
           errorMsg={true}
           errorText={errorText}
           onChangeText={onChangeText}
         />
       </View>
-      <View style={{flex: 1, marginRight: 15}}>
+      <View style={{flex: 1, marginRight: iWidth * 15}}>
         <IButton
           title="확인"
           buttonStyle="check"

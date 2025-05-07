@@ -1,6 +1,6 @@
 import React from 'react';
 import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
-import {colors, iHeight, iWidth} from '../../../globalStyle';
+import {colors, iWidth, normalizeFont} from '../../../globalStyle';
 import {useGetUSerInfo} from '../../api/firebase';
 
 const UserInfo = () => {
@@ -42,7 +42,7 @@ export default UserInfo;
 
 const styles = StyleSheet.create({
   loadingContainer: {
-    paddingVertical: iHeight * 30,
+    paddingVertical: iWidth * 30,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
 
   userInfo: {
-    paddingVertical: iHeight * 30,
+    paddingVertical: iWidth * 30,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   userImg: {
     width: iWidth * 55,
     height: iWidth * 55,
-    borderRadius: 50,
+    borderRadius: iWidth * 50,
     backgroundColor: colors.lightGray,
     justifyContent: 'center',
     alignItems: 'center',
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
 
   userNickname: {
-    fontSize: 25,
-    color: 'black',
+    fontSize: normalizeFont(25),
+    color: colors.black,
   },
 });

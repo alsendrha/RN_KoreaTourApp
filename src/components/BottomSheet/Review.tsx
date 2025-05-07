@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Alert, StyleSheet, Text, View} from 'react-native';
-import {iHeight} from '../../../globalStyle';
+import {colors, iWidth, normalizeFont} from '../../../globalStyle';
 import {getUsers, useGetMyReview, useGetReviews} from '../../api/firebase';
 import {useItemInfo} from '../../store/store';
 import IButton from '../IButton';
@@ -72,8 +72,8 @@ const Review = () => {
         {!myReview?.length && (
           <IButton
             buttonStyle="review"
-            backgroundColor="#E7966D"
-            titleColor="white"
+            backgroundColor={colors.primary}
+            titleColor={colors.white}
             title="리뷰 작성하기"
             onPress={handleInsertReview}
           />
@@ -91,24 +91,24 @@ export default Review;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
+    paddingHorizontal: iWidth * 20,
   },
 
   titleContainer: {
     width: '100%',
-    paddingVertical: 20,
+    paddingVertical: iWidth * 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
 
   titleText: {
-    fontSize: 18,
-    color: 'black',
+    fontSize: normalizeFont(18),
+    color: colors.black,
     fontWeight: 'bold',
   },
 
   reviewListContainer: {
-    marginTop: iHeight * 15,
+    marginTop: iWidth * 15,
   },
 });

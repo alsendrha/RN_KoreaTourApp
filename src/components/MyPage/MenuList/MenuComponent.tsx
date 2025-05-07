@@ -8,6 +8,7 @@ import {
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
+import {iWidth, normalizeFont} from '../../../../globalStyle';
 import {useGetUser, useSignOut} from '../../../api/firebase';
 
 type MenuComponentProps = {
@@ -72,7 +73,7 @@ const MenuComponent = ({menu}: MenuComponentProps) => {
   return (
     <TouchableOpacity activeOpacity={1} onPress={handleSubmit}>
       <View style={styles.menuContainer}>
-        <Icon name={menu.icon} size={24} color="#7A2900" />
+        <Icon name={menu.icon} size={iWidth * 24} color="#7A2900" />
         <Text style={styles.menuTitleText}>{menu.title}</Text>
       </View>
     </TouchableOpacity>
@@ -83,18 +84,18 @@ export default MenuComponent;
 
 const styles = StyleSheet.create({
   menuContainer: {
-    marginVertical: 10,
+    marginVertical: iWidth * 10,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
+    padding: iWidth * 15,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: iWidth * 20,
     elevation: 4,
   },
 
   menuTitleText: {
-    marginLeft: 10,
-    fontSize: 18,
+    marginLeft: iWidth * 10,
+    fontSize: normalizeFont(18),
     fontWeight: 'bold',
     color: 'black',
   },

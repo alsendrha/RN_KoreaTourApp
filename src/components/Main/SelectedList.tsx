@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {colors, iHeight, iWidth} from '../../../globalStyle';
+import {colors, iWidth, normalizeFont} from '../../../globalStyle';
 import {useGetToreList} from '../../api/toreQuery';
 import {useAreaSelected, useContentsSelected} from '../../store/store';
 import IButton from '../IButton';
@@ -47,7 +47,7 @@ const SelectedList = () => {
         {isLoading ? (
           <View
             style={{
-              height: iHeight * 245,
+              height: iWidth * 245,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
@@ -56,7 +56,7 @@ const SelectedList = () => {
         ) : (
           <FlatList
             data={getData || []}
-            contentContainerStyle={{height: iHeight * 245}}
+            contentContainerStyle={{height: iWidth * 245}}
             keyExtractor={item => item.contentid}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -98,7 +98,10 @@ const SelectedList = () => {
                   buttonStyle="more"
                   onPress={() => navigation.navigate('list')}>
                   <View style={styles.lastCard}>
-                    <Icon name="arrow-forward-circle-outline" size={32} />
+                    <Icon
+                      name="arrow-forward-circle-outline"
+                      size={iWidth * 32}
+                    />
                     <Text style={{color: 'black'}}>more</Text>
                   </View>
                 </IButton>
@@ -128,8 +131,8 @@ export default SelectedList;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    paddingHorizontal: 20,
+    marginTop: iWidth * 30,
+    paddingHorizontal: iWidth * 20,
   },
 
   mainTextContainer: {
@@ -138,41 +141,41 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mainTitleText: {
-    fontSize: 20,
+    fontSize: normalizeFont(20),
     fontWeight: 'bold',
     color: 'black',
   },
   listItemContainer: {
-    marginTop: 20,
+    marginTop: iWidth * 20,
   },
   itemCard: {
     width: iWidth * 200,
-    height: iHeight * 240,
-    marginRight: 20,
-    borderRadius: 12,
+    height: iWidth * 240,
+    marginRight: iWidth * 20,
+    borderRadius: iWidth * 12,
     overflow: 'hidden',
     backgroundColor: colors.white,
     elevation: 2,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: {width: iWidth * 0, height: iWidth * 2},
     shadowOpacity: 0.3,
-    shadowRadius: 12,
+    shadowRadius: iWidth * 12,
   },
   lastCard: {
     justifyContent: 'center',
     alignItems: 'center',
     width: iWidth * 70,
-    height: iHeight * 240,
+    height: iWidth * 240,
     backgroundColor: '#ededed',
-    borderRadius: 12,
+    borderRadius: iWidth * 12,
     elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowColor: colors.black,
+    shadowOffset: {width: iWidth * 0, height: iWidth * 2},
     shadowOpacity: 0.3,
-    shadowRadius: 12,
+    shadowRadius: iWidth * 12,
   },
-  itemImg: {width: '100%', height: iHeight * 200},
+  itemImg: {width: '100%', height: iWidth * 200},
   cardTextContainer: {
-    padding: 5,
+    padding: iWidth * 5,
   },
 });

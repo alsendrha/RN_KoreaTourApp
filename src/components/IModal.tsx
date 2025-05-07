@@ -1,21 +1,21 @@
-import {Keyboard, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
-import {colors, iHeight, iWidth} from '../../globalStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import IButton from './IButton';
-import {useGetUser, useUserDelete} from '../api/firebase';
-import {passwordValidation} from '../utils/validation';
-import {useLoading} from '../store/store';
-import Loading from './Loading';
 import auth, {reauthenticateWithCredential} from '@react-native-firebase/auth';
-import {showToast} from '../utils/showToast';
-import PasswordModal from './Modal/PasswordModal';
-import UserDeleteModal from './Modal/UserDeleteModal';
 import {
   NavigationProp,
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
+import React, {useState} from 'react';
+import {Keyboard, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import {colors, iWidth, normalizeFont} from '../../globalStyle';
+import {useGetUser, useUserDelete} from '../api/firebase';
+import {useLoading} from '../store/store';
+import {showToast} from '../utils/showToast';
+import {passwordValidation} from '../utils/validation';
+import IButton from './IButton';
+import Loading from './Loading';
+import PasswordModal from './Modal/PasswordModal';
+import UserDeleteModal from './Modal/UserDeleteModal';
 
 type IModalProps = {
   passwordClicked: boolean;
@@ -90,7 +90,7 @@ const IModal = ({
         showToast({
           text: '비밀번호가 변경되었습니다.',
           milliseconds: 3000,
-          fontSize: 15,
+          fontSize: normalizeFont(15),
         });
         setLoading(false);
         setPasswordClicked(false);
@@ -117,7 +117,7 @@ const IModal = ({
             showToast({
               text: '회원탈퇴가 완료되었습니다.',
               milliseconds: 3000,
-              fontSize: 15,
+              fontSize: normalizeFont(15),
             });
             setLoading(false);
             await AsyncStorage.removeItem('userId');
@@ -131,7 +131,7 @@ const IModal = ({
         showToast({
           text: '회원탈퇴에 실패했습니다.',
           milliseconds: 3000,
-          fontSize: 15,
+          fontSize: normalizeFont(15),
         });
         setUserDelete(false);
       }
@@ -220,17 +220,17 @@ const styles = StyleSheet.create({
     paddingTop: iWidth * 15,
     alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: iWidth * 20,
     overflow: 'hidden',
   },
 
   titleText: {
-    fontSize: 18,
+    fontSize: normalizeFont(18),
     fontWeight: 'bold',
   },
 
   buttonContainer: {
-    marginTop: iHeight * 10,
+    marginTop: iWidth * 10,
     flexDirection: 'row',
     width: '100%',
   },

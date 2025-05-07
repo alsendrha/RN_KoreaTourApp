@@ -1,9 +1,9 @@
-import {ActivityIndicator, Image, StyleSheet, View} from 'react-native';
 import React from 'react';
-import IButton from '../../IButton';
+import {ActivityIndicator, Image, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {iHeight, iWidth} from '../../../../globalStyle';
+import {iWidth} from '../../../../globalStyle';
 import {useBottomSheetRef} from '../../../store/store';
+import IButton from '../../IButton';
 
 type TopUserImgProps = {
   isLoading: boolean;
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 
   imgContainer: {
     position: 'absolute',
-    top: iHeight * -45,
+    top: iWidth * -45,
     left: '50%',
     transform: [{translateX: -50}],
   },
@@ -82,10 +82,10 @@ const styles = StyleSheet.create({
   },
 
   iconContainer: {
-    width: 30,
-    height: 30,
+    width: iWidth * 30,
+    height: iWidth * 30,
     backgroundColor: '#e3e3e3',
-    borderRadius: 50,
+    borderRadius: iWidth * 50,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 3,

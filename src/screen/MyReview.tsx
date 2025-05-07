@@ -15,7 +15,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {iHeight} from '../../globalStyle';
+import {iHeight, iWidth, normalizeFont} from '../../globalStyle';
 import {useDeleteReview, useGetMyReviews, useGetReviews} from '../api/firebase';
 import IButton from '../components/IButton';
 const MyReview = () => {
@@ -170,33 +170,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    paddingTop: 60,
-    paddingHorizontal: 20,
+    paddingTop: iWidth * 60,
+    paddingHorizontal: iWidth * 20,
   },
 
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: iWidth * 20,
     borderBottomWidth: 0.5,
     borderColor: '#b3b3b3',
-    paddingBottom: 12,
+    paddingBottom: iWidth * 12,
   },
 
   titleText: {
-    fontSize: 18,
+    fontSize: normalizeFont(18),
     fontWeight: 'bold',
     color: 'black',
   },
 
   reviewTitleText: {
-    fontSize: 14,
+    fontSize: normalizeFont(14),
     fontWeight: 'bold',
     color: 'black',
   },
 
   listContainer: {
-    marginBottom: 20,
+    marginBottom: iWidth * 20,
   },
 
   reviewTitleContainer: {
@@ -221,11 +221,11 @@ const styles = StyleSheet.create({
   },
 
   contentContainer: {
-    marginTop: 10,
-    minHeight: 120,
+    marginTop: iWidth * 10,
+    minHeight: iWidth * 120,
     borderWidth: 0.5,
-    borderRadius: 10,
-    padding: 10,
+    borderRadius: iWidth * 10,
+    padding: iWidth * 10,
     borderColor: '#e3e3e3',
   },
 });

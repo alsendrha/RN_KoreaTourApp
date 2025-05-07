@@ -6,7 +6,7 @@ import {
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {iHeight} from '../../../globalStyle';
+import {iWidth, normalizeFont} from '../../../globalStyle';
 import IButton from '../IButton';
 
 const UserLogin = () => {
@@ -17,7 +17,7 @@ const UserLogin = () => {
       <IButton buttonStyle="more" onPress={() => navigation.navigate('signIn')}>
         <View style={styles.loginContainer}>
           <Text style={styles.loginTextTitle}>로그인을 해주세요</Text>
-          <Icon name="arrow-forward-outline" size={18} />
+          <Icon name="arrow-forward-outline" size={iWidth * 18} />
         </View>
       </IButton>
       <View style={styles.signUpContainer}>
@@ -36,7 +36,7 @@ export default UserLogin;
 
 const styles = StyleSheet.create({
   userLogin: {
-    paddingTop: iHeight * 30,
+    paddingTop: iWidth * 30,
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -49,14 +49,14 @@ const styles = StyleSheet.create({
   },
 
   loginTextTitle: {
-    fontSize: 20,
+    fontSize: normalizeFont(20),
     fontWeight: 'bold',
     color: 'black',
   },
 
   signUpContainer: {
-    paddingBottom: iHeight * 10,
-    height: iHeight * 57,
+    paddingBottom: iWidth * 10,
+    height: iWidth * 57,
     justifyContent: 'flex-end',
   },
 });

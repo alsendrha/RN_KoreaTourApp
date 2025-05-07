@@ -1,6 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {iHeight} from '../../../globalStyle';
+import {StyleSheet, Text, View} from 'react-native';
+import {iWidth} from '../../../globalStyle';
 
 const UserDeleteModal = () => {
   return (
@@ -16,7 +16,7 @@ export default UserDeleteModal;
 
 const styles = StyleSheet.create({
   contentTextContainer: {
-    marginVertical: iHeight * 15,
+    marginVertical: iWidth * 15,
   },
   contentText: {},
 });

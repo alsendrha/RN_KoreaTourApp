@@ -1,14 +1,15 @@
-import {View, StyleSheet} from 'react-native';
-import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {useBottomSheetRef, usePageInfo} from '../../store/store';
 import Menu from './Menu';
 import Review from './Review';
 
+import {colors, iWidth} from '../../../globalStyle';
 import ImageSheet from './ImageSheet';
 const MyBottomSheet = () => {
   const {pageInfo} = usePageInfo();
@@ -69,11 +70,11 @@ const MyBottomSheet = () => {
           handleStyle={{
             backgroundColor:
               pageInfo === 'list' || pageInfo === 'myStatus'
-                ? 'white'
-                : '#ECE0DA',
+                ? colors.white
+                : '#B3E4F7',
             display: pageInfo === 'myStatus' ? 'none' : 'flex',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
+            borderTopLeftRadius: iWidth * 20,
+            borderTopRightRadius: iWidth * 20,
             elevation: 0,
           }}
           enablePanDownToClose={
@@ -86,14 +87,15 @@ const MyBottomSheet = () => {
               : undefined
           }
           backgroundStyle={{
-            backgroundColor: pageInfo === 'myStatus' ? 'transparent ' : 'white',
+            backgroundColor:
+              pageInfo === 'myStatus' ? 'transparent ' : colors.white,
           }}
           index={pageInfo === 'list' || pageInfo === 'myStatus' ? -1 : 0}
           style={[
             styles.contentContainer,
             {
               backgroundColor:
-                pageInfo === 'myStatus' ? 'transparent' : 'white',
+                pageInfo === 'myStatus' ? 'transparent' : colors.white,
             },
           ]}>
           <BottomSheetView style={styles.bottomSheetView}>
@@ -110,7 +112,7 @@ const MyBottomSheet = () => {
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
-    borderRadius: 50,
+    borderRadius: iWidth * 50,
   },
   bottomSheetView: {
     flex: 1,

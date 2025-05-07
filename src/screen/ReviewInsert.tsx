@@ -1,6 +1,6 @@
 import React from 'react';
 import {Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
-import {iHeight} from '../../globalStyle';
+import {colors, iWidth, normalizeFont} from '../../globalStyle';
 import PointAndInput from '../components/BottomSheet/Review/PointAndInput';
 import {useItemInfo} from '../store/store';
 
@@ -26,18 +26,18 @@ export default ReviewInsert;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    paddingTop: iHeight * 30,
+    backgroundColor: colors.white,
+    paddingTop: iWidth * 30,
   },
 
   titleContainer: {
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: iWidth * 10,
   },
 
   titleText: {
-    fontSize: 20,
+    fontSize: normalizeFont(20),
     fontWeight: 'bold',
-    color: 'black',
+    color: colors.black,
   },
 });

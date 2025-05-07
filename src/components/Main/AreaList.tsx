@@ -1,9 +1,9 @@
-import {FlatList, StyleSheet, View} from 'react-native';
 import React from 'react';
-import IButton from '../IButton';
-import {areaList} from '../../utils/listData';
+import {FlatList, StyleSheet, View} from 'react-native';
+import {colors, iWidth} from '../../../globalStyle';
 import {useAreaSelected} from '../../store/store';
-import {iHeight} from '../../../globalStyle';
+import {areaList} from '../../utils/listData';
+import IButton from '../IButton';
 
 const AreaList = () => {
   const {areaSelected, setAreaSelected} = useAreaSelected();
@@ -18,7 +18,7 @@ const AreaList = () => {
           <IButton
             title={item}
             buttonStyle="areaList"
-            titleColor={item === areaSelected ? '#1E0A00' : 'white'}
+            titleColor={item === areaSelected ? 'black' : colors.white}
             titleWeight={item === areaSelected ? 'bold' : 'normal'}
             onPress={() => setAreaSelected(item)}
           />
@@ -34,14 +34,14 @@ export default AreaList;
 
 const styles = StyleSheet.create({
   areaListContainer: {
-    marginTop: 10,
+    marginTop: iWidth * 10,
     width: '100%',
-    height: iHeight * 45,
+    height: iWidth * 45,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#E7966D',
-    borderRadius: 50,
-    paddingHorizontal: 3,
+    backgroundColor: colors.primary,
+    borderRadius: iWidth * 50,
+    paddingHorizontal: iWidth * 3,
     overflow: 'hidden',
   },
 });

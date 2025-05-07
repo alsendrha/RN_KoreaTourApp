@@ -1,7 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import IInput from '../IInput';
+import {StyleSheet, Text, View} from 'react-native';
+import {iWidth} from '../../../globalStyle';
 import {UpdatePasswordProps} from '../../types/types';
+import IInput from '../IInput';
 
 const UpdatePassword = ({
   passwordInfo,
@@ -29,7 +30,7 @@ const UpdatePassword = ({
       />
       <IInput
         value={passwordInfo.passwordCheck}
-        borderRadius={20}
+        borderRadius={iWidth * 20}
         placeholder="새 비밀번호 확인"
         deleteValue={() =>
           setPasswordInfo({...passwordInfo, passwordCheck: ''})
@@ -50,7 +51,7 @@ export default UpdatePassword;
 
 const styles = StyleSheet.create({
   contentTextContainer: {
-    marginVertical: 15,
+    marginVertical: iWidth * 15,
     alignItems: 'center',
   },
 

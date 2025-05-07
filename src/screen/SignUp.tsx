@@ -1,20 +1,20 @@
-import {View, StyleSheet, Pressable, Keyboard, ScrollView} from 'react-native';
-import React, {useState} from 'react';
-import {iHeight, iWidth} from '../../globalStyle';
-import {emailCheck, nicknameCheck} from '../utils/validation';
 import {
   NavigationProp,
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
+import React, {useState} from 'react';
+import {Keyboard, Pressable, ScrollView, StyleSheet, View} from 'react-native';
+import {colors, iWidth} from '../../globalStyle';
 import CustomIndicator from '../components/CustomIndicator';
-import SignTitle from '../components/SignUp/SignTitle';
 import SignEmail from '../components/SignUp/SignEmail';
+import SignNickname from '../components/SignUp/SignNickname';
 import SignPassword from '../components/SignUp/SignPassword';
 import SignPasswordCheck from '../components/SignUp/SignPasswordCheck';
-import SignNickname from '../components/SignUp/SignNickname';
 import SignSubmitButton from '../components/SignUp/SignSubmitButton';
+import SignTitle from '../components/SignUp/SignTitle';
 import {userSignUp} from '../service/SignUp';
+import {emailCheck, nicknameCheck} from '../utils/validation';
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [checkEmailAndNickname, setCheckEmailAndNickname] = useState({
@@ -39,7 +39,7 @@ const SignUp = () => {
       style={[styles.container, {position: 'relative'}]}
       onPress={() => Keyboard.dismiss()}>
       <View style={styles.contentContainer}>
-        {isLoading && <CustomIndicator marginTop={iHeight * -30} />}
+        {isLoading && <CustomIndicator marginTop={iWidth * -30} />}
         <View style={styles.inputAllContainer}>
           <ScrollView>
             <SignTitle />
@@ -123,16 +123,16 @@ export default SignUp;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E07039',
+    backgroundColor: colors.primary,
     height: '100%',
   },
 
   contentContainer: {
-    backgroundColor: 'white',
-    borderRadius: 50,
-    marginTop: iHeight * 80,
+    backgroundColor: colors.white,
+    borderRadius: iWidth * 50,
+    marginTop: iWidth * 80,
     marginHorizontal: iWidth * 10,
-    paddingVertical: iHeight * 50,
+    paddingVertical: iWidth * 50,
   },
 
   inputAllContainer: {

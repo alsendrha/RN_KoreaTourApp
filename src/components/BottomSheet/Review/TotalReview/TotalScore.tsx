@@ -1,7 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {iWidth, normalizeFont} from '../../../../../globalStyle';
 
 type TotalScoreProps = {
   data: FirebaseFirestoreTypes.DocumentData[];
@@ -36,7 +37,7 @@ const TotalScore = ({data}: TotalScoreProps) => {
             <Icon
               key={index}
               name="star"
-              size={18}
+              size={iWidth * 18}
               style={styles.starIcon}
               color={index < averagePoint ? '#ffca42' : '#d3d3d3'}
             />
@@ -46,7 +47,7 @@ const TotalScore = ({data}: TotalScoreProps) => {
             <Icon
               key={index}
               name="star-half-outline"
-              size={18}
+              size={iWidth * 18}
               style={styles.starIcon}
               color={index < averagePoint ? '#ffca42' : '#d3d3d3'}
             />
@@ -57,7 +58,7 @@ const TotalScore = ({data}: TotalScoreProps) => {
               key={index}
               name="star"
               style={[styles.starIcon]}
-              size={18}
+              size={iWidth * 18}
               color={'#d3d3d3'}
             />
           );
@@ -81,15 +82,15 @@ const styles = StyleSheet.create({
   },
 
   pointText: {
-    fontSize: 32,
+    fontSize: normalizeFont(32),
     fontWeight: 'bold',
   },
 
   starContainer: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: iWidth * 10,
   },
   starIcon: {
-    marginHorizontal: 1,
+    marginHorizontal: iWidth * 1,
   },
 });

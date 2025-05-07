@@ -1,9 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {ActivityIndicator} from 'react-native';
-import {Dimensions} from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
-import {iWidth} from '../../globalStyle';
+import {colors, iWidth} from '../../globalStyle';
 import {useLoading} from '../store/store';
 
 const Loading = () => {
@@ -13,7 +17,7 @@ const Loading = () => {
       {loading && (
         <View style={styles.background}>
           <View style={styles.indicatorContainer}>
-            <ActivityIndicator size="large" color="#ffffff" />
+            <ActivityIndicator size="large" color={colors.white} />
             <Text style={styles.textStyle}>{loadingTitle}</Text>
           </View>
         </View>

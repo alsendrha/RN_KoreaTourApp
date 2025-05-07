@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {iHeight} from '../../../globalStyle';
+import {iWidth, normalizeFont} from '../../../globalStyle';
 
 const SignTitle = () => {
   return (
@@ -8,9 +8,14 @@ const SignTitle = () => {
       style={{
         width: '100%',
         alignItems: 'center',
-        marginBottom: iHeight * 40,
+        marginBottom: iWidth * 40,
       }}>
-      <Text style={{fontWeight: 'bold', fontSize: 24, color: 'black'}}>
+      <Text
+        style={{
+          fontWeight: 'bold',
+          fontSize: normalizeFont(24),
+          color: 'black',
+        }}>
         회원가입
       </Text>
     </View>

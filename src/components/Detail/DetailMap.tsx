@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import {iHeight} from '../../../globalStyle';
+import {iWidth} from '../../../globalStyle';
 
 type DetailMapProps = {
   latitude: string;
@@ -31,7 +31,7 @@ const DetailMap = ({latitude, longitude, markerTitle}: DetailMapProps) => {
           <View>
             <Image
               source={require('../../assets/images/markerIcon.png')}
-              style={{width: 50, height: 50}}
+              style={{width: iWidth * 50, height: iWidth * 50}}
             />
           </View>
         </Marker>
@@ -44,11 +44,11 @@ export default DetailMap;
 
 const styles = StyleSheet.create({
   mapContainer: {
-    marginTop: iHeight * 10,
-    marginBottom: 88,
+    marginTop: iWidth * 10,
+    marginBottom: iWidth * 88,
   },
 
   mapSize: {
-    height: iHeight * 350,
+    height: iWidth * 350,
   },
 });

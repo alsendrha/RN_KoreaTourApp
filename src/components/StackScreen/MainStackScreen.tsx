@@ -1,15 +1,16 @@
-import {StyleSheet} from 'react-native';
-import React from 'react';
+import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import List from '../../screen/List';
-import {ParamListBase, useNavigation} from '@react-navigation/native';
-import IButton from '../IButton';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useAreaSelected, useContentsSelected} from '../../store/store';
+import {iWidth} from '../../../globalStyle';
+import List from '../../screen/List';
 import Main from '../../screen/Main';
+import {useAreaSelected, useContentsSelected} from '../../store/store';
+import IButton from '../IButton';
 const MainStackScreen = () => {
   const Stack = createNativeStackNavigator();
   const {areaSelected, setAreaSelected} = useAreaSelected();
@@ -40,14 +41,14 @@ const MainStackScreen = () => {
                   setContentsSelected(12, '관광지');
                   navigation.goBack();
                 }}>
-                <Icon name="chevron-back-outline" size={24} />
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
               </IButton>
             );
           },
           headerRight() {
             return (
               <IButton buttonStyle="menu">
-                <Icon name="reorder-four-outline" size={28} />
+                <Icon name="reorder-four-outline" size={iWidth * 28} />
               </IButton>
             );
           },

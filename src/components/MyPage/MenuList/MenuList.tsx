@@ -1,7 +1,8 @@
-import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import MenuComponent from './MenuComponent';
+import {StyleSheet, View} from 'react-native';
+import {iWidth} from '../../../../globalStyle';
 import {myPageMenuList} from '../../../utils/listData';
+import MenuComponent from './MenuComponent';
 
 const MenuList = () => {
   return (
@@ -17,7 +18,7 @@ export default MenuList;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    paddingHorizontal: 20,
+    marginTop: iWidth * 20,
+    paddingHorizontal: iWidth * 20,
   },
 });

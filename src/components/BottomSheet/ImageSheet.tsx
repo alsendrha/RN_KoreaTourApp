@@ -1,7 +1,8 @@
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
-import {useBottomSheetRef, useImagePicker} from '../../store/store';
+import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {iWidth, normalizeFont} from '../../../globalStyle';
+import {useBottomSheetRef, useImagePicker} from '../../store/store';
 
 const ImageSheet = () => {
   const {bottomSheetRef} = useBottomSheetRef();
@@ -14,8 +15,8 @@ const ImageSheet = () => {
           {
             mediaType: 'photo',
             includeBase64: false,
-            maxHeight: 200,
-            maxWidth: 200,
+            maxHeight: iWidth * 200,
+            maxWidth: iWidth * 200,
             quality: 0.7,
           },
           res => {
@@ -41,8 +42,8 @@ const ImageSheet = () => {
           {
             mediaType: 'photo',
             includeBase64: false,
-            maxHeight: 200,
-            maxWidth: 200,
+            maxHeight: iWidth * 200,
+            maxWidth: iWidth * 200,
             quality: 0.7,
           },
           res => {
@@ -84,8 +85,8 @@ const ImageSheet = () => {
           style={[
             styles.menuContainer,
             {
-              borderBottomLeftRadius: 20,
-              borderBottomRightRadius: 20,
+              borderBottomLeftRadius: iWidth * 20,
+              borderBottomRightRadius: iWidth * 20,
               borderBottomWidth: 0,
             },
           ]}>
@@ -97,8 +98,8 @@ const ImageSheet = () => {
         style={[
           styles.menuContainer,
           {
-            marginTop: 15,
-            borderRadius: 20,
+            marginTop: iWidth * 15,
+            borderRadius: iWidth * 20,
           },
         ]}
         onPress={() => bottomSheetRef.current?.close()}>
@@ -117,24 +118,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   titleContainer: {
-    paddingVertical: 15,
+    paddingVertical: iWidth * 15,
     alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.9)',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: iWidth * 20,
+    borderTopRightRadius: iWidth * 20,
   },
   titleText: {
-    fontSize: 14,
+    fontSize: normalizeFont(14),
   },
 
   menuText: {
-    fontSize: 18,
+    fontSize: normalizeFont(18),
     fontWeight: '600',
     color: '#4e8df2',
   },
 
   menuContainer: {
-    paddingVertical: 18,
+    paddingVertical: iWidth * 18,
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 0.5,

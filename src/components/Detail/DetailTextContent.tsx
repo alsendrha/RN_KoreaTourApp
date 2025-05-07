@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import HTMLView from 'react-native-htmlview';
-import {iHeight, iWidth} from '../../../globalStyle';
+import {iWidth, normalizeFont} from '../../../globalStyle';
 
 type DetailTextContentProps = {
   address: string;
@@ -37,17 +37,17 @@ export default DetailTextContent;
 
 const styles = StyleSheet.create({
   textContainer: {
-    marginTop: 10,
+    marginTop: iWidth * 10,
     marginHorizontal: iWidth * 10,
   },
 
   titleContainer: {
-    paddingVertical: iHeight * 15,
+    paddingVertical: iWidth * 15,
     borderBottomWidth: 0.5,
   },
 
   titleText: {
-    fontSize: 20,
+    fontSize: normalizeFont(20),
     color: 'black',
     fontWeight: 'bold',
   },

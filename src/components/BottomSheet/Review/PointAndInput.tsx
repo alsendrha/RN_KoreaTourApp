@@ -1,3 +1,10 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -5,21 +12,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import IInput from '../../IInput';
-import IButton from '../../IButton';
+import {iWidth, normalizeFont} from '../../../../globalStyle';
 import {
   useCreateReview,
   useGetMyReviews,
   useGetReviews,
 } from '../../../api/firebase';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  NavigationProp,
-  ParamListBase,
-  useNavigation,
-} from '@react-navigation/native';
+import IButton from '../../IButton';
+import IInput from '../../IInput';
 type ReviewType = {
   id: number;
   point: number;
@@ -145,11 +146,11 @@ const PointAndInput = ({
               <TouchableOpacity
                 key={item.id}
                 activeOpacity={1}
-                style={{marginHorizontal: 10}}
+                style={{marginHorizontal: iWidth * 10}}
                 onPress={() => handlePress(item.id)}>
                 <Icon
                   name={item.clicked ? 'star' : 'star-outline'}
-                  size={32}
+                  size={iWidth * 32}
                   style={{color: '#ffca42'}}
                 />
               </TouchableOpacity>
@@ -160,7 +161,7 @@ const PointAndInput = ({
               lengthView={true}
               maxLength={200}
               numberOfLines={5}
-              borderRadius={10}
+              borderRadius={iWidth * 10}
               multiline={true}
               value={reviewData.reviewContent}
               onChangeText={value => {
@@ -171,7 +172,7 @@ const PointAndInput = ({
             <View style={styles.buttonContainer}>
               <IButton
                 title="입력"
-                fontSize={16}
+                fontSize={normalizeFont(16)}
                 buttonStyle="submit"
                 onPress={() => handleSubmit()}
               />
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    marginTop: 20,
+    marginTop: iWidth * 20,
     width: '100%',
     alignItems: 'center',
   },

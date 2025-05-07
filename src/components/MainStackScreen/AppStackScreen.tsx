@@ -1,19 +1,20 @@
-import {StyleSheet} from 'react-native';
-import React from 'react';
+import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import BottomTabScreen from '../MainTabBar/BottomTabScreen';
-import IButton from '../IButton';
-import {useBottomSheetRef, usePageInfo} from '../../store/store';
-import {ParamListBase, useNavigation} from '@react-navigation/native';
-import ReviewInsert from '../../screen/ReviewInsert';
-import Detail from '../../screen/Detail';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {iWidth} from '../../../globalStyle';
+import Detail from '../../screen/Detail';
+import ReviewInsert from '../../screen/ReviewInsert';
+import ReviewUpdate from '../../screen/ReviewUpdate';
 import SignIn from '../../screen/SignIn';
 import SignUp from '../../screen/SignUp';
-import ReviewUpdate from '../../screen/ReviewUpdate';
+import {useBottomSheetRef, usePageInfo} from '../../store/store';
+import IButton from '../IButton';
+import BottomTabScreen from '../MainTabBar/BottomTabScreen';
 
 const AppStackScreen = () => {
   const Stack = createNativeStackNavigator();
@@ -49,7 +50,7 @@ const AppStackScreen = () => {
                   setPageInfo(previousPageName!);
                   navigation.goBack();
                 }}>
-                <Icon name="chevron-back-outline" size={24} />
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
               </IButton>
             );
           },
@@ -71,7 +72,7 @@ const AppStackScreen = () => {
                 onPress={() => {
                   navigation.goBack();
                 }}>
-                <Icon name="chevron-back-outline" size={24} />
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
               </IButton>
             );
           },
@@ -94,7 +95,7 @@ const AppStackScreen = () => {
                 onPress={() => {
                   navigation.goBack();
                 }}>
-                <Icon name="chevron-back-outline" size={24} />
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
               </IButton>
             );
           },
@@ -115,7 +116,7 @@ const AppStackScreen = () => {
                 onPress={() => {
                   navigation.goBack();
                 }}>
-                <Icon name="chevron-back-outline" size={24} />
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
               </IButton>
             );
           },
@@ -136,7 +137,7 @@ const AppStackScreen = () => {
                 onPress={() => {
                   navigation.goBack();
                 }}>
-                <Icon name="chevron-back-outline" size={24} />
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
               </IButton>
             );
           },

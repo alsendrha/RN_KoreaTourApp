@@ -1,8 +1,8 @@
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {iHeight} from '../../../../globalStyle';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
+import React from 'react';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {iWidth, normalizeFont} from '../../../../globalStyle';
 
 type ReviewListProps = {
   dataInfo: any;
@@ -18,7 +18,7 @@ const ReviewList = ({dataInfo, loading}: ReviewListProps) => {
       {loading ? (
         <View
           style={{
-            height: iHeight * 400,
+            height: iWidth * 400,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
@@ -27,7 +27,7 @@ const ReviewList = ({dataInfo, loading}: ReviewListProps) => {
       ) : dataInfo.length === 0 ? (
         <View
           style={{
-            height: iHeight * 400,
+            height: iWidth * 400,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
@@ -60,11 +60,11 @@ const ReviewList = ({dataInfo, loading}: ReviewListProps) => {
                           <Icon
                             key={index}
                             name={'star'}
-                            size={18}
+                            size={iWidth * 18}
                             style={{
                               color:
                                 index < point.value ? '#ffca42' : '#d3d3d3',
-                              marginRight: 2,
+                              marginRight: iWidth * 2,
                             }}
                           />
                         ))}
@@ -87,15 +87,15 @@ export default ReviewList;
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    marginTop: iHeight * 20,
-    height: iHeight * 480,
+    marginTop: iWidth * 20,
+    height: iWidth * 480,
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
     borderColor: '#d3d3d3',
   },
 
   container: {
-    marginBottom: 20,
+    marginBottom: iWidth * 20,
   },
 
   pointContainer: {
@@ -103,12 +103,12 @@ const styles = StyleSheet.create({
   },
 
   nicknameText: {
-    fontSize: 14,
+    fontSize: normalizeFont(14),
     fontWeight: '500',
   },
 
   starMainContainer: {
-    marginLeft: 10,
+    marginLeft: iWidth * 10,
   },
 
   starContainer: {
@@ -119,9 +119,9 @@ const styles = StyleSheet.create({
   contentContainer: {
     borderWidth: 0.5,
     borderRadius: 10,
-    minHeight: iHeight * 100,
-    padding: 10,
+    minHeight: iWidth * 100,
+    padding: iWidth * 10,
     width: '100%',
-    marginTop: 10,
+    marginTop: iWidth * 10,
   },
 });

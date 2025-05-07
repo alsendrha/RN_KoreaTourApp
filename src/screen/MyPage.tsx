@@ -1,11 +1,11 @@
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import React, {useEffect} from 'react';
-import {iHeight, iWidth} from '../../globalStyle';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {iWidth} from '../../globalStyle';
+import {useGetUser} from '../api/firebase';
+import MenuList from '../components/MyPage/MenuList/MenuList';
 import TopComponent from '../components/MyPage/TopComponent';
 import UserInfo from '../components/MyPage/UserInfo';
-import MenuList from '../components/MyPage/MenuList/MenuList';
 import UserLogin from '../components/MyPage/UserLogin';
-import {useGetUser} from '../api/firebase';
 
 const MyPage = () => {
   const {data, isLoading} = useGetUser();
@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: 'white',
-    shadowOffset: {width: 0, height: -2},
+    shadowOffset: {width: iWidth * 0, height: iWidth * -2},
     shadowColor: 'black',
     shadowOpacity: 0.5,
-    shadowRadius: 3.5,
+    shadowRadius: iWidth * 3.5,
   },
 
   menuContainer: {
@@ -61,15 +61,15 @@ const styles = StyleSheet.create({
     height: '77%',
     left: iWidth * 30,
     right: iWidth * 30,
-    borderRadius: 20,
+    borderRadius: iWidth * 20,
     top: '50%',
-    transform: [{translateY: -350}],
+    transform: [{translateY: iWidth * -350}],
     elevation: 4,
     backgroundColor: 'white',
   },
 
   indicatorContainer: {
-    paddingVertical: iHeight * 30,
+    paddingVertical: iWidth * 30,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',

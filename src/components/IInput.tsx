@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {colors} from '../../globalStyle';
+import {colors, iWidth, normalizeFont} from '../../globalStyle';
 import IButton from './IButton';
 
 type IInputProps = {
@@ -76,7 +76,7 @@ const IInput = ({
   titleEnable = false,
   titleText,
   keyboardType = 'default',
-  fontSize = 18,
+  fontSize = normalizeFont(18),
   errorMsg = false,
   secureTextEntry = false,
   errorText,
@@ -144,7 +144,11 @@ const IInput = ({
           <View style={styles.iconContainer}>
             <IButton buttonStyle="delete" onPress={handleDeleteValue}>
               {deleteIcon && (
-                <Icon name="close-circle-outline" size={20} color="gray" />
+                <Icon
+                  name="close-circle-outline"
+                  size={iWidth * 20}
+                  color="gray"
+                />
               )}
             </IButton>
           </View>
@@ -163,7 +167,7 @@ export default IInput;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginHorizontal: 15,
+    marginHorizontal: iWidth * 15,
   },
 
   textContainer: {
@@ -173,12 +177,12 @@ const styles = StyleSheet.create({
   },
 
   titleContainer: {
-    marginBottom: 2,
+    marginBottom: iWidth * 2,
   },
   titleText: {
     fontWeight: 'bold',
     color: 'black',
-    fontSize: 18,
+    fontSize: normalizeFont(18),
   },
 
   inputAndIconContainer: {
@@ -190,19 +194,19 @@ const styles = StyleSheet.create({
   iconContainer: {
     position: 'absolute',
     top: '50%',
-    transform: [{translateY: -10.5}],
-    right: 8,
+    transform: [{translateY: iWidth * -10.5}],
+    right: iWidth * 8,
   },
 
   textInputStyle: {
     width: '100%',
     borderWidth: 0.5,
-    paddingLeft: 18,
-    paddingRight: 30,
+    paddingLeft: iWidth * 18,
+    paddingRight: iWidth * 30,
     textAlignVertical: 'top',
   },
   errorTextContainer: {
-    marginVertical: 1,
+    marginVertical: iWidth * 1,
     width: '100%',
     justifyContent: 'flex-start',
   },

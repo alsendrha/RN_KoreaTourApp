@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {iHeight, iWidth} from '../../../globalStyle';
+import {colors, iWidth, normalizeFont} from '../../../globalStyle';
 import {userPasswordReset} from '../../api/firebase';
 import IButton from '../IButton';
 import IInput from '../IInput';
@@ -80,7 +80,7 @@ const PasswordModal = ({isOpen, setIsOpen}: PasswordModalProps) => {
                 style={[
                   styles.modalView,
                   {
-                    height: iHeight * 199,
+                    height: iWidth * 199,
                     paddingVertical: 0,
                     justifyContent: 'center',
                   },
@@ -93,7 +93,7 @@ const PasswordModal = ({isOpen, setIsOpen}: PasswordModalProps) => {
                 <View style={styles.inputContainer}>
                   <IInput
                     value={userEmail}
-                    borderRadius={10}
+                    borderRadius={iWidth * 10}
                     maxLength={30}
                     onChangeText={setUserEmail}
                     placeholder="이메일"
@@ -103,7 +103,7 @@ const PasswordModal = ({isOpen, setIsOpen}: PasswordModalProps) => {
                 <IButton
                   title="전송"
                   buttonStyle="submit"
-                  backgroundColor="#E07039"
+                  backgroundColor={colors.primary}
                   border={0}
                   titleColor="white"
                   onPress={() => passwordReset()}
@@ -130,14 +130,14 @@ const styles = StyleSheet.create({
   modalView: {
     margin: iWidth * 25,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: iWidth * 20,
     alignItems: 'center',
     paddingVertical: iWidth * 30,
     elevation: 5,
   },
 
   titleText: {
-    fontSize: 18,
+    fontSize: normalizeFont(18),
     fontWeight: 'bold',
     color: 'black',
   },

@@ -1,15 +1,16 @@
-import {StyleSheet} from 'react-native';
-import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import IButton from '../IButton';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MyPage from '../../screen/MyPage';
-import {useImagePicker} from '../../store/store';
+import {iWidth} from '../../../globalStyle';
 import AppInfo from '../../screen/AppInfo';
-import Notice from '../../screen/Notice';
-import MyStatus from '../../screen/MySatus';
+import MyPage from '../../screen/MyPage';
 import MyReview from '../../screen/MyReview';
+import MyStatus from '../../screen/MySatus';
+import Notice from '../../screen/Notice';
+import {useImagePicker} from '../../store/store';
+import IButton from '../IButton';
 
 const MyPageScreen = () => {
   const Stack = createNativeStackNavigator();
@@ -42,7 +43,7 @@ const MyPageScreen = () => {
                   });
                   navigation.goBack();
                 }}>
-                <Icon name="chevron-back-outline" size={24} />
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
               </IButton>
             );
           },
@@ -63,7 +64,7 @@ const MyPageScreen = () => {
                 onPress={() => {
                   navigation.goBack();
                 }}>
-                <Icon name="chevron-back-outline" size={24} />
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
               </IButton>
             );
           },
@@ -84,7 +85,7 @@ const MyPageScreen = () => {
                 onPress={() => {
                   navigation.goBack();
                 }}>
-                <Icon name="chevron-back-outline" size={24} />
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
               </IButton>
             );
           },
@@ -105,7 +106,7 @@ const MyPageScreen = () => {
                 onPress={() => {
                   navigation.goBack();
                 }}>
-                <Icon name="chevron-back-outline" size={24} />
+                <Icon name="chevron-back-outline" size={iWidth * 24} />
               </IButton>
             );
           },

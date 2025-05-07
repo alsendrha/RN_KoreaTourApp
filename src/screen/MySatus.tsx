@@ -1,3 +1,6 @@
+import storage from '@react-native-firebase/storage';
+import {useNavigationState} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -6,20 +9,17 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {colors, iWidth} from '../../globalStyle';
 import {useGetUSerInfo, useUpdateUser} from '../api/firebase';
-import {iHeight} from '../../globalStyle';
 import IButton from '../components/IButton';
-import storage from '@react-native-firebase/storage';
+import IModal from '../components/IModal';
+import Background from '../components/MyPage/Status/Background';
+import InputAndPassword from '../components/MyPage/Status/InputAndPassword';
+import TopUserImg from '../components/MyPage/Status/TopUserImg';
+import UserDelete from '../components/MyPage/Status/UserDelete';
 import {useImagePicker, usePageInfo} from '../store/store';
 import {UserDataType} from '../types/dataListType';
 import {CheckedNickname} from '../utils/validation';
-import {useNavigationState} from '@react-navigation/native';
-import IModal from '../components/IModal';
-import TopUserImg from '../components/MyPage/Status/TopUserImg';
-import InputAndPassword from '../components/MyPage/Status/InputAndPassword';
-import UserDelete from '../components/MyPage/Status/UserDelete';
-import Background from '../components/MyPage/Status/Background';
 
 const MyStatus = () => {
   const {imageData, setImageData} = useImagePicker();
@@ -145,7 +145,7 @@ const MyStatus = () => {
               buttonStyle="submit"
               title="확인"
               border={0}
-              backgroundColor="#E07039"
+              backgroundColor={colors.primary}
               titleColor="white"
               onPress={() => handleSubmit()}
             />
@@ -177,22 +177,22 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
   },
 
   contentContainer: {
     flex: 1,
-    backgroundColor: 'white',
-    borderRadius: 20,
+    backgroundColor: colors.white,
+    borderRadius: iWidth * 20,
     position: 'absolute',
-    marginTop: iHeight * 110,
-    marginHorizontal: 30,
-    height: iHeight * 500,
+    marginTop: iWidth * 110,
+    marginHorizontal: iWidth * 30,
+    height: iWidth * 500,
     elevation: 5,
   },
 
   submitButtonContainer: {
-    marginTop: 20,
+    marginTop: iWidth * 20,
     alignItems: 'center',
   },
 });

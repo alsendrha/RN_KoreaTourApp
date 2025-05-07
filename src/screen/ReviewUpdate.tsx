@@ -1,18 +1,18 @@
-import {Alert, Keyboard, Pressable, StyleSheet, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {
-  useGetMyReview,
-  useGetMyReviews,
-  useUpdateReview,
-} from '../api/firebase';
-import IInput from '../components/IInput';
-import {iHeight} from '../../globalStyle';
-import IButton from '../components/IButton';
 import {
   NavigationProp,
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {Alert, Keyboard, Pressable, StyleSheet, View} from 'react-native';
+import {colors, iWidth, normalizeFont} from '../../globalStyle';
+import {
+  useGetMyReview,
+  useGetMyReviews,
+  useUpdateReview,
+} from '../api/firebase';
+import IButton from '../components/IButton';
+import IInput from '../components/IInput';
 
 const ReviewUpdate = ({route}: any) => {
   const [myReviewText, setMyReviewText] = useState('');
@@ -50,7 +50,7 @@ const ReviewUpdate = ({route}: any) => {
           value={myReviewText}
           deleteValue={() => setMyReviewText('')}
           borderRadius={10}
-          fontSize={16}
+          fontSize={normalizeFont(16)}
           maxLength={1000}
           multiline={true}
           numberOfLines={5}
@@ -63,9 +63,9 @@ const ReviewUpdate = ({route}: any) => {
         <IButton
           buttonStyle="submit"
           title="수정하기"
-          backgroundColor="#E07039"
+          backgroundColor={colors.primary}
           border={0}
-          titleColor="white"
+          titleColor={colors.white}
           onPress={handleUpdateData}
         />
       </View>
@@ -78,15 +78,15 @@ export default ReviewUpdate;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
   },
 
   inputContainer: {
-    marginTop: iHeight * 50,
+    marginTop: iWidth * 50,
   },
 
   buttonContainer: {
     alignItems: 'center',
-    marginTop: iHeight * 20,
+    marginTop: iWidth * 20,
   },
 });

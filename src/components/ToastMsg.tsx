@@ -1,6 +1,7 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import Toast, {ToastConfig} from 'react-native-toast-message';
+import {colors, iWidth, normalizeFont} from '../../globalStyle';
 
 const ToastMsg = () => {
   const config: ToastConfig = {
@@ -11,16 +12,16 @@ const ToastMsg = () => {
           flexDirection: 'row',
           alignItems: 'center',
           width: '85%',
-          height: 60,
+          height: iWidth * 60,
           backgroundColor: 'rgba(0,0,0,0.6)',
-          paddingVertical: 10,
-          paddingLeft: 20,
-          borderRadius: 20,
+          paddingVertical: iWidth * 10,
+          paddingLeft: iWidth * 20,
+          borderRadius: iWidth * 20,
         }}>
         <Text
           style={{
-            color: 'white',
-            fontSize: 14,
+            color: colors.white,
+            fontSize: normalizeFont(14),
           }}>
           {text1}
         </Text>

@@ -1,8 +1,8 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {colors, iHeight, iWidth} from '../../../globalStyle';
-import {useBottomSheetRef} from '../../store/store';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {colors, iWidth, normalizeFont} from '../../../globalStyle';
+import {useBottomSheetRef} from '../../store/store';
 import AreaList from '../Main/AreaList';
 import Categories from '../Main/Categories';
 
@@ -17,7 +17,7 @@ const Menu = () => {
             onPress={() => {
               bottomSheetRef.current?.close();
             }}>
-            <Icon name="close-outline" size={24} />
+            <Icon name="close-outline" size={iWidth * 24} />
           </TouchableOpacity>
         </View>
       </View>
@@ -46,29 +46,29 @@ const styles = StyleSheet.create({
   },
 
   titleText: {
-    fontSize: 18,
+    fontSize: normalizeFont(18),
     fontWeight: 'bold',
   },
 
   mainContent: {
     height: '100%',
-    marginTop: 5,
+    marginTop: iWidth * 5,
     borderTopWidth: 0.5,
     borderColor: colors.darkGray,
   },
 
   contentTitleContainer: {
-    marginTop: 10,
+    marginTop: iWidth * 10,
   },
 
   areaTitle: {
-    fontSize: 16,
+    fontSize: normalizeFont(16),
     fontWeight: 'bold',
   },
 
   closeButtonContainer: {
     width: iWidth * 25,
-    height: iHeight * 25,
+    height: iWidth * 25,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
   menuContainer: {
     display: 'flex',
     width: iWidth * 90,
-    height: iHeight * 40,
+    height: iWidth * 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: iWidth * 8,
   },
 });

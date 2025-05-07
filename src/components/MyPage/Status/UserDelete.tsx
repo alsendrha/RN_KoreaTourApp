@@ -1,5 +1,6 @@
-import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import {iWidth} from '../../../../globalStyle';
 import IButton from '../../IButton';
 
 type UserDeleteProps = {
@@ -25,7 +26,7 @@ export default UserDelete;
 const styles = StyleSheet.create({
   deleteAccountContainer: {
     position: 'absolute',
-    bottom: 20,
-    left: 20,
+    bottom: iWidth * 20,
+    left: iWidth * 20,
   },
 });

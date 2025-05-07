@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Carousel from 'react-native-reanimated-carousel';
-import {colors, iHeight} from '../../globalStyle';
+import {colors, iWidth} from '../../globalStyle';
 import {useGetDetailData, useGetDetailImage} from '../api/toreQuery';
 import DetailMap from '../components/Detail/DetailMap';
 import DetailTextContent from '../components/Detail/DetailTextContent';
@@ -123,9 +123,9 @@ const styles = StyleSheet.create({
   imgContainer: {
     position: 'relative',
     width: '100%',
-    height: iHeight * 350,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    height: iWidth * 350,
+    borderBottomLeftRadius: iWidth * 20,
+    borderBottomRightRadius: iWidth * 20,
     elevation: 5,
     backgroundColor: colors.white,
   },
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: iWidth * 20,
+    borderBottomRightRadius: iWidth * 20,
   },
 });

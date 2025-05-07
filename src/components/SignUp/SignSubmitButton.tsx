@@ -1,7 +1,7 @@
-import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import {colors, iWidth} from '../../../globalStyle';
 import IButton from '../IButton';
-import {iHeight} from '../../../globalStyle';
 
 type SignSubmitButtonProps = {
   onPress: () => void;
@@ -14,7 +14,7 @@ const SignSubmitButton = ({onPress}: SignSubmitButtonProps) => {
         buttonStyle="submit"
         title="회원가입"
         border={0}
-        backgroundColor="#E07039"
+        backgroundColor={colors.primary}
         titleColor="white"
         onPress={onPress}
       />
@@ -26,7 +26,7 @@ export default SignSubmitButton;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: iHeight * 20,
+    marginTop: iWidth * 20,
     width: '100%',
     alignItems: 'center',
   },

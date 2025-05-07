@@ -1,8 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import * as Progress from 'react-native-progress';
-import {iWidth} from '../../../../../globalStyle';
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import * as Progress from 'react-native-progress';
+import {colors, iWidth} from '../../../../../globalStyle';
 import TotalScore from './TotalScore';
 
 type TotalReviewPointProps = {
@@ -49,11 +49,11 @@ const TotalReviewPoint = ({data}: TotalReviewPointProps) => {
                 <View style={styles.progress}>
                   <Progress.Bar
                     progress={progress}
-                    width={110}
-                    height={8}
+                    width={iWidth * 110}
+                    height={iWidth * 8}
                     borderWidth={0}
                     unfilledColor="#e9e9e9"
-                    color={'#ffca42'}
+                    color={colors.yellow}
                   />
                 </View>
                 <Text style={styles.pointCount}>{count}</Text>
@@ -70,7 +70,7 @@ export default TotalReviewPoint;
 const styles = StyleSheet.create({
   totalReviewContainer: {
     paddingHorizontal: iWidth * 15,
-    marginTop: 15,
+    marginTop: iWidth * 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
 
   progress: {
-    marginHorizontal: 8,
+    marginHorizontal: iWidth * 8,
   },
 
   pointCount: {

@@ -1,9 +1,10 @@
-import {StyleSheet} from 'react-native';
-import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import React, {useEffect} from 'react';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MainStackScreen from '../StackScreen/MainStackScreen';
+import {colors, iWidth} from '../../../globalStyle';
 import {useImagePicker} from '../../store/store';
+import MainStackScreen from '../StackScreen/MainStackScreen';
 import MyPageScreen from '../StackScreen/MyPageScreen';
 
 const BottomTabScreen = () => {
@@ -39,8 +40,8 @@ const BottomTabScreen = () => {
             return (
               <Icon
                 name="home-outline"
-                size={24}
-                color={focused ? 'white' : '#1E0A00'}
+                size={iWidth * 24}
+                color={focused ? colors.white : '#1E0A00'}
               />
             );
           },
@@ -54,8 +55,8 @@ const BottomTabScreen = () => {
             return (
               <Icon
                 name="person-outline"
-                size={24}
-                color={focused ? 'white' : '#1E0A00'}
+                size={iWidth * 24}
+                color={focused ? colors.white : '#1E0A00'}
               />
             );
           },
@@ -70,13 +71,13 @@ export default BottomTabScreen;
 const styles = StyleSheet.create({
   tabBarStyle: {
     position: 'absolute',
-    left: 16,
-    right: 16,
-    bottom: 10,
-    height: 70,
-    borderRadius: 20,
-    backgroundColor: '#E07039',
+    left: iWidth * 16,
+    right: iWidth * 16,
+    bottom: iWidth * 10,
+    height: iWidth * 60,
+    borderRadius: iWidth * 20,
+    backgroundColor: colors.primary,
     elevation: 2,
-    shadowOffset: {width: 0, height: -2},
+    shadowOffset: {width: iWidth * 0, height: iWidth * -2},
   },
 });

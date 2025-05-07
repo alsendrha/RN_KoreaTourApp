@@ -1,6 +1,6 @@
 import React from 'react';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import {iHeight} from '../../../../globalStyle';
+import {iWidth, normalizeFont} from '../../../../globalStyle';
 import IButton from '../../IButton';
 import IInput from '../../IInput';
 
@@ -32,11 +32,11 @@ const InputAndPassword = ({
       <View style={styles.inputMainContainer}>
         <IInput
           titleEnable={true}
-          height={50}
-          fontSize={16}
+          height={iWidth * 50}
+          fontSize={normalizeFont(16)}
           titleText="이메일"
           value={userData.id}
-          borderRadius={10}
+          borderRadius={iWidth * 10}
           maxLength={30}
           deleteIcon={false}
           editable={false}
@@ -48,14 +48,14 @@ const InputAndPassword = ({
         <View style={styles.inputMainContainer}>
           <IInput
             titleEnable={true}
-            height={50}
-            fontSize={16}
+            height={iWidth * 50}
+            fontSize={normalizeFont(16)}
             titleText="닉네임"
             errorMsg={true}
             errorText={errorMsg.nickname}
             value={userData.nickname}
             onChangeText={text => setUserData({...userData, nickname: text})}
-            borderRadius={10}
+            borderRadius={iWidth * 10}
             maxLength={30}
             deleteIcon={false}
           />
@@ -74,20 +74,20 @@ export default InputAndPassword;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginTop: iHeight * 75,
-    paddingHorizontal: 15,
+    marginTop: iWidth * 75,
+    paddingHorizontal: iWidth * 15,
   },
 
   inputMainContainer: {
-    marginTop: 10,
+    marginTop: iWidth * 10,
   },
 
   passwordContainer: {
-    height: 50,
+    height: iWidth * 50,
     borderWidth: 0.5,
-    borderRadius: 10,
-    marginVertical: 10,
-    marginHorizontal: 15,
+    borderRadius: iWidth * 10,
+    marginVertical: iWidth * 10,
+    marginHorizontal: iWidth * 15,
     justifyContent: 'center',
     alignItems: 'center',
   },

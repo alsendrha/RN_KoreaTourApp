@@ -14,7 +14,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {iHeight} from '../../globalStyle';
+import {colors, iWidth, normalizeFont} from '../../globalStyle';
 import {useSignIn} from '../api/firebase';
 import IButton from '../components/IButton';
 import IInput from '../components/IInput';
@@ -87,7 +87,7 @@ const SignIn = () => {
           <View style={styles.inputContainer}>
             <IInput
               value={userData.email}
-              borderRadius={10}
+              borderRadius={iWidth * 10}
               titleEnable={true}
               titleText="email"
               keyboardType="email-address"
@@ -102,7 +102,7 @@ const SignIn = () => {
             />
             <IInput
               value={userData.password}
-              borderRadius={10}
+              borderRadius={iWidth * 10}
               titleEnable={true}
               titleText="password"
               secureTextEntry={true}
@@ -119,7 +119,7 @@ const SignIn = () => {
               <IButton
                 buttonStyle="submit"
                 border={0}
-                backgroundColor="#E07039"
+                backgroundColor={colors.primary}
                 title="로그인"
                 titleColor="white"
                 titleWeight="bold"
@@ -136,7 +136,7 @@ const SignIn = () => {
               />
             </View>
             <View
-              style={[styles.signUpButtonContainer, {marginTop: iHeight * 8}]}>
+              style={[styles.signUpButtonContainer, {marginTop: iWidth * 8}]}>
               <Text style={{color: 'black'}}>아직 회원이 아니시라면 </Text>
               <IButton
                 buttonStyle="more"
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
 
   container: {
     height: '100%',
-    backgroundColor: '#E07039',
+    backgroundColor: colors.primary,
     position: 'relative',
   },
   loginView: {
@@ -174,30 +174,30 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '85%',
     bottom: 0,
-    backgroundColor: 'white',
-    borderTopLeftRadius: 100,
-    paddingHorizontal: 20,
+    backgroundColor: colors.white,
+    borderTopLeftRadius: iWidth * 100,
+    paddingHorizontal: iWidth * 20,
   },
 
   loginTextContainer: {
     alignItems: 'center',
-    marginTop: iHeight * 70,
+    marginTop: iWidth * 70,
   },
 
   loginText: {
-    fontSize: 30,
+    fontSize: normalizeFont(30),
     fontWeight: 'bold',
-    color: 'black',
+    color: colors.black,
   },
 
   inputContainer: {
     width: '100%',
     justifyContent: 'center',
-    marginTop: iHeight * 30,
+    marginTop: iWidth * 30,
   },
 
   signUpButtonContainer: {
-    marginTop: iHeight * 15,
+    marginTop: iWidth * 15,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

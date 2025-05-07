@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {iWidth} from '../../../globalStyle';
 import IInput from '../IInput';
-import {iHeight} from '../../../globalStyle';
 
 type PasswordCheckProps = {
   userPassword: string;
@@ -24,7 +24,7 @@ const PasswordCheck = ({
       <View>
         <IInput
           value={userPassword}
-          borderRadius={20}
+          borderRadius={iWidth * 20}
           secureTextEntry={true}
           deleteValue={() => setUserPassword('')}
           onChangeText={text => {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
 
   contentTextContainer: {
-    marginVertical: iHeight * 15,
+    marginVertical: iWidth * 15,
   },
 
   contentText: {},

@@ -1,8 +1,8 @@
-import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import IInput from '../IInput';
-import {iHeight, iWidth} from '../../../globalStyle';
+import {StyleSheet, View} from 'react-native';
+import {iWidth, normalizeFont} from '../../../globalStyle';
 import IButton from '../IButton';
+import IInput from '../IInput';
 
 type SignEmailProps = {
   value: string;
@@ -34,16 +34,16 @@ const SignEmail = ({
           titleText="이메일"
           maxLength={30}
           lengthView={true}
-          height={iHeight * 40}
-          fontSize={16}
-          borderRadius={10}
+          height={iWidth * 40}
+          fontSize={normalizeFont(16)}
+          borderRadius={iWidth * 10}
           placeholder="이메일을 입력해주세요"
           errorMsg={true}
           errorText={errorText}
           onChangeText={onChangeText}
         />
       </View>
-      <View style={{flex: 1, marginRight: 15}}>
+      <View style={{flex: 1, marginRight: iWidth * 15}}>
         <IButton
           title="확인"
           buttonStyle="check"

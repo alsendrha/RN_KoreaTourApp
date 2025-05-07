@@ -1,6 +1,6 @@
-import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {iHeight} from '../../../../globalStyle';
+import {StyleSheet, View} from 'react-native';
+import {colors, iHeight} from '../../../../globalStyle';
 
 const Background = () => {
   return (
@@ -16,7 +16,7 @@ export default Background;
 const styles = StyleSheet.create({
   topBackground: {
     height: iHeight * 150,
-    backgroundColor: '#E07039',
+    backgroundColor: colors.primary,
   },
   bottomBackground: {
     height: '100%',

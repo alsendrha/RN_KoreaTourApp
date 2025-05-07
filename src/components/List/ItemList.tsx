@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors, iHeight, iWidth} from '../../../globalStyle';
+import {colors, iWidth} from '../../../globalStyle';
 import {useGetToreList1} from '../../api/toreQuery';
 import {
   useAreaSelected,
@@ -88,7 +88,7 @@ const ItemList = () => {
 
   return (
     <View>
-      {isLoading && <CustomIndicator marginTop={iHeight * -100} />}
+      {isLoading && <CustomIndicator marginTop={iWidth * -100} />}
       <FlatList
         data={items}
         renderItem={renderItem}
@@ -105,7 +105,7 @@ const ItemList = () => {
             <View
               style={{
                 width: Dimensions.get('screen').width,
-                height: Dimensions.get('screen').height - iHeight * 300,
+                height: Dimensions.get('screen').height - iWidth * 300,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
@@ -126,17 +126,17 @@ const styles = StyleSheet.create({
     marginHorizontal: iWidth * 15,
     marginVertical: iWidth * 10,
     backgroundColor: colors.white,
-    borderRadius: 8,
+    borderRadius: iWidth * 8,
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: iWidth * 8,
     elevation: 5,
   },
 
   imageSize: {
     width: '100%',
-    height: iHeight * 250,
-    borderTopEndRadius: 8,
+    height: iWidth * 250,
+    borderTopEndRadius: iWidth * 8,
     objectFit: 'cover',
   },
 

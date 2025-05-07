@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {iHeight} from '../../globalStyle';
+import {colors, iWidth} from '../../globalStyle';
 
 const AppInfo = () => {
   return (
@@ -18,15 +18,15 @@ export default AppInfo;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: -80,
+    marginTop: iWidth * -80,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
   },
   textContainer: {
-    marginTop: iHeight * 10,
+    marginTop: iWidth * 10,
   },
   textStyle: {
-    color: 'black',
+    color: colors.black,
   },
 });

@@ -1,7 +1,7 @@
-import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
 
-import {iHeight} from '../../../globalStyle';
+import {colors, iWidth} from '../../../globalStyle';
 
 const TopComponent = () => {
   return <View style={styles.userInfoContainer} />;
@@ -12,7 +12,7 @@ export default TopComponent;
 const styles = StyleSheet.create({
   userInfoContainer: {
     width: '100%',
-    height: iHeight * 170,
-    backgroundColor: '#E07039',
+    height: iWidth * 170,
+    backgroundColor: colors.primary,
   },
 });
