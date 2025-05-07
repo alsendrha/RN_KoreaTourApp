@@ -8,7 +8,7 @@ const AppInfo = () => {
   return (
     <View style={styles.container}>
       <FastImage source={require('../assets/images/app_info_logo.png')} />
-      <IText fontStyle="fR" text={'현재 버전 1.0.5'} />
+      <IText fontStyle="fR" text={'현재 버전 1.0.6'} />
     </View>
   );
 };
