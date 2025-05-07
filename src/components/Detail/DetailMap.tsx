@@ -1,5 +1,6 @@
+import FastImage from '@d11/react-native-fast-image';
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {iWidth} from '../../../globalStyle';
 
@@ -29,7 +30,7 @@ const DetailMap = ({latitude, longitude, markerTitle}: DetailMapProps) => {
             longitude: Number(longitude),
           }}>
           <View>
-            <Image
+            <FastImage
               source={require('../../assets/images/markerIcon.png')}
               style={{width: iWidth * 50, height: iWidth * 50}}
             />

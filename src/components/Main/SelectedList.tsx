@@ -84,7 +84,7 @@ const SelectedList = () => {
                     <View style={styles.cardTextContainer}>
                       <Text
                         numberOfLines={1}
-                        style={{fontWeight: 'bold', color: 'black'}}>
+                        style={{fontWeight: 'bold', color: colors.black}}>
                         {item.title}
                       </Text>
                     </View>

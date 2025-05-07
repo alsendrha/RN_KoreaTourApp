@@ -1,5 +1,6 @@
+import FastImage from '@d11/react-native-fast-image';
 import React from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {iWidth, normalizeFont} from '../../../globalStyle';
 import {useContentsSelected} from '../../store/store';
 import {contentList} from '../../utils/listData';
@@ -25,13 +26,12 @@ const Categories = ({modal}: CategoriesProps) => {
               <IButton
                 buttonStyle={!modal ? 'categories' : 'bottomCategories'}
                 onPress={() => setContentsSelected(item.number, item.name)}>
-                <Image
+                <FastImage
                   source={item.img}
                   style={{
                     width: !modal ? iWidth * 40 : iWidth * 50,
                     height: !modal ? iWidth * 40 : iWidth * 50,
                   }}
-                  alt="카테고리"
                 />
                 <Text
                   style={[

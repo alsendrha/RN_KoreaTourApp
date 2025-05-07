@@ -1,5 +1,6 @@
+import FastImage from '@d11/react-native-fast-image';
 import React from 'react';
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {colors, iWidth, normalizeFont} from '../../../globalStyle';
 import {useGetUSerInfo} from '../../api/firebase';
 
@@ -18,14 +19,13 @@ const UserInfo = () => {
     <>
       <View style={styles.userInfo}>
         <View style={styles.userImgContainer}>
-          <Image
+          <FastImage
             source={
               data?.profileUrl
                 ? {uri: data?.profileUrl}
                 : require('../../assets/images/no_image.png')
             }
             style={styles.userImg}
-            alt="프로필 이미지"
           />
         </View>
         <View style={styles.userTextContainer}>

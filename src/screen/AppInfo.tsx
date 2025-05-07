@@ -1,11 +1,12 @@
+import FastImage from '@d11/react-native-fast-image';
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {colors, iWidth} from '../../globalStyle';
 
 const AppInfo = () => {
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/images/app_info_logo.png')} />
+      <FastImage source={require('../assets/images/app_info_logo.png')} />
       <View style={styles.textContainer}>
         <Text style={styles.textStyle}>현재 버전 1.0.3</Text>
       </View>

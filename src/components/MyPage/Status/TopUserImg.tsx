@@ -1,5 +1,6 @@
+import FastImage from '@d11/react-native-fast-image';
 import React from 'react';
-import {ActivityIndicator, Image, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {iWidth} from '../../../../globalStyle';
 import {useBottomSheetRef} from '../../../store/store';
@@ -34,7 +35,7 @@ const TopUserImg = ({isLoading, imageData, userData}: TopUserImgProps) => {
             <ActivityIndicator size="large" />
           ) : (
             <IButton buttonStyle="more" onPress={handleBottomSheet}>
-              <Image
+              <FastImage
                 source={
                   imageData.uri
                     ? {uri: imageData.uri}
